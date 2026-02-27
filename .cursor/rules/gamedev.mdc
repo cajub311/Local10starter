@@ -1,0 +1,29 @@
+# gamedev.mdc
+
+These rules apply to Cam’s video game dev in this workspace.
+Goal is fun, tiny, and easy to understand.
+
+## Keep it simple
+
+- Start with simple HTML5 + JavaScript games.
+- Prefer a single `index.html` that just works.
+- No complicated engines. No heavy setups.
+- Touch-friendly controls (big buttons).
+
+## Phone-first game feel
+
+- Big text and big tap targets.
+- Clear “Start”, “Pause”, “Reset” buttons.
+- Fast loading. Works offline if possible.
+
+## Readable code
+
+- Keep files short.
+- Use clear names like `score`, `timer`, `level`.
+- Don’t overbuild. Make it playable first.
+
+## Folder shape
+
+- One game = one folder:
+  - `games/<game-name>/index.html`
+
