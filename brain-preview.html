@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Local 10 Brain Preview</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --panel: #0f1b33;
+        --panel2: #0c162b;
+        --text: #f3f6ff;
+        --muted: #b9c4e2;
+        --border: rgba(255, 255, 255, 0.14);
+        --shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        --red: #d41414;
+        --red2: #ff3a3a;
+        --blue: #1f6fff;
+        --blue2: #61a1ff;
+        --green: #10b981;
+        --focus: #ffd54a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: radial-gradient(1200px 600px at 50% -100px, rgba(97, 161, 255, 0.18), transparent 60%),
+          radial-gradient(900px 500px at 20% 0, rgba(255, 58, 58, 0.12), transparent 65%),
+          var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 16px 14px 22px;
+      }
+
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        padding: env(safe-area-inset-top) 0 10px;
+        background: linear-gradient(to bottom, rgba(11, 18, 32, 0.96), rgba(11, 18, 32, 0.75), rgba(11, 18, 32, 0));
+        backdrop-filter: blur(10px);
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .header {
+        padding: 14px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .big-call {
+        display: grid;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        padding: 16px 14px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        cursor: pointer;
+        user-select: none;
+        min-height: 58px; /* big tap target */
+        font-size: 18px;
+      }
+
+      .btn:focus {
+        outline: 4px solid var(--focus);
+        outline-offset: 2px;
+      }
+
+      .btn-red {
+        background: linear-gradient(180deg, var(--red2), var(--red));
+        color: white;
+        text-transform: uppercase;
+        font-size: 20px;
+        min-height: 66px; /* biggest button */
+      }
+
+      .btn-blue {
+        background: linear-gradient(180deg, var(--blue2), var(--blue));
+        color: #071026;
+        text-transform: uppercase;
+      }
+
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      @media (max-width: 420px) {
+        .row2 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.35;
+      }
+
+      .tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 10px 14px 14px;
+        border-top: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.12);
+      }
+
+      .tab {
+        min-height: 54px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        border: 1px solid var(--border);
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .tab[aria-selected="true"] {
+        background: rgba(97, 161, 255, 0.22);
+        border-color: rgba(97, 161, 255, 0.55);
+      }
+
+      .main {
+        margin-top: 14px;
+      }
+
+      .panel {
+        padding: 14px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 10px 0;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: var(--muted);
+      }
+
+      .pre {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 14px;
+        margin: 10px 0 0;
+        overflow: auto;
+        font-size: 16px;
+        line-height: 1.45;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .section {
+        margin-top: 14px;
+      }
+
+      .toast {
+        margin-top: 10px;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(16, 185, 129, 0.14);
+        color: var(--text);
+        font-weight: 800;
+        display: none;
+      }
+
+      .toast.show {
+        display: block;
+      }
+
+      ul.big {
+        margin: 8px 0 0 0;
+        padding-left: 18px;
+        font-size: 18px;
+        line-height: 1.45;
+      }
+
+      .footer {
+        margin-top: 12px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <div class="wrap">
+        <div class="card">
+          <div class="header">
+            <div class="big-call">
+              <a class="btn btn-red" href="tel:6124288004">CALL CHARLES GRINSTEAD (612-428-8004)</a>
+              <div class="row2">
+                <a class="btn btn-ghost" href="sms:6124288004">TEXT CHARLES</a>
+                <button class="btn btn-blue" id="copyAllBtn" type="button">COPY ALL</button>
+              </div>
+              <div class="small">
+                This page works offline. It shows the full brain map + rules from this repo.
+              </div>
+              <div class="toast" id="toast" role="status" aria-live="polite"></div>
+            </div>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Brain preview tabs">
+            <button class="tab" role="tab" aria-selected="true" aria-controls="tab-home" id="tabBtn-home" type="button">
+              Home
+            </button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tab-brain" id="tabBtn-brain" type="button">
+              Brain Map
+            </button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tab-rules" id="tabBtn-rules" type="button">
+              Rules
+            </button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tab-next" id="tabBtn-next" type="button">
+              Next Steps
+            </button>
+          </div>
+        </div>
+
+        <div class="main card">
+          <div class="panel" id="tab-home" role="tabpanel" aria-labelledby="tabBtn-home">
+            <h1>Local 10 Brain Preview</h1>
+            <div class="small">
+              Use the tabs to read everything. Hit <b>Copy All</b> to copy the full text (brain map + all rules) to your clipboard.
+            </div>
+            <div class="section">
+              <h2>What’s on this page</h2>
+              <ul class="big">
+                <li><b>Full</b> `PROJECT_INDEX.md`</li>
+                <li><b>Full</b> `.cursor/rules/brain.mdc`</li>
+                <li><b>Full</b> `.cursor/rules/union.mdc`</li>
+                <li><b>Full</b> `.cursor/rules/gamedev.mdc`</li>
+                <li><b>Full</b> `.cursor/rules/style.mdc`</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel" id="tab-brain" role="tabpanel" aria-labelledby="tabBtn-brain" hidden>
+            <h1>Brain Map (full)</h1>
+            <div class="small">This is the exact content of `PROJECT_INDEX.md`.</div>
+            <pre class="pre" id="brainPre"></pre>
+          </div>
+
+          <div class="panel" id="tab-rules" role="tabpanel" aria-labelledby="tabBtn-rules" hidden>
+            <h1>Rules (full)</h1>
+            <div class="small">These are the exact contents of the 4 rule files in `.cursor/rules/`.</div>
+
+            <div class="section">
+              <h2>`brain.mdc`</h2>
+              <pre class="pre" id="ruleBrainPre"></pre>
+            </div>
+
+            <div class="section">
+              <h2>`union.mdc`</h2>
+              <pre class="pre" id="ruleUnionPre"></pre>
+            </div>
+
+            <div class="section">
+              <h2>`gamedev.mdc`</h2>
+              <pre class="pre" id="ruleGamedevPre"></pre>
+            </div>
+
+            <div class="section">
+              <h2>`style.mdc`</h2>
+              <pre class="pre" id="ruleStylePre"></pre>
+            </div>
+          </div>
+
+          <div class="panel" id="tab-next" role="tabpanel" aria-labelledby="tabBtn-next" hidden>
+            <h1>Next Steps</h1>
+            <div class="small">Pulled from the “Next steps” parts of `PROJECT_INDEX.md`.</div>
+            <div class="section" id="nextStepsBox"></div>
+          </div>
+        </div>
+
+        <div class="footer">Local 10 • offline single-file preview</div>
+      </div>
+    </div>
+
+    <!-- Embedded repo text (offline). -->
+    <template id="content-project-index">
+# PROJECT_INDEX.md (Brain Map)
+
+Cam’s workspace brain map. Keep this file up to date after major work is finished.
+
+## What’s in the root
+
+- `README.md`: Very short repo description.
+- `PROJECT_INDEX.md`: This brain map (you’re reading it).
+- `.cursor/`: Cursor agent rules and long-term guardrails.
+
+## Folders
+
+- `.cursor/rules/`: Permanent rules for how the agent works in this repo.
+  - `brain.mdc`: Memory + self-improvement loop + “keep the workspace clean”.
+  - `union.mdc`: Union dashboard rules (mobile-first, glove-friendly, Charles #1).
+  - `gamedev.mdc`: Simple HTML/JS game rules (fun, tiny, readable).
+  - `style.mdc`: Plain-English responses + full ready-to-copy files + no clutter.
+
+## Projects (current + planned)
+
+### Union dashboards (Local 10)
+
+- **Goal**: Simple, offline-friendly dashboards that work great on a phone at work.
+- **Must-haves**:
+  - Biggest red call button at the top for **Charles Grinstead (612-428-8004)**.
+  - Big tap targets, high contrast, clean tabs.
+  - One-tap call/text buttons, and QR codes for quick sharing.
+
+**Next steps**
+- Create the first dashboard as a single `index.html` in a clearly named folder (example: `dashboards/contacts/index.html`).
+- Keep it offline-first (no build step, no server needed).
+
+### Simple game dev (for breaks / learning)
+
+- **Goal**: Tiny HTML5 + JS games. One folder per game. Easy to read.
+
+**Next steps**
+- Add a first super-simple phone-friendly game (example: `games/tap-game/index.html`).
+    </template>
+
+    <template id="content-rule-brain">
+# brain.mdc
+
+You are Cam’s permanent All-In-One Personal Cursor Agent for the **Local10starter** workspace.
+Read this file at the start of every task. Follow it even if you are tired or rushed.
+
+## Permanent facts
+
+- Cam is a **non-coder**, a **factory worker**, and **union steward** for **Local 10** in Saint Paul, Minnesota.
+- Cam mostly uses a **phone** to review and manage work.
+- **Charles Grinstead** is always the #1 most prominent contact:
+  - Call link: `tel:6124288004`
+  - Display: **Charles Grinstead (612-428-8004)**
+
+## How you work (always)
+
+- Use plain English. Short sentences. No jargon unless Cam asks for it.
+- Be decisive. Don’t ask Cam to confirm small choices. Pick the simplest safe option.
+- Keep things clean and organized:
+  - Distinct folders.
+  - Clear `index.html` entry points.
+  - No clutter.
+- When building dashboards, prefer a **single HTML file** that works **offline**.
+- Always provide **complete, ready-to-copy files**. Never give partial code.
+
+## Workspace upkeep (silent)
+
+- After every major task, update `PROJECT_INDEX.md` so it matches reality.
+- If you create a new project folder, add it to the brain map with a 1–2 line description and next step.
+
+## Self-improvement loop (required)
+
+- After every big task, ask Cam if he wants to **update these rules** with what was learned.
+- Every Friday, suggest **simple codebase improvements** based on the week’s work (keep it short and practical).
+
+## Rule files to obey
+
+- `union.mdc`: All union dashboard rules (mobile-first, glove-friendly, Charles first).
+- `gamedev.mdc`: Simple HTML/JS game rules.
+- `style.mdc`: Response style rules (plain English, complete files, zero clutter).
+    </template>
+
+    <template id="content-rule-union">
+# union.mdc
+
+These rules apply to anything meant for Local 10 union dashboards or union tools.
+Read and follow every time you touch dashboard work.
+
+## Non‑negotiables
+
+- Mobile-first. Works great on a phone.
+- Glove-friendly / dirty-hand friendly:
+  - Huge buttons.
+  - Big text.
+  - Lots of spacing.
+  - Nothing tiny.
+- High contrast. Easy to read in bad lighting.
+- Clean layout. No clutter.
+- Works offline whenever possible.
+- Prefer **one single HTML file** per dashboard page.
+
+## Charles is always #1
+
+At the very top of every dashboard page, put the biggest, most obvious red call button:
+
+- Label: **CALL CHARLES GRINSTEAD**
+- Show number: **(612-428-8004)**
+- Link: `tel:6124288004`
+
+Also include a one-tap text button nearby:
+
+- Label: **TEXT CHARLES**
+- Link: `sms:6124288004`
+
+Charles must be the most prominent item on the page. Always.
+
+## Tabs and navigation
+
+- Use simple tabs for sections (example: Contacts / Updates / Resources).
+- Tabs must be big and easy to hit.
+- Keep the number of tabs small (3–5).
+
+## One-tap actions everywhere
+
+- Phone numbers: use `tel:` links.
+- Text: use `sms:` links.
+- If there’s an address: include a one-tap map link (Google/Apple compatible).
+
+## QR codes
+
+- Add QR codes for any “share this page” or “open this link fast” use case.
+- QR must be large enough to scan quickly.
+- Keep QR placement predictable (usually near the bottom, with a clear label).
+
+## File/folder shape
+
+- One dashboard = one folder with an `index.html`.
+- Name folders plainly:
+  - `dashboards/contacts/index.html`
+  - `dashboards/resources/index.html`
+    </template>
+
+    <template id="content-rule-gamedev">
+# gamedev.mdc
+
+These rules apply to Cam’s video game dev in this workspace.
+Goal is fun, tiny, and easy to understand.
+
+## Keep it simple
+
+- Start with simple HTML5 + JavaScript games.
+- Prefer a single `index.html` that just works.
+- No complicated engines. No heavy setups.
+- Touch-friendly controls (big buttons).
+
+## Phone-first game feel
+
+- Big text and big tap targets.
+- Clear “Start”, “Pause”, “Reset” buttons.
+- Fast loading. Works offline if possible.
+
+## Readable code
+
+- Keep files short.
+- Use clear names like `score`, `timer`, `level`.
+- Don’t overbuild. Make it playable first.
+
+## Folder shape
+
+- One game = one folder:
+  - `games/<game-name>/index.html`
+    </template>
+
+    <template id="content-rule-style">
+# style.mdc
+
+This file controls how you talk to Cam and how you deliver work.
+Follow it every time.
+
+## How to talk
+
+- Talk like a helpful friend on the jobsite.
+- Short sentences.
+- Plain English.
+- No jargon unless Cam asks.
+- No long lectures.
+
+## How to deliver code
+
+- Never give partial code.
+- Never say “you can do this later.”
+- Always generate full, complete, ready-to-copy files.
+- Keep dashboards as a single HTML file when possible.
+- Keep things uncluttered and organized into clear folders with `index.html`.
+
+## What to optimize for
+
+- Mobile-first.
+- Big buttons.
+- High contrast.
+- Offline-friendly.
+- One-tap actions (call/text) and QR codes when useful.
+
+## Absolute priority
+
+- Charles Grinstead is always the #1 most prominent contact:
+  - `tel:6124288004` (call)
+  - `sms:6124288004` (text)
+    </template>
+
+    <script>
+      function getTemplateText(id) {
+        const el = document.getElementById(id);
+        return (el ? el.textContent : "").replace(/\s+$/g, "");
+      }
+
+      const data = {
+        projectIndex: getTemplateText("content-project-index"),
+        rules: {
+          brain: getTemplateText("content-rule-brain"),
+          union: getTemplateText("content-rule-union"),
+          gamedev: getTemplateText("content-rule-gamedev"),
+          style: getTemplateText("content-rule-style"),
+        },
+      };
+
+      function buildCopyText() {
+        const parts = [];
+        parts.push("=== PROJECT_INDEX.md ===");
+        parts.push(data.projectIndex);
+        parts.push("");
+        parts.push("=== .cursor/rules/brain.mdc ===");
+        parts.push(data.rules.brain);
+        parts.push("");
+        parts.push("=== .cursor/rules/union.mdc ===");
+        parts.push(data.rules.union);
+        parts.push("");
+        parts.push("=== .cursor/rules/gamedev.mdc ===");
+        parts.push(data.rules.gamedev);
+        parts.push("");
+        parts.push("=== .cursor/rules/style.mdc ===");
+        parts.push(data.rules.style);
+        parts.push("");
+        return parts.join("\n");
+      }
+
+      function showToast(msg, ok = true) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.style.background = ok ? "rgba(16, 185, 129, 0.14)" : "rgba(255, 58, 58, 0.14)";
+        toast.classList.add("show");
+        window.clearTimeout(showToast._t);
+        showToast._t = window.setTimeout(() => toast.classList.remove("show"), 2400);
+      }
+
+      async function copyAll() {
+        const text = buildCopyText();
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+            showToast("Copied everything.");
+            return;
+          }
+        } catch (e) {
+          // fall through
+        }
+
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "true");
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          ta.style.top = "0";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          showToast(ok ? "Copied everything." : "Copy failed. Try again.", ok);
+        } catch (e) {
+          showToast("Copy failed. Your browser blocked it.", false);
+        }
+      }
+
+      function setTab(name) {
+        const all = ["home", "brain", "rules", "next"];
+        for (const n of all) {
+          const btn = document.getElementById("tabBtn-" + n);
+          const panel = document.getElementById("tab-" + n);
+          const selected = n === name;
+          btn.setAttribute("aria-selected", selected ? "true" : "false");
+          panel.hidden = !selected;
+        }
+      }
+
+      function extractNextSteps(md) {
+        const lines = md.split("\n");
+        const sections = [];
+        let currentTitle = "";
+        let collecting = false;
+        let currentItems = [];
+
+        function flush() {
+          if (currentTitle && currentItems.length) {
+            sections.push({ title: currentTitle, items: currentItems.slice() });
+          }
+          currentTitle = "";
+          collecting = false;
+          currentItems = [];
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          const trimmed = line.trim();
+
+          if (trimmed.startsWith("### ")) {
+            flush();
+            currentTitle = trimmed.replace(/^###\s+/, "");
+            continue;
+          }
+
+          if (trimmed === "**Next steps**") {
+            collecting = true;
+            continue;
+          }
+
+          if (collecting) {
+            if (!trimmed) {
+              flush();
+              continue;
+            }
+            if (trimmed.startsWith("## ") || trimmed.startsWith("### ")) {
+              flush();
+              continue;
+            }
+            if (trimmed.startsWith("- ")) {
+              currentItems.push(trimmed.replace(/^- /, ""));
+              continue;
+            }
+            // Any non-bullet line ends the block to keep it simple.
+            flush();
+          }
+        }
+        flush();
+        return sections;
+      }
+
+      function renderNextSteps() {
+        const box = document.getElementById("nextStepsBox");
+        box.innerHTML = "";
+
+        const sections = extractNextSteps(data.projectIndex);
+        if (!sections.length) {
+          const p = document.createElement("div");
+          p.className = "small";
+          p.textContent = "No next steps found yet.";
+          box.appendChild(p);
+          return;
+        }
+
+        for (const s of sections) {
+          const title = document.createElement("h2");
+          title.textContent = s.title || "Next steps";
+          box.appendChild(title);
+
+          const ul = document.createElement("ul");
+          ul.className = "big";
+          for (const item of s.items) {
+            const li = document.createElement("li");
+            li.textContent = item;
+            ul.appendChild(li);
+          }
+          box.appendChild(ul);
+        }
+      }
+
+      function init() {
+        document.getElementById("brainPre").textContent = data.projectIndex;
+        document.getElementById("ruleBrainPre").textContent = data.rules.brain;
+        document.getElementById("ruleUnionPre").textContent = data.rules.union;
+        document.getElementById("ruleGamedevPre").textContent = data.rules.gamedev;
+        document.getElementById("ruleStylePre").textContent = data.rules.style;
+        renderNextSteps();
+
+        document.getElementById("copyAllBtn").addEventListener("click", copyAll);
+        document.getElementById("tabBtn-home").addEventListener("click", () => setTab("home"));
+        document.getElementById("tabBtn-brain").addEventListener("click", () => setTab("brain"));
+        document.getElementById("tabBtn-rules").addEventListener("click", () => setTab("rules"));
+        document.getElementById("tabBtn-next").addEventListener("click", () => setTab("next"));
+      }
+
+      init();
+    </script>
+  </body>
+</html>
+

@@ -6,6 +6,7 @@ Cam’s workspace brain map. Keep this file up to date after major work is finis
 
 - `README.md`: Very short repo description.
 - `PROJECT_INDEX.md`: This brain map (you’re reading it).
+- `brain-preview.html`: Offline “brain viewer” (tabs + copy-all) for the brain map and rules.
 - `.cursor/`: Cursor agent rules and long-term guardrails.
 
 ## Folders
