@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#cc1f1f" />
+    <meta name="description" content="Emergency rights dashboard for SMART Local 10 (MN). Fast, glove-friendly, single page." />
+
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2296%22%20fill%3D%22%23080a0f%22/%3E%3Cpath%20d%3D%22M256%20112c79.5%200%20144%2064.5%20144%20144s-64.5%20144-144%20144S112%20335.5%20112%20256s64.5-144%20144-144Z%22%20fill%3D%22%23cc1f1f%22/%3E%3Cpath%20d%3D%22M232%20172h48v96h96v48h-96v96h-48v-96h-96v-48h96v-96Z%22%20fill%3D%22%23ffffff%22/%3E%3C/svg%3E" />
+
+    <!-- Tailwind (online). Page includes fallback CSS for offline/cached scenarios. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      if (window.tailwind) {
+        window.tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                base: "#080a0f",
+                panel: "#0d111a",
+                stroke: "#1f2937",
+                unionred: "#cc1f1f",
+              },
+            },
+          },
+        };
+      }
+    </script>
+
+    <style>
+      :root {
+        --bg: #080a0f;
+        --panel: #0d111a;
+        --stroke: #1f2937;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --union: #cc1f1f;
+        --yellow: #f59e0b;
+        --blue: #2563eb;
+        --green: #16a34a;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
+      /* Fallback layout if Tailwind fails to load (still glove-friendly). */
+      .fallback-wrap {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .fallback-card {
+        background: var(--panel);
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        padding: 16px;
+      }
+      .fallback-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        min-height: 72px; /* Greasy Hand Rule: >= 60px */
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        color: white;
+        padding: 12px 14px;
+        user-select: none;
+      }
+      .btn-union {
+        background: var(--union);
+      }
+      .btn-yellow {
+        background: var(--yellow);
+        color: #0b1220;
+      }
+      .btn-blue {
+        background: var(--blue);
+      }
+      .btn-green {
+        background: var(--green);
+      }
+      .fallback-btn:active {
+        transform: translateY(1px);
+      }
+      .sm-top {
+        scroll-margin-top: 16px;
+      }
+      .kbd {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        padding: 2px 8px;
+        border: 1px solid var(--stroke);
+        border-radius: 999px;
+        color: #cbd5e1;
+        background: rgba(255, 255, 255, 0.04);
+      }
+    </style>
+
+    <title>SMART Local 10 — Emergency Dashboard</title>
+  </head>
+
+  <body>
+    <main id="top" class="fallback-wrap">
+      <!-- Header (keep compact so panic grid stays above the fold) -->
+      <header class="mb-3">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <div class="text-sm text-gray-300">Minnesota Sheet Metal Workers</div>
+            <h1 class="text-xl font-extrabold tracking-tight">SMART Local 10 — Emergency</h1>
+          </div>
+          <a
+            href="#contacts"
+            class="fallback-btn btn-union !min-h-[60px] px-4 text-sm"
+            style="min-height: 60px;"
+            aria-label="Jump to contacts"
+          >
+            CONTACTS
+          </a>
+        </div>
+        <p class="mt-2 text-sm text-gray-300">
+          Built for QR scans on the shop floor. Big taps. Fast scripts. No fuss.
+        </p>
+      </header>
+
+      <!-- PANIC DASHBOARD (must fit without scrolling) -->
+      <section class="fallback-card mb-4">
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div class="font-extrabold tracking-wide">PANIC DASHBOARD</div>
+          <div class="text-xs text-gray-400">Tap a tile</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <!-- 1) Discipline -->
+          <a
+            class="fallback-btn btn-union"
+            href="#discipline"
+            aria-label="Discipline: jump to Weingarten Rights"
+          >
+            DISCIPLINE
+          </a>
+
+          <!-- 2) Unsafe Work -->
+          <a
+            class="fallback-btn btn-yellow"
+            href="#safety"
+            aria-label="Unsafe Work: jump to Right to Refuse and MNOSHA"
+          >
+            UNSAFE WORK
+          </a>
+
+          <!-- 3) Text BA -->
+          <a
+            id="smsBA"
+            class="fallback-btn btn-green"
+            href="sms:+16513666414"
+            aria-label="Text Business Agent"
+          >
+            TEXT BA
+          </a>
+
+          <!-- 4) Wages & Time -->
+          <a
+            class="fallback-btn btn-blue"
+            href="#wages"
+            aria-label="Wages and time: jump to Minnesota law highlights"
+          >
+            WAGES &amp; TIME
+          </a>
+        </div>
+
+        <div class="mt-3 text-xs text-gray-400">
+          Tip: If you’re being questioned, say the script below <span class="kbd">out loud</span> and stop talking until a rep is present.
+        </div>
+      </section>
+
+      <!-- DISCIPLINE / WEINGARTEN -->
+      <section id="discipline" class="fallback-card mb-4 sm-top">
+        <div class="flex items-start justify-between gap-3">
+          <h2 class="text-lg font-extrabold">Weingarten Rights (Discipline)</h2>
+          <a href="#top" class="text-sm text-gray-300 underline" onclick="return false;" style="display:none">Top</a>
+        </div>
+
+        <div class="mt-3 rounded-2xl border border-[color:var(--stroke)] bg-black/20 p-4">
+          <div class="text-xs uppercase tracking-wide text-gray-400 mb-2">Say this:</div>
+          <div
+            id="weingartenText"
+            class="text-2xl leading-tight font-extrabold"
+            style="font-size: clamp(1.35rem, 4.3vw, 2.2rem);"
+          >
+            If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative be present.
+          </div>
+        </div>
+
+        <div class="mt-3 grid grid-cols-1 gap-3">
+          <button
+            id="copyWeingarten"
+            type="button"
+            class="fallback-btn btn-union w-full"
+            style="width: 100%;"
+            aria-label="Copy Weingarten script"
+          >
+            COPY SCRIPT
+          </button>
+          <div id="copyStatus" class="text-sm text-gray-300" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- SAFETY / RIGHT TO REFUSE -->
+      <section id="safety" class="fallback-card mb-4 sm-top">
+        <h2 class="text-lg font-extrabold">Right to Refuse (Safety)</h2>
+        <div class="mt-2 text-sm text-gray-300">
+          Cite: <span class="font-bold">MN Statute 182.654</span>
+        </div>
+
+        <div class="mt-3 text-lg font-bold leading-snug">
+          You have the legal right to refuse any task you reasonably believe poses an imminent danger of death or serious physical harm.
+        </div>
+
+        <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <a
+            href="tel:+16512844503"
+            class="fallback-btn btn-yellow"
+            aria-label="Call MNOSHA at 651-284-4503"
+          >
+            CALL MNOSHA (651-284-4503)
+          </a>
+          <a
+            href="#contacts"
+            class="fallback-btn btn-green"
+            aria-label="Jump to union contacts"
+          >
+            CALL / TEXT UNION
+          </a>
+        </div>
+      </section>
+
+      <!-- WAGES & TIME (MN LAW HIGHLIGHTS) -->
+      <section id="wages" class="fallback-card mb-4 sm-top">
+        <h2 class="text-lg font-extrabold">Helpful MN Laws (Wages &amp; Time)</h2>
+
+        <ul class="mt-3 space-y-3">
+          <li class="rounded-2xl border border-[color:var(--stroke)] bg-black/20 p-4">
+            <div class="font-extrabold text-blue-200">Wage Theft</div>
+            <div class="mt-1 text-gray-200 font-semibold">
+              By MN law, changes to your pay must be in writing <span class="underline">BEFORE</span> they happen.
+            </div>
+          </li>
+          <li class="rounded-2xl border border-[color:var(--stroke)] bg-black/20 p-4">
+            <div class="font-extrabold text-green-200">MN ESST (Sick Time)</div>
+            <div class="mt-1 text-gray-200 font-semibold">
+              MN law requires employers to provide Earned Sick and Safe Time (ESST).
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- GRIEVANCE DEADLINE CALCULATOR -->
+      <section id="grievance" class="fallback-card mb-4 sm-top">
+        <h2 class="text-lg font-extrabold">Grievance Deadline Calculator</h2>
+        <div class="mt-2 text-sm text-gray-300">
+          Calculates deadline by adding working days (skips weekends). Starts counting on the next working day after the violation date.
+        </div>
+
+        <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <label class="block">
+            <div class="text-xs uppercase tracking-wide text-gray-400 mb-1">Date of Violation</div>
+            <input
+              id="violationDate"
+              type="date"
+              class="w-full min-h-[72px] rounded-2xl border border-[color:var(--stroke)] bg-black/20 px-4 text-lg font-bold"
+              style="min-height: 72px;"
+            />
+          </label>
+
+          <label class="block">
+            <div class="text-xs uppercase tracking-wide text-gray-400 mb-1">Working Days</div>
+            <select
+              id="workingDays"
+              class="w-full min-h-[72px] rounded-2xl border border-[color:var(--stroke)] bg-black/20 px-4 text-lg font-bold"
+              style="min-height: 72px;"
+            >
+              <option value="5">5 working days</option>
+              <option value="7">7 working days</option>
+              <option value="10">10 working days</option>
+            </select>
+          </label>
+
+          <button
+            id="calcDeadline"
+            type="button"
+            class="fallback-btn btn-blue w-full"
+            aria-label="Calculate grievance deadline"
+          >
+            CALCULATE
+          </button>
+        </div>
+
+        <div class="mt-3 rounded-2xl border border-[color:var(--stroke)] bg-black/20 p-4">
+          <div class="text-xs uppercase tracking-wide text-gray-400 mb-1">Deadline</div>
+          <div id="deadlineOut" class="text-2xl font-extrabold">—</div>
+          <div id="deadlineOutSub" class="mt-1 text-sm text-gray-300"></div>
+        </div>
+      </section>
+
+      <!-- CONTACTS -->
+      <section id="contacts" class="fallback-card mb-10 sm-top">
+        <h2 class="text-lg font-extrabold">Contacts</h2>
+
+        <div class="mt-3 rounded-2xl border border-[color:var(--stroke)] bg-black/20 p-4">
+          <div class="text-xs uppercase tracking-wide text-gray-400">Business Manager</div>
+          <div class="mt-1 text-xl font-extrabold">Matt Fairbanks</div>
+          <div class="mt-1 text-gray-300 font-semibold">651-366-6414</div>
+
+          <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a
+              href="tel:+16513666414"
+              class="fallback-btn btn-union"
+              aria-label="Call Business Manager Matt Fairbanks"
+            >
+              CALL BA
+            </a>
+            <a
+              id="smsBA2"
+              href="sms:+16513666414"
+              class="fallback-btn btn-green"
+              aria-label="Text Business Manager Matt Fairbanks"
+            >
+              TEXT BA
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-3 text-xs text-gray-500">
+          Not legal advice. If you’re in danger, get safe first and call for help.
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // ------------------------------------------------------------
+      // Utility: robust clipboard copy with fallback (glove-friendly UI feedback)
+      // ------------------------------------------------------------
+      function setStatus(el, msg, { tone = "muted", ms = 1800 } = {}) {
+        el.textContent = msg;
+        el.style.color =
+          tone === "ok" ? "#bbf7d0" : tone === "warn" ? "#fde68a" : tone === "bad" ? "#fecaca" : "#d1d5db";
+        if (ms > 0) {
+          window.clearTimeout(setStatus._t);
+          setStatus._t = window.setTimeout(() => (el.textContent = ""), ms);
+        }
+      }
+
+      async function copyText(text) {
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+        } catch (_) {}
+
+        // Fallback for older / locked-down devices.
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.top = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          return ok;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      // ------------------------------------------------------------
+      // SMS link: iOS vs Android querystring differences
+      // ------------------------------------------------------------
+      const BA_NUMBER_E164 = "+16513666414"; // 651-366-6414
+      const SMS_BODY = "I need a union rep on the shop floor immediately.";
+
+      function smsHref(numberE164, body) {
+        const ua = navigator.userAgent || "";
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const encoded = encodeURIComponent(body);
+        // iOS commonly expects &body=, Android commonly accepts ?body=
+        return isIOS ? `sms:${numberE164}&body=${encoded}` : `sms:${numberE164}?body=${encoded}`;
+      }
+
+      for (const id of ["smsBA", "smsBA2"]) {
+        const a = document.getElementById(id);
+        if (a) a.setAttribute("href", smsHref(BA_NUMBER_E164, SMS_BODY));
+      }
+
+      // ------------------------------------------------------------
+      // Weingarten copy button behavior
+      // ------------------------------------------------------------
+      const copyBtn = document.getElementById("copyWeingarten");
+      const copyStatus = document.getElementById("copyStatus");
+      const weingartenEl = document.getElementById("weingartenText");
+      if (copyBtn && copyStatus && weingartenEl) {
+        copyBtn.addEventListener("click", async () => {
+          const text = weingartenEl.textContent.trim();
+          const ok = await copyText(text);
+          if (ok) {
+            const old = copyBtn.textContent;
+            copyBtn.textContent = "COPIED!";
+            setStatus(copyStatus, "Copied to clipboard.", { tone: "ok", ms: 1500 });
+            window.setTimeout(() => (copyBtn.textContent = old), 1200);
+          } else {
+            setStatus(copyStatus, "Copy failed on this device. Press and hold to select the text.", { tone: "warn", ms: 3200 });
+          }
+        });
+      }
+
+      // ------------------------------------------------------------
+      // Grievance calculator: add N working days (skip weekends)
+      // Starts counting on the NEXT working day after the violation date.
+      // ------------------------------------------------------------
+      function isWeekend(d) {
+        const day = d.getDay(); // 0 Sun ... 6 Sat
+        return day === 0 || day === 6;
+      }
+
+      function parseISODateLocal(iso) {
+        // "YYYY-MM-DD" -> local date at noon to avoid timezone DST edge weirdness
+        const [y, m, d] = iso.split("-").map(Number);
+        return new Date(y, m - 1, d, 12, 0, 0, 0);
+      }
+
+      function formatLong(d) {
+        return d.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+      }
+
+      function addWorkingDaysFromNextBusinessDay(startDate, workingDaysToAdd) {
+        const d = new Date(startDate.getTime());
+
+        // move to the next day first (counting begins next working day)
+        d.setDate(d.getDate() + 1);
+
+        let added = 0;
+        while (added < workingDaysToAdd) {
+          if (!isWeekend(d)) added += 1;
+          if (added < workingDaysToAdd) d.setDate(d.getDate() + 1);
+        }
+        return d;
+      }
+
+      const violationInput = document.getElementById("violationDate");
+      const workingDaysSel = document.getElementById("workingDays");
+      const calcBtn = document.getElementById("calcDeadline");
+      const out = document.getElementById("deadlineOut");
+      const outSub = document.getElementById("deadlineOutSub");
+
+      function calcAndRender() {
+        const iso = violationInput?.value;
+        const n = Number(workingDaysSel?.value || "5");
+        if (!iso) {
+          out.textContent = "—";
+          outSub.textContent = "Pick a violation date.";
+          return;
+        }
+
+        const start = parseISODateLocal(iso);
+        const deadline = addWorkingDaysFromNextBusinessDay(start, n);
+
+        out.textContent = formatLong(deadline);
+        outSub.textContent = `Based on ${n} working days after ${formatLong(start)} (weekends skipped).`;
+      }
+
+      calcBtn?.addEventListener("click", calcAndRender);
+      violationInput?.addEventListener("change", calcAndRender);
+      workingDaysSel?.addEventListener("change", calcAndRender);
+
+      // Default to today's date for speed (worker can change it).
+      if (violationInput && !violationInput.value) {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        const d = String(now.getDate()).padStart(2, "0");
+        violationInput.value = `${y}-${m}-${d}`;
+        calcAndRender();
+      }
+    </script>
+  </body>
+</html>
