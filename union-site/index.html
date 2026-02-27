@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local 10 Union Site</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fa;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #4b5563;
+        --accent: #0f4c81;
+        --accent-2: #16324f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+      }
+
+      .container {
+        width: min(900px, 92%);
+        margin: 0 auto;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
+        padding: 3rem 0;
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+
+      .subtitle {
+        margin: 0.5rem 0 0;
+        max-width: 680px;
+      }
+
+      main {
+        padding: 2rem 0 3rem;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: 10px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      ul {
+        padding-left: 1.25rem;
+      }
+
+      .links a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .links a:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        padding: 1.25rem 0 2.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Local 10 Union Hub</h1>
+        <p class="subtitle">
+          A simple place for updates, resources, and action items. Keep this page
+          focused on union content and use the note files for everything else.
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Current priorities</h2>
+        <ul>
+          <li>Share schedule updates and important announcements.</li>
+          <li>Post meeting dates and action reminders.</li>
+          <li>Keep emergency and support contacts easy to find.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Resources</h2>
+        <ul>
+          <li>Contract and workplace rights reference</li>
+          <li>Steward contact list</li>
+          <li>Issue reporting workflow</li>
+        </ul>
+      </section>
+
+      <section class="card links">
+        <h2>Working files in this repo</h2>
+        <ul>
+          <li><a href="../notes/thinking.md">Thinking notes</a></li>
+          <li><a href="../notes/game-design.md">Game design notes</a></li>
+          <li><a href="../notes/union-stuff.md">Union notes</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      Local 10 Starter - keep it simple, editable, and easy to maintain.
+    </footer>
+  </body>
+</html>
