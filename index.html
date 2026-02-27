@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#cc1f1f" />
+    <meta name="description" content="Emergency rights dashboard for SMART Local 10 (MN). Fast, glove-friendly, single page." />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2296%22%20fill%3D%22%23080a0f%22/%3E%3Cpath%20d%3D%22M256%20112c79.5%200%20144%2064.5%20144%20144s-64.5%20144-144%20144S112%20335.5%20112%20256s64.5-144%20144-144Z%22%20fill%3D%22%23cc1f1f%22/%3E%3Cpath%20d%3D%22M232%20172h48v96h96v48h-96v96h-48v-96h-96v-48h96v-96Z%22%20fill%3D%22%23ffffff%22/%3E%3C/svg%3E" />
+    <title>SMART Local 10 — Emergency Dashboard</title>
+
+    <style>
+      :root {
+        --bg: #080a0f;
+        --panel: #0d111a;
+        --stroke: #1f2937;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --union: #cc1f1f;
+        --yellow: #f59e0b;
+        --blue: #2563eb;
+        --green: #16a34a;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html, body { height: 100%; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
+      .wrap {
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: 18px;
+        min-height: 72px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: 0.02em;
+        color: white;
+        padding: 12px 14px;
+        user-select: none;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        font-family: inherit;
+      }
+      .btn:active { transform: translateY(1px); opacity: 0.92; }
+
+      .btn-red    { background: var(--union); }
+      .btn-yellow { background: var(--yellow); color: #0b1220; }
+      .btn-blue   { background: var(--blue); }
+      .btn-green  { background: var(--green); }
+
+      .btn-huge {
+        min-height: 90px;
+        font-size: 1.35rem;
+        border-radius: 22px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .grid-1 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        margin-bottom: 12px;
+      }
+
+      .sub {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      .script-box {
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 16px;
+        margin-top: 12px;
+      }
+
+      .script-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .script-text {
+        font-size: clamp(1.2rem, 4vw, 2rem);
+        font-weight: 800;
+        line-height: 1.3;
+      }
+
+      .contact-card {
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+      .contact-name { font-size: 1.2rem; font-weight: 800; }
+      .contact-role { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+      .contact-number { font-size: 1rem; color: #cbd5e1; font-weight: 600; margin-top: 4px; }
+
+      .law-item {
+        background: rgba(0,0,0,0.25);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+      .law-title { font-weight: 800; }
+      .law-body { color: #d1d5db; font-weight: 600; margin-top: 6px; }
+
+      .calc-input {
+        width: 100%;
+        min-height: 60px;
+        border-radius: 16px;
+        border: 1px solid var(--stroke);
+        background: rgba(0,0,0,0.25);
+        color: var(--text);
+        padding: 8px 14px;
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+      }
+      .calc-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+      .header-title { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; }
+      .header-sub { font-size: 0.85rem; color: #d1d5db; }
+
+      .tabs {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        margin-bottom: 16px;
+      }
+      .tab {
+        flex-shrink: 0;
+        padding: 12px 18px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: 1px solid var(--stroke);
+        background: var(--panel);
+        color: var(--muted);
+        cursor: pointer;
+        user-select: none;
+        font-family: inherit;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+      }
+      .tab:active { transform: translateY(1px); }
+      .tab.active {
+        background: var(--union);
+        color: white;
+        border-color: rgba(255,255,255,0.15);
+      }
+
+      .tab-content { display: none; }
+      .tab-content.active { display: block; }
+
+      .disclaimer {
+        font-size: 0.75rem;
+        color: #6b7280;
+        text-align: center;
+        padding: 16px 0 32px;
+      }
+
+      @media (min-width: 640px) {
+        .grid-responsive { grid-template-columns: 1fr 1fr; }
+      }
+
+      .scroll-top { scroll-margin-top: 16px; }
+    </style>
+  </head>
+
+  <body>
+    <main class="wrap">
+
+      <!-- HEADER -->
+      <header style="margin-bottom: 16px;">
+        <div class="header-sub">Minnesota Sheet Metal Workers</div>
+        <div class="header-title">SMART Local 10</div>
+        <div class="sub" style="margin-top:4px;">Big taps. Fast info. No fuss.</div>
+      </header>
+
+      <!-- ============================================ -->
+      <!-- CHARLES GRINSTEAD — ALWAYS #1, ALWAYS ON TOP -->
+      <!-- ============================================ -->
+      <div class="card" style="border-color: var(--union); border-width: 2px;">
+        <div class="contact-role">Steward — Call First</div>
+        <div class="contact-name" style="font-size:1.4rem;">Charles Grinstead</div>
+        <div class="contact-number">(612) 428-8004</div>
+        <div class="grid-2" style="margin-top:12px;">
+          <a href="tel:6124288004" class="btn btn-red btn-huge">CALL CHARLES</a>
+          <a id="smsCharles" href="sms:6124288004" class="btn btn-green btn-huge">TEXT CHARLES</a>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="emergency" role="tab">Emergency</button>
+        <button class="tab" data-tab="contacts" role="tab">Contacts</button>
+        <button class="tab" data-tab="rights" role="tab">Know Your Rights</button>
+        <button class="tab" data-tab="tools" role="tab">Tools</button>
+      </div>
+
+      <!-- ==================== -->
+      <!-- TAB: EMERGENCY       -->
+      <!-- ==================== -->
+      <div id="tab-emergency" class="tab-content active">
+
+        <!-- Panic Grid -->
+        <div class="card">
+          <div class="section-title">PANIC DASHBOARD</div>
+          <div class="grid-2">
+            <a class="btn btn-red" href="#discipline">DISCIPLINE</a>
+            <a class="btn btn-yellow" href="#safety">UNSAFE WORK</a>
+            <a id="smsBA" class="btn btn-green" href="sms:+16513666414">TEXT BA</a>
+            <a class="btn btn-blue" href="#wages">WAGES &amp; TIME</a>
+          </div>
+          <div class="sub">If you're being questioned, say the script below <strong>out loud</strong> and stop talking until a rep is present.</div>
+        </div>
+
+        <!-- Weingarten -->
+        <div id="discipline" class="card scroll-top">
+          <div class="section-title">Weingarten Rights (Discipline)</div>
+          <div class="script-box">
+            <div class="script-label">Say this out loud:</div>
+            <div id="weingartenText" class="script-text">
+              If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative be present.
+            </div>
+          </div>
+          <div class="grid-1" style="margin-top:12px;">
+            <button id="copyWeingarten" type="button" class="btn btn-red">COPY SCRIPT</button>
+          </div>
+          <div id="copyStatus" class="sub" aria-live="polite"></div>
+        </div>
+
+        <!-- Safety -->
+        <div id="safety" class="card scroll-top">
+          <div class="section-title">Right to Refuse (Safety)</div>
+          <div class="sub" style="margin-top:0;">Cite: <strong>MN Statute 182.654</strong></div>
+          <div style="font-size:1.1rem; font-weight:700; line-height:1.4; margin-top:12px;">
+            You have the legal right to refuse any task you reasonably believe poses an imminent danger of death or serious physical harm.
+          </div>
+          <div class="grid-2" style="margin-top:12px;">
+            <a href="tel:+16512844503" class="btn btn-yellow">CALL MNOSHA<br>(651-284-4503)</a>
+            <a href="tel:6124288004" class="btn btn-red">CALL CHARLES</a>
+          </div>
+        </div>
+
+        <!-- Wages -->
+        <div id="wages" class="card scroll-top">
+          <div class="section-title">MN Laws (Wages &amp; Time)</div>
+          <div class="law-item">
+            <div class="law-title" style="color:#93c5fd;">Wage Theft</div>
+            <div class="law-body">By MN law, changes to your pay must be in writing <u>BEFORE</u> they happen.</div>
+          </div>
+          <div class="law-item">
+            <div class="law-title" style="color:#86efac;">MN ESST (Sick Time)</div>
+            <div class="law-body">MN law requires employers to provide Earned Sick and Safe Time (ESST).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== -->
+      <!-- TAB: CONTACTS        -->
+      <!-- ==================== -->
+      <div id="tab-contacts" class="tab-content">
+
+        <div class="contact-card" style="border-color: var(--union); border-width: 2px;">
+          <div class="contact-role">Steward — Always Call First</div>
+          <div class="contact-name">Charles Grinstead</div>
+          <div class="contact-number">(612) 428-8004</div>
+          <div class="grid-2" style="margin-top:12px;">
+            <a href="tel:6124288004" class="btn btn-red">CALL</a>
+            <a id="smsCharles2" href="sms:6124288004" class="btn btn-green">TEXT</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-role">Business Manager</div>
+          <div class="contact-name">Matt Fairbanks</div>
+          <div class="contact-number">(651) 366-6414</div>
+          <div class="grid-2" style="margin-top:12px;">
+            <a href="tel:+16513666414" class="btn btn-blue">CALL BA</a>
+            <a id="smsBA2" href="sms:+16513666414" class="btn btn-green">TEXT BA</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-role">MNOSHA (Safety Complaints)</div>
+          <div class="contact-name">MN OSHA</div>
+          <div class="contact-number">(651) 284-4503</div>
+          <div class="grid-1" style="margin-top:12px;">
+            <a href="tel:+16512844503" class="btn btn-yellow">CALL MNOSHA</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== -->
+      <!-- TAB: KNOW YOUR RIGHTS -->
+      <!-- ==================== -->
+      <div id="tab-rights" class="tab-content">
+
+        <div class="card">
+          <div class="section-title">Weingarten Rights</div>
+          <div class="script-box">
+            <div class="script-label">Say this if questioned:</div>
+            <div class="script-text" style="font-size: clamp(1rem, 3.5vw, 1.6rem);">
+              If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative be present.
+            </div>
+          </div>
+          <div class="sub">You have the right to union representation during any investigatory interview that could lead to discipline.</div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Right to Refuse Unsafe Work</div>
+          <div class="law-item">
+            <div class="law-title" style="color:#fbbf24;">MN Statute 182.654</div>
+            <div class="law-body">You can refuse work you reasonably believe poses imminent danger of death or serious physical harm. Tell your steward immediately.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Wage Protections</div>
+          <div class="law-item">
+            <div class="law-title" style="color:#93c5fd;">Written Notice Required</div>
+            <div class="law-body">Any changes to pay rate must be given to you in writing before they take effect.</div>
+          </div>
+          <div class="law-item">
+            <div class="law-title" style="color:#86efac;">Earned Sick &amp; Safe Time (ESST)</div>
+            <div class="law-body">All MN employers must provide paid sick and safe time. You earn 1 hour for every 30 worked.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== -->
+      <!-- TAB: TOOLS           -->
+      <!-- ==================== -->
+      <div id="tab-tools" class="tab-content">
+
+        <!-- Grievance Calculator -->
+        <div class="card">
+          <div class="section-title">Grievance Deadline Calculator</div>
+          <div class="sub" style="margin-top:0; margin-bottom:12px;">
+            Adds working days (skips weekends). Starts counting the next business day after the violation.
+          </div>
+
+          <div class="grid-1 grid-responsive">
+            <div>
+              <div class="calc-label">Date of Violation</div>
+              <input id="violationDate" type="date" class="calc-input" />
+            </div>
+            <div>
+              <div class="calc-label">Working Days</div>
+              <select id="workingDays" class="calc-input">
+                <option value="5">5 working days</option>
+                <option value="7">7 working days</option>
+                <option value="10">10 working days</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <button id="calcDeadline" type="button" class="btn btn-blue">CALCULATE</button>
+          </div>
+
+          <div class="script-box" style="margin-top:12px;">
+            <div class="script-label">Deadline</div>
+            <div id="deadlineOut" style="font-size:1.4rem; font-weight:800;">—</div>
+            <div id="deadlineOutSub" class="sub"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        Not legal advice. If you're in danger, get safe first and call for help.
+      </div>
+
+    </main>
+
+    <script>
+      /* ---- Tabs ---- */
+      document.querySelectorAll('.tab').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+          document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+          btn.classList.add('active');
+          var target = document.getElementById('tab-' + btn.getAttribute('data-tab'));
+          if (target) target.classList.add('active');
+        });
+      });
+
+      /* ---- SMS links: iOS vs Android ---- */
+      function smsHref(number, body) {
+        var ua = navigator.userAgent || '';
+        var isIOS = /iPhone|iPad|iPod/i.test(ua);
+        var encoded = encodeURIComponent(body);
+        return isIOS ? 'sms:' + number + '&body=' + encoded : 'sms:' + number + '?body=' + encoded;
+      }
+
+      var CHARLES = '6124288004';
+      var BA = '+16513666414';
+      var MSG_CHARLES = 'Hey Charles, I need help on the floor.';
+      var MSG_BA = 'I need a union rep on the shop floor immediately.';
+
+      ['smsCharles', 'smsCharles2'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.href = smsHref(CHARLES, MSG_CHARLES);
+      });
+      ['smsBA', 'smsBA2'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.href = smsHref(BA, MSG_BA);
+      });
+
+      /* ---- Clipboard copy ---- */
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).then(function() { return true; }).catch(function() { return fallbackCopy(text); });
+        }
+        return Promise.resolve(fallbackCopy(text));
+      }
+
+      function fallbackCopy(text) {
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.top = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          var ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          return ok;
+        } catch (e) { return false; }
+      }
+
+      var copyBtn = document.getElementById('copyWeingarten');
+      var copyStatus = document.getElementById('copyStatus');
+      var weingartenEl = document.getElementById('weingartenText');
+
+      if (copyBtn && weingartenEl) {
+        copyBtn.addEventListener('click', function() {
+          copyText(weingartenEl.textContent.trim()).then(function(ok) {
+            if (ok) {
+              copyBtn.textContent = 'COPIED!';
+              if (copyStatus) { copyStatus.textContent = 'Copied to clipboard.'; copyStatus.style.color = '#bbf7d0'; }
+              setTimeout(function() { copyBtn.textContent = 'COPY SCRIPT'; if (copyStatus) copyStatus.textContent = ''; }, 1500);
+            } else {
+              if (copyStatus) { copyStatus.textContent = 'Copy failed. Press and hold to select the text.'; copyStatus.style.color = '#fde68a'; }
+            }
+          });
+        });
+      }
+
+      /* ---- Grievance calculator ---- */
+      function isWeekend(d) { var day = d.getDay(); return day === 0 || day === 6; }
+
+      function addWorkingDays(startISO, n) {
+        var parts = startISO.split('-');
+        var d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]), 12, 0, 0);
+        d.setDate(d.getDate() + 1);
+        var added = 0;
+        while (added < n) {
+          if (!isWeekend(d)) added++;
+          if (added < n) d.setDate(d.getDate() + 1);
+        }
+        return d;
+      }
+
+      function formatDate(d) {
+        return d.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+      }
+
+      var violationInput = document.getElementById('violationDate');
+      var workingDaysSel = document.getElementById('workingDays');
+      var calcBtn = document.getElementById('calcDeadline');
+      var deadlineOut = document.getElementById('deadlineOut');
+      var deadlineOutSub = document.getElementById('deadlineOutSub');
+
+      function calcAndRender() {
+        var iso = violationInput ? violationInput.value : '';
+        var n = Number(workingDaysSel ? workingDaysSel.value : '5');
+        if (!iso) {
+          if (deadlineOut) deadlineOut.textContent = '—';
+          if (deadlineOutSub) deadlineOutSub.textContent = 'Pick a violation date.';
+          return;
+        }
+        var deadline = addWorkingDays(iso, n);
+        var parts = iso.split('-');
+        var start = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]), 12, 0, 0);
+        if (deadlineOut) deadlineOut.textContent = formatDate(deadline);
+        if (deadlineOutSub) deadlineOutSub.textContent = n + ' working days after ' + formatDate(start) + ' (weekends skipped).';
+      }
+
+      if (calcBtn) calcBtn.addEventListener('click', calcAndRender);
+      if (violationInput) violationInput.addEventListener('change', calcAndRender);
+      if (workingDaysSel) workingDaysSel.addEventListener('change', calcAndRender);
+
+      if (violationInput && !violationInput.value) {
+        var now = new Date();
+        violationInput.value = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+        calcAndRender();
+      }
+    </script>
+  </body>
+</html>

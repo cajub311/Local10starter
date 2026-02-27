@@ -1,0 +1,48 @@
+# union.mdc
+
+These rules apply to anything meant for Local 10 union dashboards or union tools.
+Read and follow every time you touch dashboard work.
+
+## Non-negotiables
+
+- Mobile-first. Works great on a phone.
+- Glove-friendly / dirty-hand friendly:
+  - Huge buttons.
+  - Big text.
+  - Lots of spacing.
+  - Nothing tiny.
+- High contrast. Easy to read in bad lighting.
+- Clean layout. No clutter.
+- Works offline whenever possible.
+- Prefer **one single HTML file** per dashboard page.
+
+## Charles is always #1
+
+At the very top of every dashboard page, put the biggest, most obvious red call button:
+
+- Label: **CALL CHARLES GRINSTEAD**
+- Show number: **(612-428-8004)**
+- Link: `tel:6124288004`
+
+Also include a one-tap text button nearby:
+
+- Label: **TEXT CHARLES**
+- Link: `sms:6124288004`
+
+Charles must be the most prominent item on the page. Always.
+
+## Tabs and navigation
+
+- Use simple tabs for sections (example: Contacts / Updates / Resources).
+- Tabs must be big and easy to hit.
+- Keep the number of tabs small (3-5).
+
+## One-tap actions everywhere
+
+- Phone numbers: use `tel:` links.
+- Text: use `sms:` links.
+- If there's an address: include a one-tap map link (Google/Apple compatible).
+
+## File/folder shape
+
+- Union dashboard lives at root: `index.html`
