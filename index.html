@@ -558,30 +558,28 @@
       var btnIcon  = document.getElementById('copy-btn-icon');
       var btnText  = document.getElementById('copy-btn-text');
 
+      /* Show COPIED! immediately (optimistic UI) so the worker
+         gets instant visual confirmation even if clipboard is slow */
+      showCopied(btn, btnIcon, btnText);
+
+      /* Then actually copy to clipboard */
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(script).then(function () {
-          showCopied(btn, btnIcon, btnText);
-        }).catch(function () {
-          fallbackCopy(script, btn, btnIcon, btnText);
+        navigator.clipboard.writeText(script).catch(function () {
+          fallbackCopy(script);
         });
       } else {
-        fallbackCopy(script, btn, btnIcon, btnText);
+        fallbackCopy(script);
       }
     }
 
-    function fallbackCopy(text, btn, btnIcon, btnText) {
+    function fallbackCopy(text) {
       var ta = document.createElement('textarea');
       ta.value = text;
       ta.style.position = 'fixed';
       ta.style.left = '-9999px';
       document.body.appendChild(ta);
       ta.select();
-      try {
-        document.execCommand('copy');
-        showCopied(btn, btnIcon, btnText);
-      } catch (e) {
-        btnText.textContent = 'TAP & HOLD TO COPY';
-      }
+      try { document.execCommand('copy'); } catch (e) { /* silent */ }
       document.body.removeChild(ta);
     }
 
