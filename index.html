@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local 10 — Union Workers</title>
+    <meta name="description" content="A simple hub for union workers: updates, resources, and ways to get involved." />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">L10</div>
+          <div class="brand-text">
+            <div class="brand-title">Local 10</div>
+            <div class="brand-subtitle">Union Workers</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#updates">Updates</a>
+          <a href="#resources">Resources</a>
+          <a href="#get-involved">Get involved</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1>Built for union workers.</h1>
+            <p class="lead">
+              A simple place for announcements, meeting info, and resources. Keep it lightweight now — paste in
+              real content later.
+            </p>
+
+            <div class="cta-row">
+              <a class="button" href="#updates">See updates</a>
+              <a class="button secondary" href="./notes/union.md">Open union notes</a>
+            </div>
+
+            <ul class="pill-row" aria-label="Quick info">
+              <li class="pill"><span class="pill-label">Status</span> <span id="statusText">Draft</span></li>
+              <li class="pill"><span class="pill-label">Last updated</span> <span id="lastUpdated">—</span></li>
+            </ul>
+          </div>
+
+          <aside class="hero-card" aria-label="At a glance">
+            <h2 class="card-title">At a glance</h2>
+            <ul class="card-list">
+              <li><strong>Meetings:</strong> add time/location</li>
+              <li><strong>Hotline:</strong> add number</li>
+              <li><strong>Stewards:</strong> add contacts</li>
+              <li><strong>Contract:</strong> link PDF</li>
+            </ul>
+            <div class="card-actions">
+              <button class="button small" id="copyLinkBtn" type="button">Copy site link</button>
+              <button class="button small secondary" id="toggleModeBtn" type="button" aria-pressed="false">
+                Toggle theme
+              </button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="updates" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Updates</h2>
+            <p>Put short, high-signal announcements here.</p>
+          </div>
+
+          <div class="grid">
+            <article class="panel">
+              <h3>Placeholder update</h3>
+              <p class="muted">Replace this with your first announcement.</p>
+              <div class="meta">
+                <span class="tag">Announcement</span>
+                <span class="meta-sep">•</span>
+                <time datetime="2026-02-27">Feb 27, 2026</time>
+              </div>
+            </article>
+
+            <article class="panel">
+              <h3>Meeting info</h3>
+              <p class="muted">Add meeting date/time/location, and any agenda bullets.</p>
+              <div class="meta">
+                <span class="tag">Meeting</span>
+                <span class="meta-sep">•</span>
+                <span>Draft</span>
+              </div>
+            </article>
+
+            <article class="panel">
+              <h3>Action item</h3>
+              <p class="muted">Use this for “call your rep”, “sign up”, “vote”, etc.</p>
+              <div class="meta">
+                <span class="tag">Action</span>
+                <span class="meta-sep">•</span>
+                <span>Draft</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="resources" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2>Resources</h2>
+            <p>Links you’ll use over and over.</p>
+          </div>
+
+          <div class="grid two">
+            <div class="panel">
+              <h3>Workplace basics</h3>
+              <ul class="link-list">
+                <li><a href="#" aria-disabled="true">Contract (PDF)</a></li>
+                <li><a href="#" aria-disabled="true">Grievance process</a></li>
+                <li><a href="#" aria-disabled="true">Weingarten rights</a></li>
+              </ul>
+            </div>
+
+            <div class="panel">
+              <h3>Forms</h3>
+              <ul class="link-list">
+                <li><a href="#" aria-disabled="true">Membership form</a></li>
+                <li><a href="#" aria-disabled="true">Dues info</a></li>
+                <li><a href="#" aria-disabled="true">Update your contact info</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="get-involved" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Get involved</h2>
+            <p>Three easy entry points.</p>
+          </div>
+
+          <div class="grid three">
+            <div class="panel">
+              <h3>Join the list</h3>
+              <p class="muted">Add your group chat / email list link.</p>
+            </div>
+            <div class="panel">
+              <h3>Become a steward</h3>
+              <p class="muted">Add training dates and who to contact.</p>
+            </div>
+            <div class="panel">
+              <h3>Volunteer</h3>
+              <p class="muted">Add a simple “what we need help with” list.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section alt">
+        <div class="container">
+          <div class="section-head">
+            <h2>Contact</h2>
+            <p>Keep it simple and secure.</p>
+          </div>
+
+          <div class="grid two">
+            <div class="panel">
+              <h3>General</h3>
+              <ul class="plain-list">
+                <li><strong>Email:</strong> add email</li>
+                <li><strong>Phone:</strong> add phone</li>
+              </ul>
+            </div>
+
+            <div class="panel">
+              <h3>Notes files in this repo</h3>
+              <ul class="link-list">
+                <li><a href="./notes/thinking.md">Thinking</a></li>
+                <li><a href="./notes/game-design.md">Game design</a></li>
+                <li><a href="./notes/union.md">Union</a></li>
+              </ul>
+              <p class="fineprint muted">
+                These are just storage docs so you can paste later; the site stays clean.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="muted">Local 10 — simple static site.</div>
+        <div class="muted">
+          <span id="footerUpdated">—</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
