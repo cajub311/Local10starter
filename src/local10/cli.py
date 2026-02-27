@@ -48,6 +48,13 @@ def _parse_break_minutes(s: str) -> int:
     raise typer.BadParameter("Expected minutes (e.g. 30) or HH:MM (e.g. 0:30)")
 
 
+def _parse_decimal(s: str) -> Decimal:
+    try:
+        return Decimal(str(s))
+    except Exception as e:
+        raise typer.BadParameter("Expected a number (e.g. 57.25)") from e
+
+
 def _resolve_db_path(cfg: RawConfig) -> Path:
     p = cfg.db_path.strip()
     return Path(p) if p else default_db_path()
@@ -160,7 +167,7 @@ def week(
         str | None, typer.Option("--week-start", help="Explicit week start date (YYYY-MM-DD).")
     ] = None,
     rate: Annotated[
-        Decimal | None, typer.Option("--rate", help="Override base hourly rate for this report.")
+        str | None, typer.Option("--rate", help="Override base hourly rate for this report (e.g. 57.25).")
     ] = None,
 ) -> None:
     """Show weekly hours + estimated pay using your config rules."""
@@ -175,7 +182,8 @@ def week(
     with connect(_resolve_db_path(cfg)) as conn:
         shifts = shifts_between(conn, start_dt, end_dt)
 
-    summary = summarize_week(shifts, ws, _pay_config(cfg, base_rate_override=rate))
+    rate_override = _parse_decimal(rate) if rate is not None else None
+    summary = summarize_week(shifts, ws, _pay_config(cfg, base_rate_override=rate_override))
 
     table = Table(
         title=f"Week {summary.week_start.isoformat()} → {summary.week_end.isoformat()}",
