@@ -34,3 +34,5 @@ The app is at `http://localhost:3000/index.html`.
 - **Tailwind config is inline** in a `<script>` tag inside `index.html` (not a separate file).
 - **All interactive elements are 60px+ tall** ("Greasy Hand" rule). Maintain this when adding new buttons or inputs.
 - **COPY SCRIPT uses optimistic UI** — shows green "COPIED!" immediately, then copies to clipboard in background. This is intentional; the Clipboard API can be slow or fail on HTTP.
+- **No lint or test commands.** There are no ESLint, Prettier, or test configurations. The project is pure HTML/CSS/JS with no tooling.
+- **`serve` redirects `/index.html` to `/`.** When verifying with curl, check `http://localhost:3000/` (200) rather than `/index.html` (301 redirect).
