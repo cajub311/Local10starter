@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+build/
+*.egg-info/
+.coverage
+coverage.xml
+.DS_Store
+
+# Local data
+*.db
+*.sqlite
+*.sqlite3
+

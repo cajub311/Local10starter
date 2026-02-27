@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.24.2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "local10starter"
+version = "0.1.0"
+description = "Local-first shift log + overtime/pay calculator CLI (built for Local 10-style workflows)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Local10starter contributors" }]
+keywords = ["union", "shift", "overtime", "timesheet", "cli"]
+dependencies = [
+  "platformdirs>=4.3.8,<5",
+  "rich>=13.9.4,<14",
+  "typer>=0.15.2,<1",
+]
+
+[project.urls]
+Repository = "https://github.com/unknown/unknown"
+
+[project.scripts]
+local10 = "local10.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/local10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["local10"]
+
