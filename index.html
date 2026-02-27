@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Local 10 Emergency Dashboard</title>
+    <meta name="theme-color" content="#0b1220" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      /* Keep content visible above fixed bottom UI */
+      .pb-safe-ui {
+        padding-bottom: calc(11.5rem + var(--safe-bottom));
+      }
+      .bottom-ui {
+        padding-bottom: calc(0.75rem + var(--safe-bottom));
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/85 backdrop-blur">
+      <div class="mx-auto max-w-xl px-4 py-4">
+        <div class="text-center text-lg font-black tracking-tight text-slate-50">Local 10 Emergency Dashboard</div>
+        <div class="mt-1 text-center text-sm font-semibold text-slate-300">Thumb-first • glove-friendly • no scrolling between tabs</div>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-xl px-4 pb-safe-ui pt-4">
+      <!-- TAB: Emergencies -->
+      <section id="tab-emergencies" data-tab-panel="emergencies" class="space-y-4">
+        <div class="rounded-2xl border border-red-500/30 bg-gradient-to-b from-red-600/25 to-slate-900/20 p-4 shadow-[0_20px_60px_-30px_rgba(220,38,38,0.65)]">
+          <div class="text-center text-sm font-extrabold uppercase tracking-wide text-red-200">Call your steward first</div>
+          <a
+            class="mt-3 block w-full rounded-2xl bg-red-600 px-4 py-5 text-center text-xl font-black text-white shadow-lg shadow-red-600/25 active:scale-[0.99]"
+            href="tel:6124288004"
+          >
+            Call Steward Now
+            <div class="mt-1 text-base font-extrabold">Charles Grinstead</div>
+            <div class="mt-1 text-lg font-black tracking-wide">612-428-8004</div>
+          </a>
+          <div class="mt-3 grid grid-cols-1 gap-2">
+            <a
+              class="w-full rounded-xl bg-sky-600 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="sms:6124288004?body=This%20is%20a%20Local%2010%20member%20at%20%5Bjobsite%5D.%20Need%20steward%20help%20NOW%20-%20%5Bdiscipline%2Funsafe%2Fwage%5D.%20My%20name%3A%20%5Byour%20name%5D.%20Best%20callback%3A%20%5Byour%20%23%5D."
+            >
+              Text Steward (template)
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-amber-400/30 bg-slate-900/40 p-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-base font-black text-amber-200">Weingarten Rights — say this out loud</div>
+              <div class="mt-1 text-sm font-semibold text-slate-300">If it could lead to discipline, request your union rep and stop answering questions.</div>
+            </div>
+            <button
+              id="copy-weingarten"
+              class="shrink-0 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-extrabold text-white shadow active:scale-[0.99]"
+              type="button"
+            >
+              Copy
+            </button>
+          </div>
+          <div id="weingarten-script" class="mt-3 rounded-2xl bg-slate-950/60 p-4 text-lg font-black leading-snug text-slate-50">
+            “If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative be present. I will not answer questions without my rep.”
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-base font-black text-slate-50">Unsafe Work — stop-work steps</div>
+          <div class="mt-1 text-sm font-semibold text-slate-300">If you honestly believe the hazard could kill or seriously injure you, slow down and follow this order.</div>
+          <ol class="mt-3 list-decimal space-y-2 pl-5 text-base font-semibold text-slate-100">
+            <li>Say the exact hazard out loud (what, where, and how it can hurt someone).</li>
+            <li>Ask for a safer method or different task.</li>
+            <li>Document: photos/video, time, who told you, who witnessed it.</li>
+            <li>Call your steward immediately.</li>
+          </ol>
+
+          <div class="mt-4 grid grid-cols-1 gap-2">
+            <a
+              class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="tel:6512845050"
+            >
+              Call MNOSHA Compliance: 651-284-5050
+            </a>
+            <a
+              class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="tel:8774706742"
+            >
+              MNOSHA (toll-free): 877-470-6742
+            </a>
+            <a
+              class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="tel:6512845005"
+            >
+              Call MN DLI (main): 651-284-5005
+            </a>
+            <a
+              class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="tel:8003425354"
+            >
+              MN DLI (toll-free): 800-342-5354
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: Grievance Prep -->
+      <section id="tab-grievance" data-tab-panel="grievance" class="hidden space-y-4">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-base font-black text-slate-50">Grievance Prep — bring the facts</div>
+          <div class="mt-1 text-sm font-semibold text-slate-300">
+            Before you text your steward, gather the items below. The goal is speed and accuracy.
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-sm font-extrabold uppercase tracking-wide text-slate-300">Member checklist</div>
+          <div class="mt-3 space-y-2 text-base font-semibold text-slate-100">
+            <label class="flex items-start gap-3 rounded-xl bg-slate-950/40 p-3">
+              <input id="chk-when" type="checkbox" class="mt-1 h-5 w-5 accent-amber-400" />
+              <span><span class="font-black">When</span>: date + exact time window (start / end).</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl bg-slate-950/40 p-3">
+              <input id="chk-where" type="checkbox" class="mt-1 h-5 w-5 accent-amber-400" />
+              <span><span class="font-black">Where</span>: jobsite + floor/area + foreman name.</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl bg-slate-950/40 p-3">
+              <input id="chk-who" type="checkbox" class="mt-1 h-5 w-5 accent-amber-400" />
+              <span><span class="font-black">Who</span>: witnesses (names + phone if you have it).</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl bg-slate-950/40 p-3">
+              <input id="chk-proof" type="checkbox" class="mt-1 h-5 w-5 accent-amber-400" />
+              <span><span class="font-black">Proof</span>: photos/video, texts, emails, schedule, pay stubs, badge/clock records.</span>
+            </label>
+            <label class="flex items-start gap-3 rounded-xl bg-slate-950/40 p-3">
+              <input id="chk-words" type="checkbox" class="mt-1 h-5 w-5 accent-amber-400" />
+              <span><span class="font-black">Exact words</span>: what was said, by who, and in front of who (quote if you can).</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-sm font-extrabold uppercase tracking-wide text-slate-300">Quick message builder (optional)</div>
+          <div class="mt-3 grid grid-cols-1 gap-3">
+            <div>
+              <label class="text-xs font-extrabold uppercase tracking-wide text-slate-300">Your name</label>
+              <input id="f-name" class="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-3 text-base font-semibold text-slate-50 outline-none focus:border-amber-400" placeholder="First + last" />
+            </div>
+            <div>
+              <label class="text-xs font-extrabold uppercase tracking-wide text-slate-300">Jobsite</label>
+              <input id="f-jobsite" class="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-3 text-base font-semibold text-slate-50 outline-none focus:border-amber-400" placeholder="Company / location" />
+            </div>
+            <div>
+              <label class="text-xs font-extrabold uppercase tracking-wide text-slate-300">Issue type</label>
+              <select id="f-type" class="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-3 text-base font-semibold text-slate-50 outline-none focus:border-amber-400">
+                <option>Discipline / meeting</option>
+                <option>Unsafe work</option>
+                <option>Wage / hours</option>
+                <option>Harassment / retaliation</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-extrabold uppercase tracking-wide text-slate-300">What happened (short)</label>
+              <textarea id="f-details" rows="4" class="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950/60 px-3 py-3 text-base font-semibold text-slate-50 outline-none focus:border-amber-400" placeholder="Just the facts (who/what/when/where)."></textarea>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 gap-2">
+            <button id="copy-grievance" class="w-full rounded-xl bg-emerald-600 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]" type="button">
+              Copy message to clipboard
+            </button>
+            <a class="w-full rounded-xl bg-sky-600 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]" href="sms:6124288004">
+              Open text to steward
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: Local 10 Hub -->
+      <section id="tab-hub" data-tab-panel="hub" class="hidden space-y-4">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-base font-black text-slate-50">Local 10 Hub</div>
+          <div class="mt-1 text-sm font-semibold text-slate-300">Hall info, training center, and a scan-to-open link for the crew.</div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-sm font-extrabold uppercase tracking-wide text-slate-300">Union Hall</div>
+          <div class="mt-2 text-base font-black text-slate-50">1681 East Cope Ave, Maplewood, MN 55109</div>
+          <div class="mt-2 grid grid-cols-1 gap-2">
+            <a class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]" href="tel:6517702388">
+              Call Hall: 651-770-2388
+            </a>
+            <a
+              class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="https://www.google.com/maps?q=1681+East+Cope+Ave,+Maplewood,+MN+55109"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-sm font-extrabold uppercase tracking-wide text-slate-300">Metro JATC Training Center</div>
+          <div class="mt-2 text-base font-black text-slate-50">3554 White Bear Ave N, White Bear Lake, MN</div>
+          <div class="mt-2 grid grid-cols-1 gap-2">
+            <a
+              class="w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+              href="https://www.google.com/maps?q=3554+White+Bear+Ave+N,+White+Bear+Lake,+MN"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in Maps
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-amber-400/30 bg-slate-900/40 p-4 text-center">
+          <div class="text-base font-black text-amber-200">Scan to open this dashboard</div>
+          <div class="mt-1 text-sm font-semibold text-slate-300">Share with the crew • Add to home screen</div>
+          <div class="mt-4 flex justify-center">
+            <img
+              id="qr-img"
+              alt="QR code to open this dashboard"
+              class="w-72 max-w-full rounded-2xl border-4 border-amber-400 shadow-[0_18px_55px_-20px_rgba(250,204,21,0.6)]"
+              src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fraw.githack.com%2Fcajub311%2FLocal10starter%2Fcursor%2Flocal-10-dashboard-tabs-f186%2Findex.html"
+            />
+          </div>
+          <div class="mt-3 flex flex-col items-center gap-2">
+            <div class="text-xs font-bold uppercase tracking-wide text-slate-400">Link currently encoded</div>
+            <div id="qr-link" class="break-all text-sm font-semibold text-slate-200"></div>
+            <button id="copy-link" class="w-full rounded-xl bg-emerald-600 px-4 py-4 text-base font-extrabold text-white shadow active:scale-[0.99]" type="button">
+              Copy link
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: Resources -->
+      <section id="tab-resources" data-tab-panel="resources" class="hidden space-y-4">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-base font-black text-slate-50">Resources</div>
+          <div class="mt-1 text-sm font-semibold text-slate-300">Keep this simple today, expand later.</div>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-sm font-extrabold uppercase tracking-wide text-slate-300">Union Rulebook (CBA)</div>
+          <div class="mt-2 text-sm font-semibold text-slate-300">Placeholder — this button will open the CBA PDF once it’s added.</div>
+          <button
+            id="open-cba"
+            class="mt-3 w-full rounded-xl bg-slate-800 px-4 py-4 text-center text-base font-extrabold text-white shadow active:scale-[0.99]"
+            type="button"
+          >
+            Open CBA (coming soon)
+          </button>
+        </div>
+
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/40 p-4">
+          <div class="text-sm font-extrabold uppercase tracking-wide text-slate-300">Future update</div>
+          <div class="mt-2 text-base font-black text-slate-50">AI Rulebook Scanner</div>
+          <div class="mt-1 text-sm font-semibold text-slate-300">Point your camera at a rule and get the relevant section + steward notes.</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Fixed bottom UI: Panic button + tab bar -->
+    <div class="fixed inset-x-0 bottom-0 z-50">
+      <div class="mx-auto max-w-xl px-4">
+        <button
+          id="panic-weingarten"
+          type="button"
+          class="w-full rounded-2xl bg-amber-400 px-4 py-5 text-center text-lg font-black text-slate-950 shadow-[0_22px_70px_-35px_rgba(250,204,21,0.9)] active:scale-[0.99]"
+        >
+          WEINGARTEN SCRIPT (tap anytime)
+        </button>
+      </div>
+
+      <nav class="bottom-ui border-t border-slate-800/80 bg-slate-950/92 backdrop-blur">
+        <div class="mx-auto grid max-w-xl grid-cols-4 gap-2 px-3 pt-3">
+          <button data-tab="emergencies" class="tab-btn rounded-xl px-2 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-slate-200">
+            Emergencies
+          </button>
+          <button data-tab="grievance" class="tab-btn rounded-xl px-2 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-slate-200">
+            Grievance Prep
+          </button>
+          <button data-tab="hub" class="tab-btn rounded-xl px-2 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-slate-200">
+            Local 10 Hub
+          </button>
+          <button data-tab="resources" class="tab-btn rounded-xl px-2 py-3 text-center text-xs font-extrabold uppercase tracking-wide text-slate-200">
+            Resources
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <script>
+      const DEFAULT_TAB = "emergencies";
+
+      function setActiveTab(tab) {
+        const panels = document.querySelectorAll("[data-tab-panel]");
+        panels.forEach((p) => p.classList.toggle("hidden", p.dataset.tabPanel !== tab));
+
+        document.querySelectorAll(".tab-btn").forEach((b) => {
+          const active = b.dataset.tab === tab;
+          b.classList.toggle("bg-amber-400", active);
+          b.classList.toggle("text-slate-950", active);
+          b.classList.toggle("shadow", active);
+          b.classList.toggle("bg-slate-900/40", !active);
+        });
+
+        localStorage.setItem("local10_tab", tab);
+      }
+
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (_) {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand("copy");
+            return true;
+          } catch (__) {
+            return false;
+          } finally {
+            document.body.removeChild(ta);
+          }
+        }
+      }
+
+      function buildGrievanceMessage() {
+        const name = (document.getElementById("f-name").value || "").trim();
+        const jobsite = (document.getElementById("f-jobsite").value || "").trim();
+        const type = document.getElementById("f-type").value;
+        const details = (document.getElementById("f-details").value || "").trim();
+
+        const checks = [
+          ["When gathered", document.getElementById("chk-when").checked],
+          ["Where gathered", document.getElementById("chk-where").checked],
+          ["Witnesses gathered", document.getElementById("chk-who").checked],
+          ["Proof gathered", document.getElementById("chk-proof").checked],
+          ["Exact words gathered", document.getElementById("chk-words").checked],
+        ];
+
+        const checklistLine = checks
+          .map(([label, ok]) => `${ok ? "✅" : "⬜"} ${label}`)
+          .join(" | ");
+
+        return [
+          "LOCAL 10 — Steward help needed",
+          name ? `Name: ${name}` : null,
+          jobsite ? `Jobsite: ${jobsite}` : null,
+          `Type: ${type}`,
+          details ? `Details: ${details}` : "Details: [add facts here]",
+          `Checklist: ${checklistLine}`,
+          "Call me back when you can.",
+        ]
+          .filter(Boolean)
+          .join("\n");
+      }
+
+      function setQrFromCurrentUrl() {
+        const hardcoded = "https://raw.githack.com/cajub311/Local10starter/cursor/local-10-dashboard-tabs-f186/index.html";
+        const url = (location && location.href && location.href.startsWith("http")) ? location.href : hardcoded;
+        const encoded = encodeURIComponent(url);
+
+        const img = document.getElementById("qr-img");
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encoded}`;
+
+        const linkEl = document.getElementById("qr-link");
+        linkEl.textContent = url;
+
+        document.getElementById("copy-link").addEventListener("click", async () => {
+          const ok = await copyText(url);
+          alert(ok ? "Link copied." : "Copy failed. Press and hold the link to copy.");
+        });
+      }
+
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+      });
+
+      document.getElementById("panic-weingarten").addEventListener("click", () => {
+        setActiveTab("emergencies");
+        const script = document.getElementById("weingarten-script");
+        script.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+
+      document.getElementById("copy-weingarten").addEventListener("click", async () => {
+        const text = document.getElementById("weingarten-script").textContent.replace(/[“”]/g, '"').trim();
+        const ok = await copyText(text);
+        alert(ok ? "Weingarten script copied." : "Copy failed. Press and hold to select.");
+      });
+
+      document.getElementById("copy-grievance").addEventListener("click", async () => {
+        const msg = buildGrievanceMessage();
+        const ok = await copyText(msg);
+        alert(ok ? "Message copied. Paste into a text to your steward." : "Copy failed. Try again.");
+      });
+
+      document.getElementById("open-cba").addEventListener("click", () => {
+        alert("Coming soon: CBA PDF + quick search.");
+      });
+
+      const savedTab = localStorage.getItem("local10_tab") || DEFAULT_TAB;
+      setActiveTab(savedTab);
+      setQrFromCurrentUrl();
+    </script>
+  </body>
+</html>
