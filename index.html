@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Local 10 Sheet Metal Workers Dashboard</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111a2d;
+      --panel-2: #16233d;
+      --text: #f3f6ff;
+      --muted: #b7c3dd;
+      --accent: #ffd33d;
+      --danger: #ef4444;
+      --success: #14b8a6;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #152544 0%, var(--bg) 55%);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      line-height: 1.45;
+    }
+
+    .app {
+      width: min(960px, 100%);
+      margin: 0 auto;
+      padding: 1rem 1rem calc(8rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .header {
+      background: linear-gradient(145deg, rgba(255, 211, 61, 0.2), rgba(255, 211, 61, 0.08));
+      border: 1px solid rgba(255, 211, 61, 0.35);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 5vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: 0.2px;
+    }
+
+    .header p {
+      margin: 0.5rem 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .quick-links {
+      margin-top: 0.85rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .quick-links a {
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.85rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-align: center;
+      min-height: 52px;
+      display: grid;
+      place-items: center;
+    }
+
+    section {
+      margin-top: 1rem;
+      background: linear-gradient(160deg, var(--panel), var(--panel-2));
+      border: 1px solid rgba(186, 201, 235, 0.2);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    section h2 {
+      margin: 0 0 0.8rem;
+      font-size: clamp(1.1rem, 4.4vw, 1.45rem);
+      line-height: 1.2;
+    }
+
+    .weingarten-card {
+      border: 2px solid rgba(239, 68, 68, 0.55);
+      background: linear-gradient(150deg, rgba(127, 29, 29, 0.18), rgba(153, 27, 27, 0.12));
+    }
+
+    .script-text {
+      margin: 0.8rem 0 1rem;
+      padding: 1rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: clamp(1.28rem, 4.8vw, 1.85rem);
+      font-weight: 900;
+      line-height: 1.35;
+      letter-spacing: 0.2px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      min-height: 52px;
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn-copy {
+      background: var(--success);
+      color: #04211c;
+    }
+
+    .safety-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .safety-list li + li {
+      margin-top: 0.65rem;
+    }
+
+    .contact-cards {
+      margin-top: 0.8rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      padding: 0.85rem;
+      font-weight: 700;
+    }
+
+    .contact-card a {
+      color: #f5dd75;
+      text-decoration: none;
+    }
+
+    .rulebook-wrap {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .btn-rulebook {
+      display: inline-grid;
+      place-items: center;
+      text-decoration: none;
+      min-height: 56px;
+      border-radius: 12px;
+      background: #1d4ed8;
+      color: #ffffff;
+      font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .qr-placeholder {
+      width: min(230px, 70vw);
+      aspect-ratio: 1 / 1;
+      border: 3px dashed rgba(255, 255, 255, 0.48);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0.8rem;
+      font-weight: 800;
+      color: #d6e0f9;
+      background:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 255, 255, 0.03) 75%, transparent 75%, transparent) 0 0 / 18px 18px,
+        rgba(255, 255, 255, 0.02);
+    }
+
+    .rulebook-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 999;
+      padding: 0.6rem 0.8rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+      background: rgba(7, 10, 18, 0.92);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+    }
+
+    .panic-btn {
+      width: min(980px, calc(100% - 0.2rem));
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      min-height: 72px;
+      text-decoration: none;
+      background: linear-gradient(180deg, #f87171, #dc2626);
+      color: #ffffff;
+      font-size: clamp(1rem, 4.6vw, 1.22rem);
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.32);
+      box-shadow: 0 12px 26px rgba(220, 38, 38, 0.45);
+    }
+
+    @media (min-width: 700px) {
+      .app {
+        padding-top: 1.35rem;
+      }
+
+      .rulebook-wrap {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      .quick-links {
+        grid-template-columns: repeat(2, minmax(0, 240px));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1>Local 10 Sheet Metal Workers Dashboard</h1>
+      <p>Fast union support for jobsite pressure, safety, and wage issues.</p>
+      <div class="quick-links">
+        <a href="#weingarten">Go to Weingarten Script</a>
+        <a href="#safety">Safety & Wage Help</a>
+      </div>
+    </header>
+
+    <section id="weingarten" class="weingarten-card">
+      <h2>Weingarten Rights (Read This Out Loud)</h2>
+      <p class="script-text" id="weingartenScript">
+        If this discussion could in any way lead to my being disciplined or terminated, or affect my personal working conditions, I respectfully request that my union representative, officer, or steward be present at this meeting. Without representation, I choose not to answer questions.
+      </p>
+      <button class="btn btn-copy" id="copyBtn" type="button">Copy Script</button>
+    </section>
+
+    <section id="safety">
+      <h2>Health, Safety & Wages</h2>
+      <ul class="safety-list">
+        <li>If work is unsafe, stop and report it immediately to your foreman and steward.</li>
+        <li>For wage concerns, keep records (hours, photos, pay stubs) and report details quickly.</li>
+        <li>If not fixed fast, escalate using the contacts below.</li>
+      </ul>
+      <div class="contact-cards">
+        <div class="contact-card">
+          MNOSHA Compliance: <a href="tel:+16512845050">651-284-5050</a>
+        </div>
+        <div class="contact-card">
+          MN Department of Labor and Industry: <a href="tel:+16512845075">651-284-5075</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="rulebook">
+      <h2>Union Rulebook (CBA)</h2>
+      <div class="rulebook-wrap">
+        <a class="btn-rulebook" href="#" aria-label="Open Union Rulebook">Open Rulebook</a>
+        <div class="qr-placeholder" aria-label="QR code placeholder">QR CODE PLACEHOLDER</div>
+      </div>
+      <p class="rulebook-note">Future Update: AI Rulebook Scanner</p>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Sticky emergency navigation">
+    <a class="panic-btn" href="#weingarten">[WEINGARTEN SCRIPT]</a>
+  </nav>
+
+  <script>
+    (function () {
+      const copyBtn = document.getElementById("copyBtn");
+      const scriptText = document.getElementById("weingartenScript").textContent.trim();
+
+      async function copyScript() {
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(scriptText);
+          } else {
+            const area = document.createElement("textarea");
+            area.value = scriptText;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand("copy");
+            area.remove();
+          }
+          copyBtn.textContent = "Script Copied";
+          setTimeout(function () {
+            copyBtn.textContent = "Copy Script";
+          }, 1400);
+        } catch (err) {
+          copyBtn.textContent = "Copy Failed - Try Again";
+          setTimeout(function () {
+            copyBtn.textContent = "Copy Script";
+          }, 1600);
+        }
+      }
+
+      copyBtn.addEventListener("click", copyScript);
+    })();
+  </script>
+</body>
+</html>
