@@ -1,4 +1,4 @@
-var CACHE_NAME = 'local10-v1';
+var CACHE_NAME = 'local10-v2';
 var URLS_TO_CACHE = [
   '/index.html',
   '/manifest.json'

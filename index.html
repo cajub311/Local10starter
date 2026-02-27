@@ -10,7 +10,7 @@
   <title>SMART Local 10 — Emergency Dashboard</title>
   <link rel="manifest" href="manifest.json" />
 
-  <!-- Tailwind CSS via CDN -->
+  <!-- Tailwind CSS via CDN (single dependency — keeps it lightweight) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -31,88 +31,122 @@
   </script>
 
   <style>
-    /* Smooth scroll for anchor links */
     html { scroll-behavior: smooth; }
     body { -webkit-tap-highlight-color: transparent; }
 
-    /* Pulsing animation for panic buttons */
-    @keyframes subtle-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(204,31,31,0.3); }
-      50%      { box-shadow: 0 0 16px 4px rgba(204,31,31,0.15); }
+    /* Subtle glow on panic buttons so they pop on dark background */
+    .panic-btn {
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
     }
-    .panic-btn { animation: subtle-pulse 3s ease-in-out infinite; }
+    .panic-btn:active {
+      transform: scale(0.97);
+    }
 
-    /* Copied flash animation */
-    @keyframes flash-green {
-      0%   { background-color: #16a34a; }
-      100% { background-color: #cc1f1f; }
+    /* COPIED! state: button stays green until timer resets */
+    .btn-copied {
+      background-color: #16a34a !important;
+      transition: background-color 0.15s ease;
     }
-    .flash-copied { animation: flash-green 0.8s ease-out; }
+
+    /* Dropdown caret for <select> (replaces hidden native arrow) */
+    .select-caret {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23999' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 20px;
+    }
+
+    /* Offline banner slide-in */
+    .offline-bar {
+      transform: translateY(-100%);
+      transition: transform 0.3s ease;
+    }
+    .offline-bar.show {
+      transform: translateY(0);
+    }
   </style>
 </head>
 
 <body class="bg-union-dark text-gray-100 font-sans min-h-screen">
 
   <!-- ============================================================
-       HEADER — Union branding & PWA install banner
+       OFFLINE INDICATOR
+       Slides in when network drops — critical for shops with bad
+       cell service. Inspired by PWA best practices from Union
+       Strong App's always-available design philosophy.
        ============================================================ -->
-  <header class="bg-union-red py-4 px-4 text-center sticky top-0 z-50 shadow-lg shadow-red-900/30">
-    <h1 class="text-xl font-black tracking-wide uppercase">
+  <div id="offline-bar"
+       class="offline-bar fixed top-0 left-0 right-0 z-[60]
+              bg-safety-yellow text-black text-center text-sm font-black
+              py-1.5 tracking-wide uppercase">
+    &#9888; Offline — Saved Data Still Available
+  </div>
+
+
+  <!-- ============================================================
+       HEADER — Compact to maximize above-the-fold panic buttons
+       ============================================================ -->
+  <header class="bg-union-red py-3 px-4 text-center sticky top-0 z-50
+                 shadow-lg shadow-red-900/40">
+    <h1 class="text-lg font-black tracking-wide uppercase leading-tight">
       &#9881; SMART Local 10
     </h1>
-    <p class="text-sm opacity-90 mt-0.5">Emergency Dashboard — Know Your Rights</p>
+    <p class="text-xs opacity-90">Emergency Dashboard — Know Your Rights</p>
   </header>
 
 
   <main class="max-w-lg mx-auto px-3 pb-12">
 
     <!-- ============================================================
-         SECTION A: PANIC DASHBOARD — 4-button grid
-         No scrolling required to see all 4 buttons on mobile.
-         Each button is 60px+ tall for "Greasy Hand" compliance.
+         SECTION A: THE "PANIC" DASHBOARD
+         4-button grid visible immediately on load — no scrolling.
+         Every button is 90px+ tall for workers with gloves/dirty hands.
+         Colors follow OSHA safety convention: Red=danger, Yellow=caution,
+         Green=safety/go, Blue=info.
          ============================================================ -->
-    <section id="panic" class="pt-5 pb-2" aria-label="Emergency Actions">
+    <section id="panic" class="pt-4 pb-2" aria-label="Emergency Actions">
       <div class="grid grid-cols-2 gap-3">
 
-        <!-- 1. DISCIPLINE (Red) → Weingarten -->
+        <!-- 1. DISCIPLINE (Red) → anchors to Weingarten Rights -->
         <a href="#weingarten"
            class="panic-btn flex flex-col items-center justify-center rounded-xl
                   bg-union-red hover:bg-red-700 active:bg-red-800
                   text-white font-black text-lg uppercase tracking-wider
-                  min-h-[90px] p-4 transition-colors select-none">
+                  min-h-[90px] p-3 shadow-lg shadow-red-900/30 select-none"
+           aria-label="Facing discipline? Tap for your Weingarten Rights.">
           <span class="text-3xl mb-1" aria-hidden="true">&#9888;</span>
           DISCIPLINE
         </a>
 
-        <!-- 2. UNSAFE WORK (Yellow) → MNOSHA -->
+        <!-- 2. UNSAFE WORK (Yellow) → anchors to Right to Refuse / MNOSHA -->
         <a href="#safety"
            class="panic-btn flex flex-col items-center justify-center rounded-xl
                   bg-safety-yellow hover:bg-yellow-400 active:bg-yellow-600
                   text-black font-black text-lg uppercase tracking-wider
-                  min-h-[90px] p-4 transition-colors select-none"
-           style="animation-delay: 0.5s;">
+                  min-h-[90px] p-3 shadow-lg shadow-yellow-900/20 select-none"
+           aria-label="Unsafe conditions? Tap for your right to refuse.">
           <span class="text-3xl mb-1" aria-hidden="true">&#9762;</span>
           UNSAFE WORK
         </a>
 
-        <!-- 3. TEXT BA (Green) → SMS link -->
+        <!-- 3. TEXT BA (Green) → sms: link to Business Agent -->
         <a href="sms:+16513666414?body=I%20need%20a%20union%20rep%20on%20the%20shop%20floor%20immediately."
            class="panic-btn flex flex-col items-center justify-center rounded-xl
                   bg-safety-green hover:bg-green-500 active:bg-green-700
                   text-white font-black text-lg uppercase tracking-wider
-                  min-h-[90px] p-4 transition-colors select-none"
-           style="animation-delay: 1s;">
-          <span class="text-3xl mb-1" aria-hidden="true">&#9993;</span>
+                  min-h-[90px] p-3 shadow-lg shadow-green-900/20 select-none"
+           aria-label="Text the Business Agent for immediate help.">
+          <span class="text-3xl mb-1" aria-hidden="true">&#128172;</span>
           TEXT BA
         </a>
 
-        <!-- 4. WAGES & TIME (Blue) → MN Laws -->
+        <!-- 4. WAGES & TIME (Blue) → anchors to MN Laws -->
         <a href="#mn-laws"
            class="panic-btn flex flex-col items-center justify-center rounded-xl
                   bg-safety-blue hover:bg-blue-500 active:bg-blue-700
                   text-white font-black text-lg uppercase tracking-wider
-                  min-h-[90px] p-4 transition-colors select-none"
-           style="animation-delay: 1.5s;">
+                  min-h-[90px] p-3 shadow-lg shadow-blue-900/20 select-none"
+           aria-label="Wage or time issue? Tap for Minnesota labor laws.">
           <span class="text-3xl mb-1" aria-hidden="true">&#128176;</span>
           WAGES &amp; TIME
         </a>
@@ -123,36 +157,53 @@
 
     <!-- ============================================================
          SECTION B: WEINGARTEN RIGHTS (Discipline)
-         Digital "card" inspired by USW's digital union card concept.
-         Massive script text so the worker can read it aloud.
+         Styled as a "digital rights card" — inspired by USW's digital
+         union card feature. Script text is intentionally oversized so
+         a stressed worker can read it aloud in a meeting.
          ============================================================ -->
     <section id="weingarten" class="mt-6" aria-label="Weingarten Rights">
-      <div class="bg-union-card border-2 border-union-red rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-union-card border-2 border-union-red rounded-2xl overflow-hidden
+                  shadow-xl shadow-red-900/10">
+
+        <!-- Card header -->
         <div class="bg-union-red px-4 py-3">
           <h2 class="text-lg font-black uppercase tracking-wide text-center">
             &#128220; Weingarten Rights
           </h2>
-          <p class="text-xs text-center opacity-90 mt-0.5">Your right to union representation during questioning</p>
+          <p class="text-xs text-center opacity-90 mt-0.5">
+            Your right to union representation during questioning
+          </p>
         </div>
 
         <div class="p-5">
-          <!-- The script — intentionally large for readability under stress -->
+          <!-- The Script — deliberately oversized for readability under stress -->
           <blockquote id="weingarten-script"
-                      class="text-xl leading-relaxed font-semibold text-gray-50 border-l-4 border-union-red pl-4">
-            &#8220;If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative be present.&#8221;
+                      class="text-xl sm:text-2xl leading-relaxed font-bold
+                             text-white border-l-4 border-union-red pl-4 py-1">
+            &#8220;If this discussion could in any way lead to my being
+            disciplined or terminated, I respectfully request that my
+            union representative be present.&#8221;
           </blockquote>
 
-          <p class="text-sm text-gray-400 mt-4">
-            <strong class="text-gray-300">What this means:</strong> You have the legal right (NLRB v. Weingarten, 1975) to have a union steward present before answering any questions that could lead to discipline. <em>Say the script, then stay silent until your rep arrives.</em>
+          <p class="text-sm text-gray-400 mt-4 leading-relaxed">
+            <strong class="text-gray-200">What this means:</strong>
+            You have the legal right
+            (<span class="text-gray-300">NLRB v. Weingarten, 1975</span>)
+            to have a union steward present before answering any questions
+            that could lead to discipline.
+            <em class="text-gray-300">Say the script, then stay silent
+            until your rep arrives.</em>
           </p>
 
-          <!-- COPY SCRIPT — big, obvious button -->
+          <!-- COPY SCRIPT — huge, obvious, with long-lasting feedback -->
           <button id="copy-weingarten-btn"
                   onclick="copyWeingartenScript()"
                   class="mt-5 w-full bg-union-red hover:bg-red-700 active:bg-red-800
-                         text-white font-black text-lg uppercase tracking-wider
-                         rounded-xl min-h-[60px] transition-colors select-none">
-            &#128203; COPY SCRIPT
+                         text-white font-black text-xl uppercase tracking-wider
+                         rounded-xl min-h-[64px] transition-colors select-none
+                         flex items-center justify-center gap-2">
+            <span id="copy-btn-icon">&#128203;</span>
+            <span id="copy-btn-text">COPY SCRIPT</span>
           </button>
         </div>
       </div>
@@ -161,10 +212,13 @@
 
     <!-- ============================================================
          SECTION C: RIGHT TO REFUSE (Safety / MNOSHA)
-         Cites MN Statute 182.654. One-tap call to MNOSHA.
+         Cites MN Statute 182.654. Includes step-by-step checklist
+         and one-tap MNOSHA call button.
          ============================================================ -->
     <section id="safety" class="mt-6" aria-label="Right to Refuse Unsafe Work">
-      <div class="bg-union-card border-2 border-safety-yellow rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-union-card border-2 border-safety-yellow rounded-2xl overflow-hidden
+                  shadow-xl shadow-yellow-900/10">
+
         <div class="bg-safety-yellow px-4 py-3">
           <h2 class="text-lg font-black uppercase tracking-wide text-center text-black">
             &#9762; Right to Refuse Unsafe Work
@@ -172,29 +226,47 @@
         </div>
 
         <div class="p-5">
-          <p class="text-xl font-semibold text-gray-50 leading-relaxed">
-            You have the <span class="text-safety-yellow font-black">legal right</span> to refuse any task you reasonably believe poses an <span class="text-safety-yellow font-black underline">imminent danger of death or serious physical harm.</span>
+          <p class="text-xl font-bold text-white leading-relaxed">
+            You have the
+            <span class="text-safety-yellow">legal right</span>
+            to refuse any task you reasonably believe poses an
+            <span class="text-safety-yellow underline decoration-2">imminent
+            danger of death or serious physical harm.</span>
           </p>
 
-          <div class="mt-4 bg-black/40 rounded-xl p-4 border border-union-border">
-            <p class="text-sm text-gray-300">
-              <strong class="text-safety-yellow">MN Statute 182.654, Subd. 11</strong> — An employee who refuses in good faith to perform assigned work because of a reasonable belief that it exposes them to an imminent danger of death or serious injury is protected from retaliation.
+          <!-- Statute citation -->
+          <div class="mt-4 bg-black/50 rounded-xl p-4 border border-safety-yellow/30">
+            <p class="text-sm text-gray-300 leading-relaxed">
+              <strong class="text-safety-yellow">MN Statute 182.654, Subd. 11</strong>
+              — An employee who refuses in good faith to perform assigned work
+              because of a reasonable belief that it exposes them to an imminent
+              danger of death or serious injury is protected from retaliation.
             </p>
           </div>
 
-          <div class="mt-4 space-y-2 text-sm text-gray-300">
-            <p>&#10003; Tell your supervisor you believe the task is unsafe.</p>
-            <p>&#10003; Explain why you believe there's an imminent danger.</p>
-            <p>&#10003; Contact your steward and MNOSHA immediately.</p>
+          <!-- Step-by-step checklist -->
+          <div class="mt-4 space-y-2.5 text-base text-gray-200 font-medium">
+            <p class="flex items-start gap-2">
+              <span class="text-safety-yellow text-lg leading-none mt-0.5">&#10004;</span>
+              Tell your supervisor you believe the task is unsafe.
+            </p>
+            <p class="flex items-start gap-2">
+              <span class="text-safety-yellow text-lg leading-none mt-0.5">&#10004;</span>
+              Explain why you believe there's an imminent danger.
+            </p>
+            <p class="flex items-start gap-2">
+              <span class="text-safety-yellow text-lg leading-none mt-0.5">&#10004;</span>
+              Contact your steward and MNOSHA immediately.
+            </p>
           </div>
 
           <!-- MNOSHA One-Tap Call -->
           <a href="tel:+16512844503"
-             class="mt-5 flex items-center justify-center w-full
+             class="mt-5 flex items-center justify-center gap-2 w-full
                     bg-safety-yellow hover:bg-yellow-400 active:bg-yellow-600
                     text-black font-black text-lg uppercase tracking-wider
-                    rounded-xl min-h-[60px] transition-colors select-none">
-            &#128222; CALL MNOSHA: 651-284-4503
+                    rounded-xl min-h-[64px] transition-colors select-none">
+            <span>&#128222;</span> CALL MNOSHA: 651-284-4503
           </a>
         </div>
       </div>
@@ -203,52 +275,64 @@
 
     <!-- ============================================================
          SECTION D: MN LAWS (Wages & Time)
-         Brief, punchy bullets. No legalese.
+         Brief, punchy, no legalese. Workers should be able to scan
+         these in 5 seconds and know their rights.
          ============================================================ -->
     <section id="mn-laws" class="mt-6" aria-label="Minnesota Labor Laws">
-      <div class="bg-union-card border-2 border-safety-blue rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-union-card border-2 border-safety-blue rounded-2xl overflow-hidden
+                  shadow-xl shadow-blue-900/10">
+
         <div class="bg-safety-blue px-4 py-3">
           <h2 class="text-lg font-black uppercase tracking-wide text-center">
             &#128176; MN Wages &amp; Time Laws
           </h2>
         </div>
 
-        <div class="p-5 space-y-5">
+        <div class="p-5 space-y-4">
+
           <!-- Wage Theft -->
-          <div class="bg-black/40 rounded-xl p-4 border border-union-border">
-            <h3 class="font-black text-safety-blue uppercase text-sm tracking-wide mb-2">
-              &#128680; Wage Theft Protection
+          <div class="bg-black/50 rounded-xl p-4 border border-union-border">
+            <h3 class="font-black text-safety-blue uppercase text-sm tracking-wide mb-2 flex items-center gap-1.5">
+              <span>&#128680;</span> Wage Theft Protection
             </h3>
-            <p class="text-base text-gray-100 font-medium">
-              By MN law, changes to your pay must be in writing <span class="text-safety-yellow font-black">BEFORE</span> they happen.
+            <p class="text-lg text-white font-bold leading-snug">
+              By MN law, changes to your pay must be in writing
+              <span class="text-safety-yellow">BEFORE</span> they happen.
             </p>
             <p class="text-sm text-gray-400 mt-2">
-              MN Statute 181.101 — Your employer must give you written notice of any pay rate changes before the pay period they take effect.
+              MN Statute 181.101 — Your employer must give you written notice
+              of any pay rate changes before the pay period they take effect.
             </p>
           </div>
 
-          <!-- MN ESST -->
-          <div class="bg-black/40 rounded-xl p-4 border border-union-border">
-            <h3 class="font-black text-safety-blue uppercase text-sm tracking-wide mb-2">
-              &#129658; Earned Sick &amp; Safe Time (ESST)
+          <!-- MN ESST (Sick Time) -->
+          <div class="bg-black/50 rounded-xl p-4 border border-union-border">
+            <h3 class="font-black text-safety-blue uppercase text-sm tracking-wide mb-2 flex items-center gap-1.5">
+              <span>&#129658;</span> Earned Sick &amp; Safe Time (ESST)
             </h3>
-            <p class="text-base text-gray-100 font-medium">
-              MN law requires employers to provide Earned Sick and Safe Time — 1 hour for every 30 hours worked, up to 48 hrs/year.
+            <p class="text-lg text-white font-bold leading-snug">
+              MN law requires employers to provide Earned Sick and Safe Time.
             </p>
             <p class="text-sm text-gray-400 mt-2">
-              You can use ESST for illness, safety concerns, or caring for family. Your employer <strong class="text-gray-200">cannot</strong> retaliate against you for using it.
+              You earn 1 hour for every 30 hours worked (up to 48 hrs/year).
+              Use it for illness, safety, or family care. Your employer
+              <strong class="text-gray-200">cannot</strong> retaliate for using it.
             </p>
           </div>
 
           <!-- Overtime -->
-          <div class="bg-black/40 rounded-xl p-4 border border-union-border">
-            <h3 class="font-black text-safety-blue uppercase text-sm tracking-wide mb-2">
-              &#9200; Overtime
+          <div class="bg-black/50 rounded-xl p-4 border border-union-border">
+            <h3 class="font-black text-safety-blue uppercase text-sm tracking-wide mb-2 flex items-center gap-1.5">
+              <span>&#9200;</span> Overtime
             </h3>
-            <p class="text-base text-gray-100 font-medium">
-              MN follows federal FLSA: time-and-a-half after 40 hours in a workweek. No exceptions for "comp time" without your written agreement.
+            <p class="text-lg text-white font-bold leading-snug">
+              Time-and-a-half after 40 hours in a workweek — no exceptions.
+            </p>
+            <p class="text-sm text-gray-400 mt-2">
+              MN follows federal FLSA. No "comp time" without your written agreement.
             </p>
           </div>
+
         </div>
       </div>
     </section>
@@ -256,40 +340,47 @@
 
     <!-- ============================================================
          SECTION E: GRIEVANCE DEADLINE CALCULATOR
-         Vanilla JS. Skips weekends. Inputs are large for gloved use.
-         Inspired by union CRM grievance timeline tracking features.
+         Vanilla JS. Skips weekends (Sat/Sun). All inputs are 60px+.
+         Inspired by grievance timeline tracking in union CRM platforms
+         like Union Impact and UnionConnect.
          ============================================================ -->
     <section id="grievance-calc" class="mt-6" aria-label="Grievance Deadline Calculator">
       <div class="bg-union-card border-2 border-union-border rounded-2xl overflow-hidden shadow-xl">
+
         <div class="bg-union-card px-4 py-3 border-b border-union-border">
           <h2 class="text-lg font-black uppercase tracking-wide text-center text-gray-100">
             &#128197; Grievance Deadline Calculator
           </h2>
-          <p class="text-xs text-center text-gray-400 mt-0.5">Don't miss your filing window</p>
+          <p class="text-xs text-center text-gray-500 mt-0.5">
+            Don't miss your filing window
+          </p>
         </div>
 
         <div class="p-5 space-y-4">
-          <!-- Date input -->
+
+          <!-- Date of Violation input -->
           <div>
-            <label for="violation-date" class="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wide">
+            <label for="violation-date"
+                   class="block text-sm font-black text-gray-300 mb-2 uppercase tracking-wide">
               Date of Violation
             </label>
             <input type="date" id="violation-date"
                    class="w-full bg-black/60 border-2 border-union-border rounded-xl px-4
                           text-lg text-gray-100 min-h-[60px]
-                          focus:border-union-red focus:outline-none focus:ring-1 focus:ring-union-red
+                          focus:border-union-red focus:outline-none focus:ring-2 focus:ring-union-red/50
                           transition-colors" />
           </div>
 
-          <!-- Working days dropdown -->
+          <!-- Filing Window dropdown -->
           <div>
-            <label for="working-days" class="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wide">
+            <label for="working-days"
+                   class="block text-sm font-black text-gray-300 mb-2 uppercase tracking-wide">
               Filing Window
             </label>
             <select id="working-days"
-                    class="w-full bg-black/60 border-2 border-union-border rounded-xl px-4
-                           text-lg text-gray-100 min-h-[60px] appearance-none
-                           focus:border-union-red focus:outline-none focus:ring-1 focus:ring-union-red
+                    class="w-full bg-black/60 border-2 border-union-border rounded-xl px-4 pr-10
+                           text-lg text-gray-100 min-h-[60px] appearance-none select-caret
+                           focus:border-union-red focus:outline-none focus:ring-2 focus:ring-union-red/50
                            transition-colors">
               <option value="5">5 Working Days</option>
               <option value="7">7 Working Days</option>
@@ -301,18 +392,23 @@
           <button onclick="calculateDeadline()"
                   class="w-full bg-union-red hover:bg-red-700 active:bg-red-800
                          text-white font-black text-lg uppercase tracking-wider
-                         rounded-xl min-h-[60px] transition-colors select-none">
-            &#128338; CALCULATE DEADLINE
+                         rounded-xl min-h-[64px] transition-colors select-none
+                         flex items-center justify-center gap-2">
+            <span>&#128338;</span> CALCULATE DEADLINE
           </button>
 
-          <!-- Result display -->
-          <div id="deadline-result" class="hidden">
-            <div class="bg-black/60 rounded-xl p-4 border-2 border-union-red text-center">
-              <p class="text-sm text-gray-400 uppercase tracking-wide font-bold">Your Grievance Deadline</p>
-              <p id="deadline-date" class="text-3xl font-black text-union-red mt-2"></p>
-              <p id="deadline-warning" class="text-sm text-safety-yellow mt-2 font-medium"></p>
+          <!-- Result display (hidden until calculated) -->
+          <div id="deadline-result" class="hidden mt-2">
+            <div class="bg-black/60 rounded-xl p-5 border-2 border-union-red text-center">
+              <p class="text-xs text-gray-500 uppercase tracking-widest font-black">
+                Your Grievance Deadline
+              </p>
+              <p id="deadline-date"
+                 class="text-2xl sm:text-3xl font-black text-union-red mt-2 leading-tight"></p>
+              <p id="deadline-warning" class="text-sm mt-3 font-bold"></p>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -320,58 +416,89 @@
 
     <!-- ============================================================
          SECTION F: CONTACTS
-         One-tap tel: buttons. Inspired by UFCW Rapid Response Team.
+         One-tap tel: and sms: buttons. Inspired by UFCW's "Rapid
+         Response Team" model — immediate access to your rep.
          ============================================================ -->
-    <section id="contacts" class="mt-6 mb-8" aria-label="Union Contacts">
+    <section id="contacts" class="mt-6 mb-6" aria-label="Union Contacts">
       <div class="bg-union-card border-2 border-union-border rounded-2xl overflow-hidden shadow-xl">
+
         <div class="bg-union-card px-4 py-3 border-b border-union-border">
           <h2 class="text-lg font-black uppercase tracking-wide text-center text-gray-100">
             &#128222; Union Contacts
           </h2>
         </div>
 
-        <div class="p-5 space-y-3">
-          <!-- Business Manager -->
+        <div class="p-4 space-y-3">
+
+          <!-- Business Manager — Matt Fairbanks -->
           <a href="tel:+16513666414"
-             class="flex items-center w-full bg-black/40 hover:bg-black/60 active:bg-union-red/30
-                    border-2 border-union-border hover:border-union-red
-                    rounded-xl min-h-[70px] px-4 transition-colors select-none">
-            <span class="text-3xl mr-4" aria-hidden="true">&#128100;</span>
-            <div class="flex-1">
-              <p class="font-black text-gray-100 text-base">Matt Fairbanks</p>
-              <p class="text-sm text-gray-400">Business Manager</p>
+             class="flex items-center w-full bg-black/40 hover:bg-black/60
+                    active:bg-union-red/20 border-2 border-union-border
+                    hover:border-union-red rounded-xl min-h-[70px] px-4
+                    transition-all select-none">
+            <span class="text-3xl mr-3 flex-shrink-0" aria-hidden="true">&#128100;</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-black text-white text-base">Matt Fairbanks</p>
+              <p class="text-xs text-gray-400">Business Manager</p>
             </div>
-            <span class="text-safety-green font-black text-lg">651-366-6414</span>
+            <span class="text-safety-green font-black text-base ml-2 flex-shrink-0">
+              651-366-6414
+            </span>
           </a>
 
           <!-- MNOSHA -->
           <a href="tel:+16512844503"
-             class="flex items-center w-full bg-black/40 hover:bg-black/60 active:bg-safety-yellow/20
-                    border-2 border-union-border hover:border-safety-yellow
-                    rounded-xl min-h-[70px] px-4 transition-colors select-none">
-            <span class="text-3xl mr-4" aria-hidden="true">&#9762;</span>
-            <div class="flex-1">
-              <p class="font-black text-gray-100 text-base">MNOSHA</p>
-              <p class="text-sm text-gray-400">MN Occupational Safety</p>
+             class="flex items-center w-full bg-black/40 hover:bg-black/60
+                    active:bg-safety-yellow/10 border-2 border-union-border
+                    hover:border-safety-yellow rounded-xl min-h-[70px] px-4
+                    transition-all select-none">
+            <span class="text-3xl mr-3 flex-shrink-0" aria-hidden="true">&#9762;</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-black text-white text-base">MNOSHA</p>
+              <p class="text-xs text-gray-400">MN Occupational Safety &amp; Health</p>
             </div>
-            <span class="text-safety-yellow font-black text-lg">651-284-4503</span>
+            <span class="text-safety-yellow font-black text-base ml-2 flex-shrink-0">
+              651-284-4503
+            </span>
           </a>
 
-          <!-- Text BA shortcut (repeated for easy access) -->
+          <!-- Text BA (repeated for easy access from bottom of page) -->
           <a href="sms:+16513666414?body=I%20need%20a%20union%20rep%20on%20the%20shop%20floor%20immediately."
-             class="flex items-center w-full bg-safety-green/10 hover:bg-safety-green/20 active:bg-safety-green/30
-                    border-2 border-safety-green/40 hover:border-safety-green
-                    rounded-xl min-h-[70px] px-4 transition-colors select-none">
-            <span class="text-3xl mr-4" aria-hidden="true">&#9993;</span>
-            <div class="flex-1">
-              <p class="font-black text-gray-100 text-base">Text Your BA</p>
-              <p class="text-sm text-gray-400">"I need a rep on the floor immediately"</p>
+             class="flex items-center w-full bg-safety-green/10 hover:bg-safety-green/20
+                    active:bg-safety-green/30 border-2 border-safety-green/40
+                    hover:border-safety-green rounded-xl min-h-[70px] px-4
+                    transition-all select-none">
+            <span class="text-3xl mr-3 flex-shrink-0" aria-hidden="true">&#128172;</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-black text-white text-base">Text Your BA</p>
+              <p class="text-xs text-gray-400">"I need a rep on the floor immediately"</p>
             </div>
-            <span class="text-safety-green font-black text-sm">TAP TO SEND</span>
+            <span class="text-safety-green font-black text-xs ml-2 flex-shrink-0 uppercase">
+              Tap&nbsp;to&nbsp;Send
+            </span>
           </a>
+
         </div>
       </div>
     </section>
+
+
+    <!-- ============================================================
+         SHARE BUTTON
+         Union Strong App research: member-to-member sharing is key.
+         Workers scan a hardhat QR code, then can share the link with
+         coworkers who don't have the QR. Uses Web Share API with
+         fallback to clipboard copy.
+         ============================================================ -->
+    <div class="text-center mb-8">
+      <button onclick="shareDashboard()"
+              class="inline-flex items-center gap-2 bg-union-card border border-union-border
+                     hover:border-gray-500 text-gray-400 hover:text-gray-200
+                     font-bold text-sm uppercase tracking-wider
+                     rounded-xl px-6 min-h-[48px] transition-colors select-none">
+        <span>&#128279;</span> Share With a Coworker
+      </button>
+    </div>
 
   </main>
 
@@ -381,151 +508,240 @@
        ============================================================ -->
   <footer class="bg-black/80 border-t border-union-border text-center py-6 px-4">
     <p class="text-xs text-gray-500">
-      SMART Local 10 &mdash; Sheet Metal, Air, Rail, and Transportation Workers
+      SMART Local 10 &mdash; Sheet Metal, Air, Rail &amp; Transportation Workers
     </p>
     <p class="text-xs text-gray-600 mt-1">
-      This tool provides general information, not legal advice. Always consult your steward or attorney.
+      This tool provides general information, not legal advice.
+      Always consult your steward or attorney.
     </p>
     <button onclick="window.scrollTo({top:0})"
-            class="mt-3 text-union-red font-bold text-sm uppercase tracking-wide hover:underline">
+            class="mt-3 text-union-red font-bold text-sm uppercase tracking-wide
+                   hover:underline min-h-[44px]">
       &#8593; Back to Top
     </button>
   </footer>
 
 
   <!-- ============================================================
-       JAVASCRIPT — Vanilla JS, no frameworks
+       JAVASCRIPT — Vanilla JS, zero frameworks, zero dependencies
        ============================================================ -->
   <script>
-    /* -------------------------------------------------------
-       COPY WEINGARTEN SCRIPT
-       Uses Clipboard API with fallback for older browsers.
-       Shows "COPIED!" flash feedback on the button.
-       ------------------------------------------------------- */
-    function copyWeingartenScript() {
-      var script = 'If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative be present.';
-      var btn = document.getElementById('copy-weingarten-btn');
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(script).then(function() {
-          showCopied(btn);
-        }).catch(function() {
-          fallbackCopy(script, btn);
-        });
-      } else {
-        fallbackCopy(script, btn);
+    /* ---------------------------------------------------------
+       HAPTIC FEEDBACK HELPER
+       Vibrates the phone briefly on key actions. On a loud shop
+       floor, tactile feedback confirms the tap registered even
+       when the worker can't hear or see the screen clearly.
+       --------------------------------------------------------- */
+    function haptic(ms) {
+      if (navigator.vibrate) {
+        navigator.vibrate(ms || 30);
       }
     }
 
-    function fallbackCopy(text, btn) {
+
+    /* ---------------------------------------------------------
+       COPY WEINGARTEN SCRIPT
+       Clipboard API with textarea fallback for older browsers.
+       Shows a clear green "COPIED!" state for 2.5 seconds.
+       Includes haptic feedback for shop-floor confirmation.
+       --------------------------------------------------------- */
+    function copyWeingartenScript() {
+      haptic(50);
+
+      var script =
+        'If this discussion could in any way lead to my being disciplined ' +
+        'or terminated, I respectfully request that my union representative ' +
+        'be present.';
+
+      var btn      = document.getElementById('copy-weingarten-btn');
+      var btnIcon  = document.getElementById('copy-btn-icon');
+      var btnText  = document.getElementById('copy-btn-text');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(script).then(function () {
+          showCopied(btn, btnIcon, btnText);
+        }).catch(function () {
+          fallbackCopy(script, btn, btnIcon, btnText);
+        });
+      } else {
+        fallbackCopy(script, btn, btnIcon, btnText);
+      }
+    }
+
+    function fallbackCopy(text, btn, btnIcon, btnText) {
       var ta = document.createElement('textarea');
       ta.value = text;
       ta.style.position = 'fixed';
       ta.style.left = '-9999px';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); showCopied(btn); }
-      catch (e) { btn.textContent = '⚠ TAP & HOLD TO COPY'; }
+      try {
+        document.execCommand('copy');
+        showCopied(btn, btnIcon, btnText);
+      } catch (e) {
+        btnText.textContent = 'TAP & HOLD TO COPY';
+      }
       document.body.removeChild(ta);
     }
 
-    function showCopied(btn) {
-      var original = btn.innerHTML;
-      btn.innerHTML = '&#10004; COPIED!';
-      btn.classList.add('flash-copied');
-      setTimeout(function() {
-        btn.innerHTML = original;
-        btn.classList.remove('flash-copied');
-      }, 1500);
+    function showCopied(btn, btnIcon, btnText) {
+      btnIcon.innerHTML = '&#10004;';
+      btnText.textContent = 'COPIED!';
+      btn.classList.add('btn-copied');
+
+      setTimeout(function () {
+        btnIcon.innerHTML = '&#128203;';
+        btnText.textContent = 'COPY SCRIPT';
+        btn.classList.remove('btn-copied');
+      }, 2500);
     }
 
 
-    /* -------------------------------------------------------
+    /* ---------------------------------------------------------
        GRIEVANCE DEADLINE CALCULATOR
-       Takes a start date + working days, skips weekends (Sat/Sun).
-       Returns the filing deadline date.
-       ------------------------------------------------------- */
+       Adds N working days to a start date, skipping Sat & Sun.
+       Color-coded urgency: red (passed), yellow (imminent),
+       green (time remaining).
+       --------------------------------------------------------- */
     function calculateDeadline() {
-      var dateInput = document.getElementById('violation-date');
-      var daysSelect = document.getElementById('working-days');
-      var resultDiv = document.getElementById('deadline-result');
-      var dateDisplay = document.getElementById('deadline-date');
+      haptic(30);
+
+      var dateInput      = document.getElementById('violation-date');
+      var daysSelect     = document.getElementById('working-days');
+      var resultDiv      = document.getElementById('deadline-result');
+      var dateDisplay    = document.getElementById('deadline-date');
       var warningDisplay = document.getElementById('deadline-warning');
 
+      /* Validate input */
       if (!dateInput.value) {
         dateInput.style.borderColor = '#cc1f1f';
         dateInput.focus();
         return;
       }
+      dateInput.style.borderColor = '';
 
+      /* Parse the date (avoid timezone pitfalls from new Date(string)) */
       var parts = dateInput.value.split('-');
       var startDate = new Date(
-        parseInt(parts[0]),
-        parseInt(parts[1]) - 1,
-        parseInt(parts[2])
+        parseInt(parts[0], 10),
+        parseInt(parts[1], 10) - 1,
+        parseInt(parts[2], 10)
       );
-      var workingDays = parseInt(daysSelect.value);
+      var workingDays = parseInt(daysSelect.value, 10);
       var deadline = addWorkingDays(startDate, workingDays);
 
-      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      dateDisplay.textContent = deadline.toLocaleDateString('en-US', options);
+      /* Format the deadline */
+      var opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      dateDisplay.textContent = deadline.toLocaleDateString('en-US', opts);
 
+      /* Calculate urgency */
       var today = new Date();
       today.setHours(0, 0, 0, 0);
-      var diffTime = deadline.getTime() - today.getTime();
-      var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      var diffMs   = deadline.getTime() - today.getTime();
+      var diffDays = Math.ceil(diffMs / 86400000);
 
       if (diffDays < 0) {
-        warningDisplay.textContent = '⚠ THIS DEADLINE HAS PASSED — Talk to your steward NOW.';
-        warningDisplay.className = 'text-sm text-union-red mt-2 font-bold';
+        warningDisplay.textContent = '\u26A0 THIS DEADLINE HAS PASSED \u2014 Talk to your steward NOW.';
+        warningDisplay.className   = 'text-sm mt-3 font-black text-union-red';
       } else if (diffDays <= 2) {
-        warningDisplay.textContent = '⚠ DEADLINE IS IMMINENT — File today!';
-        warningDisplay.className = 'text-sm text-safety-yellow mt-2 font-bold';
+        warningDisplay.textContent = '\u26A0 DEADLINE IS IMMINENT \u2014 File today!';
+        warningDisplay.className   = 'text-sm mt-3 font-black text-safety-yellow';
       } else {
-        warningDisplay.textContent = diffDays + ' calendar days remaining. Don\'t wait — file early.';
-        warningDisplay.className = 'text-sm text-safety-green mt-2 font-medium';
+        warningDisplay.textContent = diffDays + ' calendar days remaining. Don\u2019t wait \u2014 file early.';
+        warningDisplay.className   = 'text-sm mt-3 font-bold text-safety-green';
       }
 
       resultDiv.classList.remove('hidden');
       resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    function addWorkingDays(startDate, days) {
-      var current = new Date(startDate);
+    function addWorkingDays(start, days) {
+      var d = new Date(start);
       var added = 0;
       while (added < days) {
-        current.setDate(current.getDate() + 1);
-        var dow = current.getDay();
-        if (dow !== 0 && dow !== 6) {
+        d.setDate(d.getDate() + 1);
+        if (d.getDay() !== 0 && d.getDay() !== 6) {
           added++;
         }
       }
-      return current;
+      return d;
     }
 
 
-    /* -------------------------------------------------------
-       SET DEFAULT DATE
-       Pre-fill the violation date to today for convenience.
-       ------------------------------------------------------- */
-    (function setDefaultDate() {
-      var today = new Date();
-      var yyyy = today.getFullYear();
-      var mm = String(today.getMonth() + 1).padStart(2, '0');
-      var dd = String(today.getDate()).padStart(2, '0');
+    /* ---------------------------------------------------------
+       SHARE DASHBOARD
+       Uses the Web Share API (supported on most mobile browsers)
+       with a clipboard-copy fallback for desktop.
+       --------------------------------------------------------- */
+    function shareDashboard() {
+      haptic(30);
+      var shareData = {
+        title: 'SMART Local 10 \u2014 Know Your Rights',
+        text:  'Emergency rights dashboard for sheet metal workers. Weingarten rights, safety refusal, MN labor laws & grievance calculator.',
+        url:   window.location.href
+      };
+
+      if (navigator.share) {
+        navigator.share(shareData).catch(function () { /* user cancelled */ });
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(window.location.href).then(function () {
+          alert('Link copied to clipboard!');
+        });
+      } else {
+        alert('Share this URL with your coworkers:\n' + window.location.href);
+      }
+    }
+
+
+    /* ---------------------------------------------------------
+       DEFAULT DATE
+       Pre-fill the date picker to today for quick use.
+       --------------------------------------------------------- */
+    (function initDate() {
+      var d    = new Date();
+      var yyyy = d.getFullYear();
+      var mm   = String(d.getMonth() + 1).padStart(2, '0');
+      var dd   = String(d.getDate()).padStart(2, '0');
       document.getElementById('violation-date').value = yyyy + '-' + mm + '-' + dd;
     })();
 
 
-    /* -------------------------------------------------------
-       SERVICE WORKER REGISTRATION (for PWA offline support)
-       Only registers if a sw.js file exists.
-       ------------------------------------------------------- */
+    /* ---------------------------------------------------------
+       OFFLINE / ONLINE INDICATOR
+       Shows a yellow banner when the worker loses connectivity.
+       Critical in shops with poor cell service where the PWA
+       cached version is being used.
+       --------------------------------------------------------- */
+    (function initOfflineBar() {
+      var bar = document.getElementById('offline-bar');
+      var header = document.querySelector('header');
+
+      function updateStatus() {
+        if (!navigator.onLine) {
+          bar.classList.add('show');
+          header.style.top = bar.offsetHeight + 'px';
+        } else {
+          bar.classList.remove('show');
+          header.style.top = '0';
+        }
+      }
+
+      window.addEventListener('online',  updateStatus);
+      window.addEventListener('offline', updateStatus);
+      updateStatus();
+    })();
+
+
+    /* ---------------------------------------------------------
+       SERVICE WORKER REGISTRATION (PWA offline support)
+       --------------------------------------------------------- */
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(function() {
-        /* sw.js not found — PWA offline not available, that's OK */
+      navigator.serviceWorker.register('sw.js').catch(function () {
+        /* sw.js not found or HTTPS not available — that's OK */
       });
     }
+
   </script>
 
 </body>
