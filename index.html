@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MN Sheet Metal Workers Local 10 emergency dashboard for discipline, safety, wage theft, and steward contact.">
+  <title>Local 10 Emergency Dashboard</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #1f2732;
+      --text: #f0f6fc;
+      --muted: #b8c0ca;
+      --alert: #ef4444;
+      --warn: #f59e0b;
+      --safe: #22c55e;
+      --accent: #60a5fa;
+      --ring: #93c5fd;
+      --touch-size: 56px;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+      color: var(--text);
+      background: linear-gradient(180deg, #0d1117, #131a24 45%, #111827);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .header {
+      background: var(--surface);
+      border: 1px solid #263142;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.25rem, 3.2vw, 1.7rem);
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .action-btn,
+    .link-btn,
+    .toggle-btn {
+      width: 100%;
+      min-height: var(--touch-size);
+      border-radius: 14px;
+      border: 2px solid transparent;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #fff;
+      background: var(--surface-2);
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .action-btn:focus-visible,
+    .link-btn:focus-visible,
+    .toggle-btn:focus-visible {
+      outline: 3px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .action-btn:active,
+    .link-btn:active,
+    .toggle-btn:active {
+      transform: scale(0.99);
+    }
+
+    .discipline { background: linear-gradient(90deg, #b91c1c, #dc2626); }
+    .unsafe { background: linear-gradient(90deg, #b45309, #d97706); }
+    .wage { background: linear-gradient(90deg, #1d4ed8, #2563eb); }
+    .steward { background: linear-gradient(90deg, #0f766e, #0d9488); }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid #263142;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+      animation: fadeIn 180ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .panel p,
+    .panel li {
+      color: #e6edf3;
+    }
+
+    .weingarten {
+      background: #2c0505;
+      border: 2px solid #fb7185;
+    }
+
+    .weingarten .script {
+      font-size: clamp(1.2rem, 5.2vw, 2rem);
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: 0.01em;
+      color: #fff;
+      margin: 12px 0;
+      text-wrap: balance;
+    }
+
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      margin-bottom: 8px;
+      color: #0b1220;
+      background: #fca5a5;
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    .law {
+      border-left: 4px solid var(--warn);
+      background: #2b1f06;
+    }
+
+    .law strong {
+      color: #fcd34d;
+    }
+
+    .quick-links {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .link-btn {
+      justify-content: center;
+      text-align: center;
+      background: #0f172a;
+      border-color: #334155;
+      font-size: 1.1rem;
+    }
+
+    .link-btn:hover {
+      background: #1e293b;
+    }
+
+    .toggle-btn {
+      justify-content: center;
+      text-align: center;
+      background: #111827;
+      border-color: #334155;
+      margin-top: 12px;
+    }
+
+    .helper {
+      font-size: 0.96rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .footer {
+      color: #9ca3af;
+      text-align: center;
+      font-size: 0.85rem;
+      margin: 8px 0 4px;
+    }
+
+    @media (min-width: 620px) {
+      .btn-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .action-btn {
+        min-height: 72px;
+        font-size: 1.22rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="header" aria-live="polite">
+      <h1>MN Sheet Metal Workers Local 10</h1>
+      <p>Mobile-first emergency tool for discipline meetings, unsafe work, wage theft, and steward contact.</p>
+    </header>
+
+    <section class="btn-grid" aria-label="Main emergency actions">
+      <button id="disciplineBtn" class="action-btn discipline" type="button">
+        <span>DISCIPLINE</span>
+        <span aria-hidden="true">!</span>
+      </button>
+      <button id="unsafeBtn" class="action-btn unsafe" type="button">
+        <span>UNSAFE WORK</span>
+        <span aria-hidden="true">STOP</span>
+      </button>
+      <button id="wageBtn" class="action-btn wage" type="button">
+        <span>WAGE THEFT</span>
+        <span aria-hidden="true">PAY</span>
+      </button>
+      <button id="stewardBtn" class="action-btn steward" type="button">
+        <span>TEXT STEWARD</span>
+        <span aria-hidden="true">TXT</span>
+      </button>
+    </section>
+
+    <section id="disciplinePanel" class="panel weingarten" aria-live="assertive">
+      <span class="badge">EMERGENCY MODE</span>
+      <h2>Weingarten Rights Script</h2>
+      <p class="script">
+        If this discussion could in any way lead to my being disciplined or terminated, I respectfully request that my union representative or steward be present. Until they arrive, I choose not to answer questions.
+      </p>
+      <div class="quick-links">
+        <a class="link-btn" href="tel:+16513666414">Call Matt Fairbanks: (651) 366-6414</a>
+        <a class="link-btn" href="sms:+16513666414?body=I%20need%20a%20steward%20now.%20Possible%20discipline%20meeting.">Text Matt Fairbanks Now</a>
+      </div>
+      <button class="toggle-btn" type="button" data-close="#disciplinePanel">Close</button>
+    </section>
+
+    <section id="unsafePanel" class="panel">
+      <h2>Unsafe Work Checklist</h2>
+      <ul>
+        <li>Stop and document the hazard (photo/video if safe).</li>
+        <li>Tell a supervisor and request hazard correction.</li>
+        <li>Contact your steward immediately.</li>
+        <li>Use the law panel below for refusal language when danger is serious.</li>
+      </ul>
+      <div class="quick-links">
+        <a class="link-btn" href="sms:+16513666414?body=Unsafe%20work%20issue:%20I%20need%20help%20right%20away.">Text Steward About Unsafe Work</a>
+      </div>
+      <button class="toggle-btn" type="button" data-close="#unsafePanel">Close</button>
+    </section>
+
+    <section id="wagePanel" class="panel">
+      <h2>Wage Theft Fast Steps</h2>
+      <ul>
+        <li>Save pay stubs, timecards, schedules, and texts.</li>
+        <li>Write dates/hours/tasks while details are fresh.</li>
+        <li>Report to steward with employer name and missing pay amount.</li>
+      </ul>
+      <div class="quick-links">
+        <a class="link-btn" href="sms:+16513666414?body=Wage%20theft%20issue:%20I%20need%20help%20recovering%20pay.">Text Steward About Pay Issue</a>
+      </div>
+      <button class="toggle-btn" type="button" data-close="#wagePanel">Close</button>
+    </section>
+
+    <section id="stewardPanel" class="panel">
+      <h2>Main Contact</h2>
+      <p><strong>Matt Fairbanks</strong><br>(651) 366-6414</p>
+      <div class="quick-links">
+        <a class="link-btn" href="tel:+16513666414">Call Matt Fairbanks</a>
+        <a class="link-btn" href="sms:+16513666414?body=Local%2010%20member%20requesting%20help.">Text Matt Fairbanks</a>
+      </div>
+      <p class="helper">Tip: keep this page open on your home screen for one-tap access.</p>
+      <button class="toggle-btn" type="button" data-close="#stewardPanel">Close</button>
+    </section>
+
+    <section class="panel law active" id="lawPanel">
+      <h2>MN Law: Right to Refuse Dangerous Work</h2>
+      <p>
+        Under <strong>Minnesota Statute 182.654</strong>, workers have protections when refusing tasks that expose them to an imminent danger of death or serious physical harm, especially when there is not enough time to correct the hazard through regular enforcement channels.
+      </p>
+      <p class="helper">Use this exact phrase with your supervisor: "I am requesting hazard correction before continuing this task due to serious safety risk."</p>
+    </section>
+
+    <p class="footer">Built for one-handed use with large controls (minimum 56px touch targets).</p>
+  </main>
+
+  <script>
+    const panelMap = {
+      disciplineBtn: "disciplinePanel",
+      unsafeBtn: "unsafePanel",
+      wageBtn: "wagePanel",
+      stewardBtn: "stewardPanel"
+    };
+
+    const panels = Object.values(panelMap).map((id) => document.getElementById(id));
+    const lawPanel = document.getElementById("lawPanel");
+
+    function showPanel(panelId) {
+      panels.forEach((panel) => panel.classList.remove("active"));
+      const target = document.getElementById(panelId);
+      target.classList.add("active");
+      lawPanel.classList.add("active");
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    Object.entries(panelMap).forEach(([btnId, panelId]) => {
+      const btn = document.getElementById(btnId);
+      btn.addEventListener("click", () => showPanel(panelId));
+    });
+
+    document.querySelectorAll("[data-close]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selector = btn.getAttribute("data-close");
+        const panel = document.querySelector(selector);
+        panel.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>
