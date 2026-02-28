@@ -1,23 +1,38 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Benefits, Pay Rates & Tools — Local 10</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a1428">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="description" content="Local 10 Benefits — Prevailing wage, pay calculator, PFML, min wage, health & pension for SMART Sheet Metal Workers Local 10">
-  <title>Pay & Benefits — Local 10</title>
   <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="_shared.css">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { navy: "#0a1428", surface: "#0f1f3d", bdr: "#1e3a5f", accent: "#dc2626", amber: "#f59e0b", success: "#16a34a" },
+          fontFamily: { heading: ['"Barlow Condensed"', "sans-serif"], body: ['"Source Sans 3"', "sans-serif"] }
+        }
+      }
+    }
   </script>
+  <style>
+    body { background: #0a1428; color: #f0f4f8; font-family: "Source Sans 3", sans-serif; }
+    h1, h2, h3 { font-family: "Barlow Condensed", sans-serif; }
+    @media print { nav, footer, .no-print, #sticky-bar, #mobile-menu { display: none !important; } body { background: white; color: black; } a { color: black; } }
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #0a1428; } ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
+  </style>
+  <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));</script>
+  <link rel="stylesheet" href="_shared.css">
 </head>
-<body>
-  <!-- NAV -->
-  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;">
+<body class="bg-navy font-body min-h-screen pb-16 md:pb-0">
+
+    <nav aria-label="Main navigation" data-page="benefits" style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;">
     <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
       <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
         <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
@@ -51,100 +66,204 @@
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
-  <script>
-    function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}
-  </script>
+  <script>function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}</script>
 
-  <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
-    <div style="text-align:center;padding:1.5rem 0 1rem;">
-      <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 0.25rem;">Pay & Benefits</h1>
-      <p style="color:#94a3b8;margin:0;">Rates • PFML • Health • Pension • Resources</p>
-    </div>
+  <main class="max-w-5xl mx-auto px-4 py-6" id="main-content">
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1rem 0 0.5rem;">📋 PREVAILING WAGE</p>
-    <div class="card">
-      <p style="color:#f1f5f9;margin:0 0 0.5rem;">On public works projects, you must be paid the prevailing wage for your classification.</p>
-      <ul style="margin:0;padding-left:1.25rem;color:#94a3b8;line-height:1.7;">
-        <li>Rates vary by county and classification (journeyman, apprentice, etc.)</li>
-        <li>Check your contract for current rates — or call the hall</li>
-        <li>MN Dept of Labor: <a href="https://dli.mn.gov/workers/prevailing-wage" target="_blank" style="color:#60a5fa;">dli.mn.gov/workers/prevailing-wage</a></li>
-      </ul>
-      <a href="tel:+16517702388" class="btn-outline" style="display:inline-block;margin-top:0.75rem;">📞 Call Hall for Rates</a>
-    </div>
+    <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-1">Benefits, Pay Rates & Tools</h1>
+    <p class="text-slate-400 text-sm mb-6">Know what you've earned. Use every benefit you have.</p>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🧮 PAY CALCULATOR</p>
-    <div class="card">
-      <p style="color:#f1f5f9;margin:0 0 0.75rem;">Estimate your gross pay. Enter your hourly rate and hours.</p>
-      <div style="display:grid;gap:0.75rem;margin-bottom:1rem;">
-        <div>
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Hourly rate ($)</label>
-          <input type="number" id="hourly-rate" step="0.01" min="0" placeholder="e.g. 45.00" value="45" style="width:100%;max-width:150px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+    <!-- Prevailing Wage Display -->
+    <section class="mb-6" aria-label="Prevailing wage rates for sheet metal workers">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">💰 Prevailing Wage Rates — MN State Projects</h2>
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <div class="text-center mb-4">
+          <div class="text-slate-400 text-xs uppercase tracking-widest mb-1">Journeyman Sheet Metal Worker</div>
+          <div class="font-heading text-5xl font-bold text-red-400">$56.71<span class="text-2xl text-slate-400">/hr</span></div>
+          <div class="text-slate-300 text-sm mt-1">+ $35.82/hr fringes = <strong class="text-amber-400">$92.53/hr total package</strong></div>
         </div>
-        <div>
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Regular hours</label>
-          <input type="number" id="reg-hours" min="0" step="0.5" value="40" style="width:100%;max-width:150px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        <div class="border-t border-[#1e3a5f] pt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm text-center">
+          <div>
+            <div class="text-slate-400 text-xs">Base Wage</div>
+            <div class="text-white font-bold">$56.71/hr</div>
+          </div>
+          <div>
+            <div class="text-slate-400 text-xs">Fringes</div>
+            <div class="text-white font-bold">$35.82/hr</div>
+          </div>
+          <div>
+            <div class="text-slate-400 text-xs">Total Package</div>
+            <div class="text-amber-400 font-bold">$92.53/hr</div>
+          </div>
+          <div>
+            <div class="text-slate-400 text-xs">40-hr Week (base)</div>
+            <div class="text-white font-bold">$2,268.40</div>
+          </div>
         </div>
-        <div>
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Overtime hours (1.5x)</label>
-          <input type="number" id="ot-hours" min="0" step="0.5" value="0" style="width:100%;max-width:150px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        <div class="mt-3 pt-3 border-t border-[#1e3a5f]">
+          <div class="text-slate-400 text-xs font-semibold mb-1">Apprentice Scale (% of Journeyman base):</div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+            <div class="bg-navy rounded-lg p-2 text-center"><div class="text-slate-400">1st Year (40%)</div><div class="text-white font-bold">$22.68</div></div>
+            <div class="bg-navy rounded-lg p-2 text-center"><div class="text-slate-400">2nd Year (50%)</div><div class="text-white font-bold">$28.36</div></div>
+            <div class="bg-navy rounded-lg p-2 text-center"><div class="text-slate-400">3rd Year (60%)</div><div class="text-white font-bold">$34.03</div></div>
+            <div class="bg-navy rounded-lg p-2 text-center"><div class="text-slate-400">4th Year (70%)</div><div class="text-white font-bold">$39.70</div></div>
+            <div class="bg-navy rounded-lg p-2 text-center"><div class="text-slate-400">5th Year (80%)</div><div class="text-white font-bold">$45.37</div></div>
+          </div>
+        </div>
+        <p class="text-slate-500 text-xs mt-3">⚠️ Verify current rates at <a href="https://www.dli.mn.gov" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:underline">dli.mn.gov</a> — rates are updated periodically. Fringes include health, pension, vacation, and training contributions.</p>
+      </div>
+    </section>
+
+    <!-- PAY ESTIMATOR WIDGET -->
+    <section class="mb-6" aria-label="Pay estimator calculator">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">🧮 Pay Estimator</h2>
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <p class="text-slate-400 text-xs mb-3">Estimate gross pay based on hours and classification. Does not include taxes, union dues, or deductions — this is pre-tax gross only.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
+          <div>
+            <label for="hours-input" class="text-slate-400 text-xs font-semibold block mb-1">Regular Hours (up to 40)</label>
+            <input id="hours-input" type="number" value="40" min="0" max="80" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-2.5 text-sm focus:border-red-600 focus:outline-none" aria-label="Number of regular hours worked">
+          </div>
+          <div>
+            <label for="ot-hours" class="text-slate-400 text-xs font-semibold block mb-1">Overtime Hours (1.5x rate)</label>
+            <input id="ot-hours" type="number" value="0" min="0" max="40" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-2.5 text-sm focus:border-red-600 focus:outline-none" aria-label="Number of overtime hours worked">
+          </div>
+          <div>
+            <label for="class-select" class="text-slate-400 text-xs font-semibold block mb-1">Classification</label>
+            <select id="class-select" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-2.5 text-sm focus:border-red-600 focus:outline-none" aria-label="Select your job classification">
+              <option value="56.71">Journeyman ($56.71)</option>
+              <option value="45.37">Apprentice 5th Yr — 80% ($45.37)</option>
+              <option value="39.70">Apprentice 4th Yr — 70% ($39.70)</option>
+              <option value="34.03">Apprentice 3rd Yr — 60% ($34.03)</option>
+              <option value="28.36">Apprentice 2nd Yr — 50% ($28.36)</option>
+              <option value="22.68">Apprentice 1st Yr — 40% ($22.68)</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="calcPay()" class="bg-red-600 text-white font-bold px-6 py-2.5 rounded-xl hover:bg-red-700 transition-colors text-sm" aria-label="Calculate estimated pay">Calculate My Pay →</button>
+        <div id="pay-result" class="hidden mt-4 p-4 bg-navy border border-red-600 rounded-xl text-center">
+          <div class="text-slate-400 text-xs mb-1">Estimated Gross Pay (pre-tax)</div>
+          <div id="result-total" class="font-heading text-5xl font-bold text-red-400"></div>
+          <div id="result-breakdown" class="text-slate-400 text-xs mt-1"></div>
+          <div id="result-weekly" class="text-amber-400 text-sm font-semibold mt-2"></div>
+          <div class="text-slate-500 text-xs mt-3">⚠️ Estimate only — does not account for taxes, dues, or deductions. Verify with your pay stub.</div>
         </div>
       </div>
-      <button onclick="calcPay()" class="btn-red">Calculate</button>
-      <div id="pay-result" style="margin-top:1rem;padding:1rem;background:#0a1428;border-radius:6px;display:none;">
-        <p style="margin:0;color:#16a34a;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.2rem;">Estimated gross: $<span id="gross-amount">0</span></p>
-        <p style="margin:0.25rem 0 0;color:#94a3b8;font-size:0.85rem;">Regular + OT (1.5x). Net pay depends on taxes, deductions.</p>
+    </section>
+    <script>
+      function calcPay() {
+        const reg = Math.max(0, Math.min(80, parseFloat(document.getElementById('hours-input').value) || 0));
+        const ot = Math.max(0, Math.min(40, parseFloat(document.getElementById('ot-hours').value) || 0));
+        const rate = parseFloat(document.getElementById('class-select').value) || 56.71;
+        if (reg === 0 && ot === 0) { showToast('⚠️ Enter some hours first'); return; }
+        const regularPay = Math.min(reg, 40) * rate;
+        const otPay = ot * rate * 1.5;
+        const total = regularPay + otPay;
+        const annualEst = total * 52;
+        document.getElementById('result-total').textContent = '$' + total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('result-breakdown').textContent =
+          'Regular (' + Math.min(reg,40) + ' hrs × $' + rate + '): $' + regularPay.toFixed(2) +
+          (ot > 0 ? ' | OT (' + ot + ' hrs × $' + (rate * 1.5).toFixed(2) + '): $' + otPay.toFixed(2) : '');
+        document.getElementById('result-weekly').textContent =
+          'Annual estimate at this pace: ~$' + annualEst.toLocaleString('en-US', {maximumFractionDigits: 0});
+        document.getElementById('pay-result').classList.remove('hidden');
+      }
+      // Auto-calc on input change
+      ['hours-input', 'ot-hours', 'class-select'].forEach(id => {
+        document.getElementById(id).addEventListener('change', calcPay);
+      });
+    </script>
+
+    <!-- PFML 2026 Explainer -->
+    <section class="mb-6" aria-label="Minnesota Paid Family and Medical Leave 2026">
+      <div class="bg-green-400/10 border border-green-400/30 rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-green-400 mb-2">🍼 MN Paid Family & Medical Leave (PFML) — 2026</h2>
+        <ul class="text-sm text-slate-200 space-y-1.5">
+          <li>✅ <strong class="text-white">Up to 12 weeks</strong> paid leave per benefit year</li>
+          <li>✅ <strong class="text-white">Effective Jan 1, 2026</strong> — you're already covered if you work in MN</li>
+          <li>✅ Covers: welcoming a new child, serious personal illness, caring for a seriously ill family member, military leave</li>
+          <li>✅ <strong class="text-white">Pay rate:</strong> ~90% of wages up to the state average wage, then ~66% above that</li>
+          <li>✅ <strong class="text-white">Job protected:</strong> you return to the same or equivalent position</li>
+          <li>✅ <strong class="text-white">Apply at:</strong> <a href="https://paidleave.mn.gov" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:underline font-bold">paidleave.mn.gov</a></li>
+          <li class="text-amber-400 font-semibold">⚠️ PFML is a state program — ask your Steward how it interacts with your union-negotiated leave benefits</li>
+        </ul>
       </div>
-    </div>
+    </section>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">👶 PFML — PAID FAMILY & MEDICAL LEAVE</p>
-    <div class="card success-box">
-      <p style="margin:0 0 0.5rem;color:#f1f5f9;"><strong>MN PFML started January 1, 2026.</strong></p>
-      <ul style="margin:0;padding-left:1.25rem;color:#d1fae5;line-height:1.7;">
-        <li>Up to <strong>12 weeks</strong> paid leave per year</li>
-        <li>For birth/adoption, serious health condition, family care</li>
-        <li>Partial wage replacement (up to state max)</li>
-        <li>Apply at <a href="https://mn.gov/pfml" target="_blank" style="color:#60a5fa;">mn.gov/pfml</a></li>
-      </ul>
-      <p style="margin:0.75rem 0 0;color:#94a3b8;">Your contract may have additional leave. Check with your steward.</p>
-    </div>
-
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">💵 MINIMUM WAGE — MN 2026</p>
-    <div class="card">
-      <p style="color:#f1f5f9;margin:0 0 0.5rem;">Minnesota minimum wage (2026):</p>
-      <ul style="margin:0;padding-left:1.25rem;color:#94a3b8;line-height:1.7;">
-        <li><strong>Statewide:</strong> $11.41/hr (large employers)</li>
-        <li><strong>Minneapolis / St. Paul:</strong> $16.37/hr (local ordinances)</li>
-      </ul>
-      <p style="margin:0.75rem 0 0;color:#f59e0b;">Union rates are typically well above minimum. If you're paid less than contract, file a grievance.</p>
-    </div>
-
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🏥 HEALTH & PENSION</p>
-    <div class="card">
-      <p style="color:#f1f5f9;margin:0 0 0.5rem;">Your contract specifies health, pension, and other benefits.</p>
-      <ul style="margin:0;padding-left:1.25rem;color:#94a3b8;line-height:1.7;">
-        <li>Health insurance — Employer contributions per contract</li>
-        <li>Pension — SMART pension plan; vesting rules apply</li>
-        <li>Vacation / sick — See contract §5B for meal/rest and PTO</li>
-      </ul>
-      <p style="margin:0.75rem 0 0;">For specific plan details, call the hall or check your contract.</p>
-      <a href="contract.pdf" target="_blank" class="btn-outline" style="display:inline-block;margin-top:0.75rem;">📄 Open Contract PDF</a>
-    </div>
-
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📚 RESOURCE LIBRARY</p>
-    <div class="card">
-      <div style="display:flex;flex-direction:column;gap:0.75rem;">
-        <a href="contract.pdf" target="_blank" class="btn-outline" style="text-align:left;padding:0.75rem;">📄 Union Contract PDF</a>
-        <a href="https://www.smw10.org" target="_blank" class="btn-outline" style="text-align:left;padding:0.75rem;">🌐 Local 10 — smw10.org</a>
-        <a href="https://mn.gov/pfml" target="_blank" class="btn-outline" style="text-align:left;padding:0.75rem;">👶 MN PFML — Paid Family & Medical Leave</a>
-        <a href="https://dli.mn.gov/workers" target="_blank" class="btn-outline" style="text-align:left;padding:0.75rem;">📋 MN Dept of Labor — Wage & hour</a>
-        <a href="https://www.osha.gov/workers" target="_blank" class="btn-outline" style="text-align:left;padding:0.75rem;">🛡️ OSHA — Worker rights</a>
-        <a href="tel:+16124288004" class="btn-outline" style="text-align:left;padding:0.75rem;">📞 Steward: 612-428-8004</a>
-        <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="text-align:left;padding:0.75rem;">✉️ Email Steward</a>
+    <!-- Health, Pension, Breaks, Min Wage -->
+    <section class="mb-6">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">📋 Other Benefits</h2>
+      <div class="space-y-3">
+        <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+          <div class="text-white font-bold">🏥 Health & Pension</div>
+          <p class="text-slate-400 text-sm mt-1">Full details on health insurance, pension plan, and fringe benefit contributions are at <a href="https://www.smw10.org/benefits" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:underline font-bold">smw10.org/benefits</a>. Contact the union hall if you have enrollment questions: <a href="tel:+16517702388" class="text-red-400 font-bold hover:underline">(651) 770-2388</a></p>
+        </div>
+        <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+          <div class="text-white font-bold">⏱️ Meal & Rest Breaks — 2026</div>
+          <p class="text-slate-400 text-sm mt-1">Expanded under 2026 MN law: <strong class="text-white">30-minute meal break</strong> and <strong class="text-white">10-minute paid rest break</strong> per shift. See contract Section 5B. If these are not being provided, contact your Steward — this is a contractual and legal right.</p>
+        </div>
+        <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+          <div class="text-white font-bold">💵 MN Minimum Wage 2026</div>
+          <div class="flex gap-4 mt-2">
+            <div class="bg-navy rounded-lg px-3 py-2 text-center">
+              <div class="text-slate-400 text-xs">Statewide</div>
+              <div class="text-amber-400 font-bold text-lg">$11.41</div>
+            </div>
+            <div class="bg-navy rounded-lg px-3 py-2 text-center">
+              <div class="text-slate-400 text-xs">Minneapolis / St. Paul</div>
+              <div class="text-amber-400 font-bold text-lg">$16.37</div>
+            </div>
+          </div>
+          <p class="text-slate-500 text-xs mt-2">As a union member your contract rate significantly exceeds state minimums. This is why the union matters.</p>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Resource Library -->
+    <section class="mb-6" aria-label="Member resource library">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">📚 Resource Library</h2>
+      <div class="space-y-2">
+        <a href="contract.pdf" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="Open Local 10 collective bargaining agreement PDF">
+          <span class="text-xl" aria-hidden="true">📄</span>
+          <div>
+            <div class="text-white font-bold text-sm group-hover:text-red-400">Local 10 Collective Bargaining Agreement</div>
+            <div class="text-slate-400 text-xs">Full contract PDF — searchable</div>
+          </div>
+        </a>
+        <a href="https://www.osha.gov/sheet-metal" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="Open OSHA sheet metal safety guide (opens new tab)">
+          <span class="text-xl" aria-hidden="true">🦺</span>
+          <div>
+            <div class="text-white font-bold text-sm group-hover:text-red-400">OSHA Sheet Metal Safety Guide</div>
+            <div class="text-slate-400 text-xs">Official safety standards for sheet metal work</div>
+          </div>
+        </a>
+        <a href="https://www.dli.mn.gov" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="Open MN Department of Labor and Industry website">
+          <span class="text-xl" aria-hidden="true">⚖️</span>
+          <div>
+            <div class="text-white font-bold text-sm group-hover:text-red-400">MN Dept of Labor & Industry</div>
+            <div class="text-slate-400 text-xs">Wage theft, prevailing wages, PFML, workers' comp</div>
+          </div>
+        </a>
+        <a href="https://paidleave.mn.gov" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="Open MN Paid Leave application portal">
+          <span class="text-xl" aria-hidden="true">🍼</span>
+          <div>
+            <div class="text-white font-bold text-sm group-hover:text-red-400">MN Paid Leave Application Portal</div>
+            <div class="text-slate-400 text-xs">Apply for PFML — paidleave.mn.gov</div>
+          </div>
+        </a>
+        <a href="https://www.smw10.org/apprenticeship" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="Learn about apprenticeship at smw10.org">
+          <span class="text-xl" aria-hidden="true">🎓</span>
+          <div>
+            <div class="text-white font-bold text-sm group-hover:text-red-400">Apprenticeship Program Info</div>
+            <div class="text-slate-400 text-xs">Paid training, progressive wages, full benefits — smw10.org</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
   </main>
 
-  <footer>
+    <footer class="no-print">
     <p>⚠️ <strong>Informational only</strong> — Always verify with your union rep before acting.</p>
     <p>Updated February 2026 • SMART Sheet Metal Workers Local 10</p>
     <p><a href="https://www.smw10.org" target="_blank">smw10.org</a> • <a href="tel:+16517702388">(651) 770-2388</a></p>
@@ -155,19 +274,18 @@
     </div>
     <p style="margin-top:1rem;color:#475569;font-size:0.75rem;">🔒 Protected under MN law & OSHA — You may report safety violations and wage theft anonymously. Retaliation is illegal.</p>
   </footer>
-
-  <div style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+  <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
     <a href="tel:+16124288004" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">📞 612-428-8004</a>
     <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
   </div>
-  <div style="height:60px;"></div>
-
+  <div style="height:60px;" class="md:hidden"></div>
   <script>
-    function calcPay(){const rate=parseFloat(document.getElementById('hourly-rate').value)||0;const reg=parseFloat(document.getElementById('reg-hours').value)||0;const ot=parseFloat(document.getElementById('ot-hours').value)||0;const gross=(rate*reg)+(rate*1.5*ot);document.getElementById('gross-amount').textContent=gross.toFixed(2);document.getElementById('pay-result').style.display='block';}
-    function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Benefits: '+window.location.href));}
-    function shareEmail(){window.location.href='mailto:?subject=Local 10 Benefits Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
-    function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
+    function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10: '+window.location.href));}
+    function shareEmail(){window.location.href='mailto:?subject=Local 10 Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
+    function copyURL(){var b=document.getElementById('copyBtn');if(b)navigator.clipboard.writeText(window.location.href).then(function(){b.textContent='✅ Copied!';setTimeout(function(){b.textContent='🔗 Copy Link';},2000);});}
+    function showToast(msg,cls){var t=document.createElement('div');t.className=(cls||'bg-green-500 text-white')+' fixed bottom-24 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-sm z-[9999] px-4 py-3 rounded-lg shadow-lg font-semibold text-sm text-center';t.textContent=msg;document.body.appendChild(t);setTimeout(function(){t.remove();},3500);}
   </script>
+
 </body>
 </html>
