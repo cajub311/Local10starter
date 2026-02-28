@@ -1,0 +1,14 @@
+{
+  "name": "Local 10 Member Hub",
+  "short_name": "Local 10",
+  "description": "SMART Sheet Metal Workers Local 10 — Member Resource Portal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1428",
+  "theme_color": "#0a1428",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
