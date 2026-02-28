@@ -1,0 +1,14 @@
+{
+  "name": "Sheet Metal Workers Local 10",
+  "short_name": "Local 10",
+  "description": "Union contract, grievances, safety, meetings & benefits for SMART Local 10 members",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a1428",
+  "theme_color": "#dc2626",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

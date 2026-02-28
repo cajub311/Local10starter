@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1428">
+  <title>Grievances & FAQs — Local 10</title>
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { union: { navy: '#0a1428', 'navy-light': '#1e3a5f', red: '#dc2626', 'red-dark': '#b91c1c' } },
+          fontFamily: { sans: ['Roboto', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-union-navy text-white min-h-screen font-sans">
+  <!-- NAV -->
+  <nav class="bg-union-navy-light border-b border-white/10" role="navigation" aria-label="Main navigation">
+    <div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-14">
+      <button id="navToggle" class="md:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div id="navLinks" class="hidden md:flex gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Home</a>
+        <a href="grievances.html" class="px-3 py-2 rounded-lg bg-union-red hover:bg-union-red-dark font-bold">Grievances</a>
+        <a href="safety.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Safety</a>
+        <a href="meetings.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Meetings</a>
+        <a href="benefits.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Benefits</a>
+      </div>
+      <form action="index.html" method="get" class="flex-1 md:max-w-xs ml-2" role="search">
+        <input type="search" name="q" placeholder="Search contract..." class="w-full px-3 py-1.5 rounded-lg bg-white/10 text-white placeholder-slate-400 text-sm border border-white/20 focus:outline-none focus:ring-2 focus:ring-union-red" aria-label="Search contract">
+      </form>
+    </div>
+    <div id="navMobile" class="hidden md:hidden border-t border-white/10">
+      <a href="index.html" class="block px-4 py-3 hover:bg-white/10">Home</a>
+      <a href="grievances.html" class="block px-4 py-3 font-bold bg-union-red">Grievances</a>
+      <a href="safety.html" class="block px-4 py-3 hover:bg-white/10">Safety</a>
+      <a href="meetings.html" class="block px-4 py-3 hover:bg-white/10">Meetings</a>
+      <a href="benefits.html" class="block px-4 py-3 hover:bg-white/10">Benefits</a>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold text-white mb-6">Grievances, FAQs & Concerns</h1>
+
+    <!-- FAQ Accordion -->
+    <div class="space-y-2 mb-8">
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10" open>
+        <summary class="font-bold cursor-pointer">"Work now, grieve later?" — When can I refuse?</summary>
+        <p class="mt-3 text-slate-300 text-sm">You can refuse only if the work is <strong>imminently dangerous</strong>. Otherwise, do the work and file a grievance. Document everything. See contract Article 6 (Grievance Procedure).</p>
+        <a href="index.html" class="inline-block mt-2 text-union-red hover:underline text-sm">→ Search contract</a>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Overtime disputes — Who gets it?</summary>
+        <p class="mt-3 text-slate-300 text-sm">Overtime is voluntary. Sign up on posted sheets. Based on: workload, machine availability, skillset, seniority. See contract Section 5C.</p>
+        <a href="index.html" class="inline-block mt-2 text-union-red hover:underline text-sm">→ Search contract</a>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Seniority bumping — How does layoff/recall work?</summary>
+        <p class="mt-3 text-slate-300 text-sm">Plant-wide seniority. Displaced employees can bump least senior in their classification or qualified lower classification. See contract Section 6D & 6E.</p>
+        <a href="index.html" class="inline-block mt-2 text-union-red hover:underline text-sm">→ Search contract</a>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Pay errors — What do I do?</summary>
+        <p class="mt-3 text-slate-300 text-sm">Report to Operations Management and your Steward immediately. Document dates, hours, and discrepancies. Wage theft can be reported to MN DLI: 651-284-5075.</p>
+        <a href="https://www.dli.mn.gov/" target="_blank" rel="noopener" class="inline-block mt-2 text-union-red hover:underline text-sm">→ MN DLI</a>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Harassment — Who do I tell?</summary>
+        <p class="mt-3 text-slate-300 text-sm">Tell your Steward and HR. Document incidents. The contract prohibits harassment. You have the right to a safe workplace.</p>
+        <a href="index.html" class="inline-block mt-2 text-union-red hover:underline text-sm">→ Search contract</a>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Wage theft — How do I report?</summary>
+        <p class="mt-3 text-slate-300 text-sm">MN Dept of Labor: 651-284-5075 or <a href="https://www.dli.mn.gov/" target="_blank" rel="noopener" class="text-union-red hover:underline">dli.mn.gov</a>. You can file anonymously. Protected from retaliation.</p>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Misclassification as contractor — Am I really an employee?</summary>
+        <p class="mt-3 text-slate-300 text-sm">If you're told when/where to work, use company tools, and can't work for others, you may be misclassified. Contact your Steward and DLI.</p>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Retaliation protection — Can I be fired for filing?</summary>
+        <p class="mt-3 text-slate-300 text-sm">MN law and OSHA protect whistleblowers. Retaliation for reporting safety, wage theft, or filing grievances is illegal. Document and contact your Steward.</p>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Filing steps — What's the grievance procedure?</summary>
+        <p class="mt-3 text-slate-300 text-sm">Step 1: Meeting with aggrieved + Steward + Ops Management (48 hrs). Step 2: Written grievance, meeting with President (10 days). Step 3: FMCS mediation. Step 4: Binding arbitration. See contract Section 6C.</p>
+        <a href="index.html" class="inline-block mt-2 text-union-red hover:underline text-sm">→ Search contract</a>
+      </details>
+      <details class="p-4 rounded-xl bg-union-navy-light border border-white/10">
+        <summary class="font-bold cursor-pointer">Zero-exposure workers' comp rules</summary>
+        <p class="mt-3 text-slate-300 text-sm">Report all injuries immediately. You have the right to medical care and wage replacement. Light duty may be offered. Contact your Steward. Never sign anything without union rep present.</p>
+      </details>
+    </div>
+
+    <!-- STEWARD CONTACT -->
+    <div class="p-6 rounded-2xl bg-union-red/20 border-2 border-union-red mb-6">
+      <h2 class="text-xl font-bold text-white mb-3">Your Union Steward</h2>
+      <p class="text-white font-bold mb-2">Call/Text: <a href="tel:+16124288004" class="hover:underline">612-428-8004</a></p>
+      <p class="text-white font-bold">Email: <a href="mailto:gorillagrad9@gmail.com" class="hover:underline">gorillagrad9@gmail.com</a></p>
+    </div>
+
+    <!-- SUBMIT CONCERN -->
+    <div class="p-6 rounded-2xl bg-union-navy-light border border-white/10 mb-6">
+      <h2 class="text-xl font-bold text-white mb-3">Submit a Concern</h2>
+      <textarea id="concernBody" rows="4" class="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-slate-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-union-red mb-3" placeholder="Describe your concern... (date, what happened, who was involved)" aria-label="Concern description"></textarea>
+      <button onclick="submitConcern()" class="w-full px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold uppercase">Submit Concern</button>
+    </div>
+
+    <!-- WHISTLEBLOWER -->
+    <div class="p-4 rounded-xl bg-union-navy-light border border-white/10 mb-6">
+      <p class="text-sm text-slate-300"><strong class="text-white">Protected under MN law & OSHA</strong> — You can report safety violations, wage theft, and other concerns anonymously. Retaliation is illegal.</p>
+    </div>
+
+    <!-- SHARE -->
+    <div class="flex flex-wrap gap-2">
+      <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Grievances ' + location.href), '_blank')" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-bold">WhatsApp</button>
+      <button onclick="location.href='mailto:?subject=Local%2010%20Grievances&body='+encodeURIComponent(location.href)" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold">Email</button>
+      <button onclick="navigator.clipboard.writeText(location.href).then(()=>alert('Copied!'))" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold">Copy URL</button>
+    </div>
+  </main>
+
+  <footer class="text-center text-slate-500 text-xs py-6 border-t border-white/10 mt-8">
+    Informational only • Verify with rep • Updated Feb 2026 • Local 10: <a href="https://www.smw10.org/" target="_blank" rel="noopener" class="text-union-red hover:underline">smw10.org</a>
+  </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+    document.getElementById('navToggle').addEventListener('click', function() {
+      document.getElementById('navMobile').classList.toggle('hidden');
+      this.setAttribute('aria-expanded', document.getElementById('navMobile').classList.contains('hidden') ? 'false' : 'true');
+    });
+    function submitConcern() {
+      const body = document.getElementById('concernBody').value;
+      window.location.href = 'mailto:gorillagrad9@gmail.com?subject=Local%2010%20Concern&body=' + encodeURIComponent(body || '');
+    }
+  </script>
+</body>
+</html>

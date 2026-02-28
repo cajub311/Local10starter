@@ -1,171 +1,170 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sheet Metal Workers Local 10 — Union Contract</title>
+  <meta name="theme-color" content="#0a1428">
+  <meta name="description" content="Sheet Metal Workers Local 10 Union Contract — searchable PDF, grievances, safety, benefits">
+  <title>Local 10 — Union Contract</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            union: {
-              red: '#c41e3a',
-              'red-dark': '#9a1830',
-              navy: '#0f172a',
-              'navy-light': '#1e293b',
-            }
+            union: { navy: '#0a1428', 'navy-light': '#1e3a5f', red: '#dc2626', 'red-dark': '#b91c1c' }
           },
-          fontFamily: {
-            'display': ['Oswald', 'sans-serif'],
-            'sans': ['Work Sans', 'system-ui', 'sans-serif'],
-          }
+          fontFamily: { sans: ['Roboto', 'system-ui', 'sans-serif'] }
         }
       }
     }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Work Sans', system-ui, sans-serif; }
-    .font-display { font-family: 'Oswald', sans-serif; }
+    body { font-family: 'Roboto', system-ui, sans-serif; }
+    .nav-open { display: flex !important; }
   </style>
 </head>
-<body class="bg-slate-100 dark:bg-union-navy text-slate-900 dark:text-white min-h-screen transition-colors">
-  <div class="max-w-4xl mx-auto px-4 py-4 sm:py-6">
-
-    <!-- Dark mode toggle -->
-    <div class="flex justify-end mb-2">
-      <button id="darkToggle" onclick="toggleDark()" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium" aria-label="Toggle dark mode">
-        <span id="darkLabel">Dark</span> mode
+<body class="bg-union-navy text-white min-h-screen">
+  <!-- NAV -->
+  <nav class="bg-union-navy-light border-b border-white/10" role="navigation" aria-label="Main navigation">
+    <div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-14">
+      <button id="navToggle" class="md:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+      <div id="navLinks" class="hidden md:flex gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-lg bg-union-red hover:bg-union-red-dark font-bold">Home</a>
+        <a href="grievances.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Grievances</a>
+        <a href="safety.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Safety</a>
+        <a href="meetings.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Meetings</a>
+        <a href="benefits.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Benefits</a>
+      </div>
+      <form id="navSearch" class="flex-1 md:max-w-xs ml-2" role="search" aria-label="Search contract">
+        <input type="search" placeholder="Search contract..." id="searchInput" class="w-full px-3 py-1.5 rounded-lg bg-white/10 text-white placeholder-slate-400 text-sm border border-white/20 focus:outline-none focus:ring-2 focus:ring-union-red" aria-label="Search contract">
+      </form>
     </div>
+    <div id="navMobile" class="hidden md:hidden border-t border-white/10">
+      <a href="index.html" class="block px-4 py-3 font-bold bg-union-red">Home</a>
+      <a href="grievances.html" class="block px-4 py-3 hover:bg-white/10">Grievances</a>
+      <a href="safety.html" class="block px-4 py-3 hover:bg-white/10">Safety</a>
+      <a href="meetings.html" class="block px-4 py-3 hover:bg-white/10">Meetings</a>
+      <a href="benefits.html" class="block px-4 py-3 hover:bg-white/10">Benefits</a>
+    </div>
+  </nav>
 
-    <!-- TOP SECTION — ultra-compact -->
-    <div class="text-center py-4 px-4 sm:py-6">
-      <h1 class="font-display text-xl sm:text-2xl font-bold text-union-navy dark:text-white mb-3">
+  <main class="max-w-4xl mx-auto px-4 py-4 sm:py-6">
+    <!-- HEADER -->
+    <header class="text-center py-4">
+      <h1 class="text-xl sm:text-2xl font-bold text-white mb-3" id="main-heading">
         Sheet Metal Workers Local 10 — Union Contract
       </h1>
       <div class="flex justify-center mb-2">
-        <div id="qrcode" class="w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] p-2 bg-white rounded-lg border border-union-red inline-flex items-center justify-center overflow-hidden"></div>
+        <div id="qrcode" class="w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] p-2 bg-white rounded-lg border-2 border-union-red inline-flex items-center justify-center overflow-hidden" aria-hidden="true"></div>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">📱 Scan with phone → opens Full Contract PDF</p>
-      <a id="directPdfLink" href="contract.pdf" class="text-sm text-union-red hover:underline break-all block mt-2">
-      </a>
-    </div>
+      <p class="text-xs text-slate-400 mb-1">📱 Scan with phone → opens Full Contract PDF</p>
+      <a id="directPdfLink" href="contract.pdf" class="text-sm text-union-red hover:underline break-all block mt-2 font-medium" aria-label="Direct link to contract PDF"></a>
+    </header>
 
-    <!-- SEARCHABLE PDF — 80% of screen, the star -->
-    <div class="mb-4">
-      <p class="text-sm text-slate-600 dark:text-slate-300 mb-2">🔍 Search the full contract</p>
+    <!-- PDF + SEARCH -->
+    <section class="mb-4" aria-labelledby="pdf-heading">
+      <p class="text-sm text-slate-300 mb-2" id="pdf-heading">🔍 Search: pay, sick time, overtime, vacation, seniority, benefits, grievance, PPE</p>
       <div class="flex flex-wrap gap-2 mb-3">
-        <button onclick="searchContract('pay')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Pay Rates</button>
-        <button onclick="searchContract('sick')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Sick Time</button>
-        <button onclick="searchContract('overtime')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Overtime</button>
-        <button onclick="searchContract('vacation')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Vacation</button>
-        <button onclick="searchContract('seniority')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Seniority</button>
+        <button onclick="searchContract('pay')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for pay rates">Pay Rates</button>
+        <button onclick="searchContract('sick')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for sick time">Sick Time</button>
+        <button onclick="searchContract('overtime')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for overtime">Overtime</button>
+        <button onclick="searchContract('vacation')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for vacation">Vacation</button>
+        <button onclick="searchContract('seniority')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for seniority">Seniority</button>
+        <button onclick="searchContract('benefits')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for benefits">Benefits</button>
+        <button onclick="searchContract('grievance')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for grievance">Grievance</button>
+        <button onclick="searchContract('PPE')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-bold transition-all" aria-label="Search for PPE">PPE</button>
       </div>
-      <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Tap the 🔎 inside the viewer to search anything (benefits, grievance, etc.)</p>
-      <iframe 
-        id="pdfViewer" 
-        src="" 
-        style="width:100%; height:74vh; min-height:520px; border:none; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2);" 
-        allowfullscreen
-        title="Union Contract PDF Viewer"
-      ></iframe>
-    </div>
-
-    <!-- BUTTONS — big, stacked on phones -->
-    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8">
-      <a id="downloadBtn" href="contract.pdf" download="union-contract.pdf" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide text-center shadow-lg transition-all">
-        Download PDF
-      </a>
-      <a id="newTabBtn" href="contract.pdf" target="_blank" rel="noopener" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide text-center shadow-lg transition-all">
-        Open PDF in New Tab
-      </a>
-      <button id="copyBtn" onclick="copyPdfLink()" class="flex-1 px-6 py-4 rounded-xl bg-slate-600 hover:bg-slate-500 text-white font-display font-bold text-lg uppercase tracking-wide transition-all">
-        Copy Direct PDF Link
-      </button>
-    </div>
-
-    <!-- LOCAL 10 MEMBER RESOURCES -->
-    <section class="mb-8 p-6 rounded-2xl bg-slate-200 dark:bg-union-navy-light border border-slate-300 dark:border-slate-600">
-      <h2 class="font-display text-xl font-bold text-union-navy dark:text-white mb-4">Local 10 Member Resources</h2>
-      <ul class="space-y-3 text-slate-600 dark:text-slate-300 text-sm">
-        <li><strong class="text-union-navy dark:text-white">Official Local 10 Website:</strong> <a href="https://www.smw10.org/" target="_blank" rel="noopener" class="text-union-red hover:underline">https://www.smw10.org/</a></li>
-        <li><strong class="text-union-navy dark:text-white">Union Hall:</strong> 1681 East Cope Ave Suite A, Maplewood MN 55109 • <a href="tel:+16517702388" class="text-union-red hover:underline">(651) 770-2388</a></li>
-        <li><strong class="text-union-navy dark:text-white">Business Manager Matt Fairbanks:</strong> <a href="mailto:mfairbanks@smw10.org" class="text-union-red hover:underline">mfairbanks@smw10.org</a></li>
-        <li><strong class="text-union-navy dark:text-white">Minnesota DLI</strong> (wages, earned sick time, complaints): <a href="https://www.dli.mn.gov/" target="_blank" rel="noopener" class="text-union-red hover:underline">https://www.dli.mn.gov/</a> • <a href="tel:+16512845075" class="text-union-red hover:underline">651-284-5075</a></li>
-        <li><strong class="text-union-navy dark:text-white">MN OSHA</strong> Safety Help & Free Consultation: <a href="https://www.dli.mn.gov/business/workplace-safety-and-health" target="_blank" rel="noopener" class="text-union-red hover:underline">https://www.dli.mn.gov/business/workplace-safety-and-health</a> • <a href="tel:+16512845060" class="text-union-red hover:underline">651-284-5060</a></li>
-        <li><strong class="text-union-navy dark:text-white">Workers' Comp Questions:</strong> Contact your steward or DLI</li>
-      </ul>
+      <iframe id="pdfViewer" src="" style="width:100%;height:74vh;min-height:520px;border:none;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.3);" allowfullscreen title="Union Contract PDF Viewer"></iframe>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="text-center text-slate-500 dark:text-slate-500 text-xs py-6 border-t border-slate-300 dark:border-slate-700">
-      For informational use only • Always verify with your union rep • Updated February 2026
-    </footer>
-  </div>
+    <!-- BUTTONS -->
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4">
+      <a id="downloadBtn" href="contract.pdf" download="union-contract.pdf" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold text-lg uppercase text-center shadow-lg transition-all" aria-label="Download contract PDF">Download PDF</a>
+      <a id="newTabBtn" href="contract.pdf" target="_blank" rel="noopener" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold text-lg uppercase text-center shadow-lg transition-all" aria-label="Open contract PDF in new tab">Open PDF in New Tab</a>
+      <button id="copyBtn" onclick="copyPdfLink()" class="flex-1 px-6 py-4 rounded-xl bg-slate-600 hover:bg-slate-500 text-white font-bold text-lg uppercase transition-all" aria-label="Copy direct PDF link">Copy Direct PDF Link</button>
+    </div>
+
+    <!-- MN 2026 UPDATES -->
+    <div class="mb-6 p-4 rounded-xl bg-union-navy-light border border-white/10">
+      <h2 class="font-bold text-white mb-2">MN 2026 Updates</h2>
+      <p class="text-sm text-slate-300">New PFML Leave starts Jan 1, 2026 • MN Wage: $11.41 state / $16.37 Mpls</p>
+    </div>
+
+    <!-- SHARE -->
+    <div class="mb-8 p-4 rounded-xl bg-union-navy-light border border-white/10">
+      <h2 class="font-bold text-white mb-3">Share this page</h2>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="sharePage('whatsapp')" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-bold" aria-label="Share via WhatsApp">WhatsApp</button>
+        <button onclick="sharePage('email')" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold" aria-label="Share via email">Email</button>
+        <button onclick="sharePage('copy')" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold" aria-label="Copy URL">Copy URL</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-slate-500 text-xs py-6 border-t border-white/10">
+    Informational only • Verify with rep • Updated Feb 2026 • Local 10: <a href="https://www.smw10.org/" target="_blank" rel="noopener" class="text-union-red hover:underline">smw10.org</a>
+  </footer>
 
   <script>
-    function getPdfUrl() {
-      return window.location.origin + '/contract.pdf';
-    }
-
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+    const getPdfUrl = () => window.location.origin + '/contract.pdf';
     let viewerBaseUrl = '';
 
     function searchContract(term) {
       if (!viewerBaseUrl) return;
-      const searchUrl = viewerBaseUrl + '#search=' + encodeURIComponent(term) + '&zoom=page-width';
-      document.getElementById('pdfViewer').src = searchUrl;
+      document.getElementById('pdfViewer').src = viewerBaseUrl + '#search=' + encodeURIComponent(term) + '&zoom=page-width';
       document.getElementById('pdfViewer').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       const pdfUrl = getPdfUrl();
       viewerBaseUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(pdfUrl);
-      
-      document.getElementById('pdfViewer').src = viewerBaseUrl + '#zoom=page-width';
-      document.getElementById('downloadBtn').href = pdfUrl;
-      document.getElementById('newTabBtn').href = pdfUrl;
-      document.getElementById('directPdfLink').href = pdfUrl;
+      const hash = window.location.hash.replace('#search=', '');
+      const searchTerm = hash ? decodeURIComponent(hash) : '';
+      document.getElementById('pdfViewer').src = viewerBaseUrl + (searchTerm ? '#search=' + encodeURIComponent(searchTerm) : '') + '#zoom=page-width';
+      document.getElementById('downloadBtn').href = document.getElementById('newTabBtn').href = document.getElementById('directPdfLink').href = pdfUrl;
       document.getElementById('directPdfLink').textContent = pdfUrl;
-      
-      // QR code: 200px phones, 240px desktop — points to window.location.origin + '/contract.pdf'
+      document.getElementById('directPdfLink').setAttribute('aria-label', 'Direct link: ' + pdfUrl);
       const qrSize = window.matchMedia('(min-width: 640px)').matches ? 240 : 200;
-      new QRCode(document.getElementById('qrcode'), {
-        text: pdfUrl,
-        width: qrSize,
-        height: qrSize
-      });
+      new QRCode(document.getElementById('qrcode'), { text: pdfUrl, width: qrSize, height: qrSize });
 
-      if (localStorage.getItem('darkMode') === 'false') {
-        document.documentElement.classList.remove('dark');
-        document.getElementById('darkLabel').textContent = 'Dark';
-      } else {
-        document.documentElement.classList.add('dark');
-        document.getElementById('darkLabel').textContent = 'Light';
-      }
+      document.getElementById('navToggle').addEventListener('click', function() {
+        document.getElementById('navMobile').classList.toggle('hidden');
+        this.setAttribute('aria-expanded', document.getElementById('navMobile').classList.contains('hidden') ? 'false' : 'true');
+      });
+      document.getElementById('navSearch').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const q = document.getElementById('searchInput').value.trim();
+        if (q) searchContract(q);
+      });
+      const urlParams = new URLSearchParams(window.location.search);
+      const qParam = urlParams.get('q');
+      if (qParam) { document.getElementById('searchInput').value = qParam; searchContract(qParam); }
     });
 
     function copyPdfLink() {
-      navigator.clipboard.writeText(getPdfUrl()).then(function() {
+      navigator.clipboard.writeText(getPdfUrl()).then(() => {
         const btn = document.getElementById('copyBtn');
-        const orig = btn.textContent;
         btn.textContent = 'Copied!';
         btn.classList.add('bg-green-600');
-        setTimeout(function() { btn.textContent = orig; btn.classList.remove('bg-green-600'); }, 2000);
+        setTimeout(() => { btn.textContent = 'Copy Direct PDF Link'; btn.classList.remove('bg-green-600'); }, 2000);
       });
     }
 
-    function toggleDark() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('darkMode', isDark);
-      document.getElementById('darkLabel').textContent = isDark ? 'Light' : 'Dark';
+    function sharePage(method) {
+      const url = window.location.href;
+      const title = 'Local 10 Union Contract';
+      if (method === 'whatsapp') window.open('https://wa.me/?text=' + encodeURIComponent(title + ' ' + url), '_blank');
+      else if (method === 'email') window.location.href = 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(url);
+      else navigator.clipboard.writeText(url).then(() => alert('URL copied!'));
     }
   </script>
 </body>

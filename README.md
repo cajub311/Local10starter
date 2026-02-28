@@ -1,48 +1,50 @@
-# Local 10 Union Contract — Searchable Website
+# Sheet Metal Workers Local 10 — PWA Resource Hub
 
-A clean, professional, fully responsive single-page website that makes the full union contract instantly accessible and easy to search. Built for union members.
+A 5-page Progressive Web App (PWA) resource hub for Local 10 union members. Mobile-app-like, ultra-accessible, with share buttons on every page.
+
+## Pages
+
+| Page | Purpose |
+|------|---------|
+| **index.html** | Home — Union contract (searchable PDF), QR code, search chips, MN 2026 updates, share |
+| **grievances.html** | Grievances & FAQs — 10 common issues, steward contact, submit concern, whistleblower info |
+| **safety.html** | Safety & Worker Rights — OSHA/MN focus, right to refuse, hazards, emergency contacts |
+| **meetings.html** | Meetings & Local Info — Hall, calendar, voting/jury duty rights, apprenticeship |
+| **benefits.html** | Benefits & Resources — Health/pension, prevailing wages, MN PFML, meal/rest breaks |
 
 ## Quick Start
 
-### 1. Replace contract.pdf with your real contract
-
-- Delete or overwrite the placeholder `contract.pdf` in the repo root
-- Save your actual union contract PDF as exactly **`contract.pdf`** (same folder as `index.html`)
-- **Important:** Use a text-based PDF (not scanned images) for best searchability
-
-### 2. Deploy to Vercel (recommended) or GitHub Pages
-
-**Vercel:**
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) and import your repo
-3. Deploy — no build step needed, it's static HTML
-
-**GitHub Pages:**
-1. Push to GitHub
-2. Settings → Pages → Source: Deploy from branch
-3. Select `main` branch, root folder
-4. Save
-
-### 3. Done — QR code and search work automatically
-
-After deploy, the QR code and all links will automatically point to your live PDF URL. Union members can:
-- Scan the QR code with their phone to open the contract
-- Use the built-in search (magnifier icon in the PDF viewer)
-- Download, open in new tab, or copy the direct link
+1. **Replace contract.pdf** with your real union contract (text-based PDF for searchability)
+2. **Deploy** to Vercel or GitHub Pages — no build step
+3. **Add to Home Screen** — PWA manifest enables "Add to Home Screen" on mobile
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Complete single-page website (Tailwind + QRCode.js via CDN) |
-| `contract.pdf` | Your union contract — replace the placeholder with the real file |
+| `index.html` | Home / Contract |
+| `grievances.html` | Grievances & FAQs |
+| `safety.html` | Safety & Worker Rights |
+| `meetings.html` | Meetings & Local Info |
+| `benefits.html` | Benefits & Resources |
+| `contract.pdf` | Union contract PDF |
+| `manifest.json` | PWA manifest (Add to Home Screen) |
+| `sw.js` | Service worker (offline caching) |
+| `icon-192.png`, `icon-512.png` | PWA icons |
 
 ## Features
 
-- **Direct load** — Page opens straight to the PDF viewer, no splash screen
-- **Searchable** — Mozilla PDF.js viewer with built-in search, highlights matches
-- **Mobile-friendly** — Works great on phones
-- **QR code** — Large 380×380px code, dynamically points to live PDF URL
-- **Action buttons** — Download, Open in New Tab, Copy Link
-- **Union aesthetic** — Red + navy, bold fonts, optional dark mode
+- **PWA** — manifest.json, service worker, Add to Home Screen
+- **Mobile-first** — Hamburger nav, stacked buttons, touch-friendly
+- **Accessible** — ARIA labels, high contrast (navy #0a1428, red #dc2626)
+- **Share buttons** — WhatsApp, email, copy URL on every page
+- **Search** — Nav search bar finds terms in contract PDF
+- **8 search chips** — Pay Rates, Sick Time, Overtime, Vacation, Seniority, Benefits, Grievance, PPE
 
+## Tech
+
+Tailwind CDN + QRCode.js CDN only. No build tools. Single HTML files.
+
+---
+
+Informational only • Verify with rep • Updated Feb 2026 • [smw10.org](https://www.smw10.org/)

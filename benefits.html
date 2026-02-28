@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1428">
+  <title>Benefits & Resources — Local 10</title>
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { union: { navy: '#0a1428', 'navy-light': '#1e3a5f', red: '#dc2626', 'red-dark': '#b91c1c' } },
+          fontFamily: { sans: ['Roboto', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-union-navy text-white min-h-screen font-sans">
+  <!-- NAV -->
+  <nav class="bg-union-navy-light border-b border-white/10" role="navigation" aria-label="Main navigation">
+    <div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-14">
+      <button id="navToggle" class="md:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div id="navLinks" class="hidden md:flex gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Home</a>
+        <a href="grievances.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Grievances</a>
+        <a href="safety.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Safety</a>
+        <a href="meetings.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Meetings</a>
+        <a href="benefits.html" class="px-3 py-2 rounded-lg bg-union-red hover:bg-union-red-dark font-bold">Benefits</a>
+      </div>
+      <form action="index.html" method="get" class="flex-1 md:max-w-xs ml-2">
+        <input type="search" name="q" placeholder="Search contract..." class="w-full px-3 py-1.5 rounded-lg bg-white/10 text-white placeholder-slate-400 text-sm border border-white/20 focus:outline-none focus:ring-2 focus:ring-union-red" aria-label="Search contract">
+      </form>
+    </div>
+    <div id="navMobile" class="hidden md:hidden border-t border-white/10">
+      <a href="index.html" class="block px-4 py-3 hover:bg-white/10">Home</a>
+      <a href="grievances.html" class="block px-4 py-3 hover:bg-white/10">Grievances</a>
+      <a href="safety.html" class="block px-4 py-3 hover:bg-white/10">Safety</a>
+      <a href="meetings.html" class="block px-4 py-3 hover:bg-white/10">Meetings</a>
+      <a href="benefits.html" class="block px-4 py-3 font-bold bg-union-red">Benefits</a>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold text-white mb-6">Benefits, Wages & Member Resources</h1>
+
+    <!-- Health/Pension -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
+      <h2 class="text-xl font-bold text-union-red mb-3">Health & Pension</h2>
+      <a href="https://www.smw10.org/benefits" target="_blank" rel="noopener" class="inline-block px-6 py-3 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold">
+        smw10.org/benefits →
+      </a>
+    </section>
+
+    <!-- Prevailing Wages -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
+      <h2 class="text-xl font-bold text-union-red mb-3">Prevailing Wages</h2>
+      <p class="text-slate-300 text-sm">MN state projects: e.g., $56.71/hr sheet metal + fringes. Check DLI for current rates.</p>
+      <a href="https://www.dli.mn.gov/business/workplace-safety-and-health" target="_blank" rel="noopener" class="text-union-red hover:underline text-sm">MN DLI</a>
+    </section>
+
+    <!-- MN PFML -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
+      <h2 class="text-xl font-bold text-union-red mb-3">MN PFML (Paid Family & Medical Leave)</h2>
+      <p class="text-slate-300 text-sm">Up to 12 weeks paid leave starting 2026. New PFML Leave starts Jan 1, 2026.</p>
+    </section>
+
+    <!-- Meal/Rest Breaks -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
+      <h2 class="text-xl font-bold text-union-red mb-3">Meal & Rest Breaks</h2>
+      <p class="text-slate-300 text-sm">Expanded 2026: 30-min meal / 10-min rest. See contract Section 5B.</p>
+      <a href="index.html" class="text-union-red hover:underline text-sm">→ Search contract</a>
+    </section>
+
+    <!-- MN Min Wage 2026 -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-red/20 border-2 border-union-red">
+      <h2 class="text-xl font-bold text-white mb-3">MN Min Wage 2026</h2>
+      <p class="text-white font-bold">$11.41 state • $16.37 Mpls/St. Paul</p>
+    </section>
+
+    <!-- Resource Library -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
+      <h2 class="text-xl font-bold text-union-red mb-3">Resource Library</h2>
+      <p class="text-slate-300 text-sm mb-3">PDFs: contracts, forms, OSHA guides</p>
+      <a href="index.html" class="inline-block px-6 py-3 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold">
+        View Contract →
+      </a>
+    </section>
+
+    <!-- Apprenticeship -->
+    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
+      <h2 class="text-xl font-bold text-union-red mb-3">Apprenticeship / Journeyman Paths</h2>
+      <a href="https://www.smw10.org/apprenticeship" target="_blank" rel="noopener" class="inline-block px-6 py-3 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold">
+        Apprenticeship Info →
+      </a>
+    </section>
+
+    <!-- SHARE -->
+    <div class="flex flex-wrap gap-2">
+      <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Benefits ' + location.href), '_blank')" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-bold">WhatsApp</button>
+      <button onclick="location.href='mailto:?subject=Local%2010%20Benefits&body='+encodeURIComponent(location.href)" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold">Email</button>
+      <button onclick="navigator.clipboard.writeText(location.href).then(()=>alert('Copied!'))" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold">Copy URL</button>
+    </div>
+  </main>
+
+  <footer class="text-center text-slate-500 text-xs py-6 border-t border-white/10 mt-8">
+    Informational only • Verify with rep • Updated Feb 2026 • Local 10: <a href="https://www.smw10.org/" target="_blank" rel="noopener" class="text-union-red hover:underline">smw10.org</a>
+  </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+    document.getElementById('navToggle').addEventListener('click', function() {
+      document.getElementById('navMobile').classList.toggle('hidden');
+      this.setAttribute('aria-expanded', document.getElementById('navMobile').classList.contains('hidden') ? 'false' : 'true');
+    });
+  </script>
+</body>
+</html>
