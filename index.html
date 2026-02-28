@@ -70,7 +70,7 @@
       </a>
       <div id="nav-search" style="flex:1;min-width:120px;max-width:200px;display:flex;gap:0.25rem;">
         <input id="global-search" class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract PDF" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
-        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;font-size:0.85rem;" aria-label="Search">🔍</button>
+        <button onclick="doSearch()" class="btn-outline" style="padding:0.35rem 0.6rem;font-size:0.85rem;" aria-label="Search">🔍</button>
       </div>
       <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
         <a href="index.html" class="nav-link active">📄 Home</a>
@@ -85,7 +85,7 @@
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
       <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
         <input id="mobile-search" class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract" style="flex:1;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        <button onclick="doSearch();toggleMobileMenu();" class="btn-red" style="padding:0.5rem;">🔍</button>
+        <button onclick="doSearch();toggleMobileMenu();" class="btn-outline" style="padding:0.5rem;">🔍</button>
       </div>
       <a href="index.html" class="mobile-link">📄 Home</a>
       <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
@@ -103,13 +103,17 @@
     .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
     .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
+    .btn-slate{background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:0.5rem;padding:0.6rem 1.2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.04em;text-decoration:none;display:inline-block;min-height:44px;box-sizing:border-box;}
+    .btn-slate:hover{background:#334155;color:#f8fafc;text-decoration:none;}
+    .btn-muted-outline{background:transparent;color:#cbd5e1;border:1px solid #64748b;border-radius:0.5rem;padding:0.45rem 0.75rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;text-decoration:none;display:inline-block;min-height:44px;box-sizing:border-box;}
+    .btn-muted-outline:hover{border-color:#94a3b8;color:#f1f5f9;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
 
   <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 1rem;text-align:center;">Sheet Metal Workers Local 10 — Union Contract</h1>
     <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;justify-content:center;margin-bottom:1rem;">
-      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-outline" style="font-size:0.9rem;">📤 Share with a coworker</button>
       <a href="https://translate.google.com/translate?u=REPLACE_URL&sl=en&tl=es" target="_blank" rel="noopener" id="spanish-link" style="color:#94a3b8;font-size:0.9rem;text-decoration:underline;">¿Necesitas esto en español? →</a>
     </div>
     <script>
@@ -117,7 +121,7 @@
     </script>
 
     <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:1.5rem;">
-      <a href="contract.pdf" class="btn-red" style="font-size:1.1rem;padding:0.75rem 1.5rem;text-decoration:none;text-align:center;" id="contract-direct-link">📄 Open Contract PDF →</a>
+      <a href="contract.pdf" class="btn-outline" style="font-size:1.1rem;padding:0.75rem 1.5rem;text-decoration:none;text-align:center;" id="contract-direct-link">📄 View Contract PDF →</a>
       <a href="qr.html" class="btn-outline" style="font-size:1rem;padding:0.6rem 1rem;">📱 QR Code</a>
     </div>
 
@@ -125,22 +129,8 @@
       <iframe src="contract.pdf#zoom=page-width" title="Union contract PDF" style="width:100%;height:85vh;min-height:400px;border:none;" id="pdf-frame"></iframe>
     </div>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.9rem;margin:1.5rem 0 0.75rem;">Tap to search in contract:</p>
-    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
-      <button type="button" onclick="searchContract('Painter')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Painter</button>
-      <button type="button" onclick="searchContract('Welder')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Welder</button>
-      <button type="button" onclick="searchContract('Assembler')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Assembler</button>
-      <button type="button" onclick="searchContract('Fabricator')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Fabricator</button>
-      <button type="button" onclick="searchContract('Sheet Metal Mechanic')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Journeyman</button>
-      <button type="button" onclick="searchContract('Apprentice')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Apprentice</button>
-      <button type="button" onclick="searchContract('Maintenance')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Foreman</button>
-      <button type="button" onclick="searchContract('Overtime')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Overtime</button>
-      <button type="button" onclick="searchContract('ESST')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Sick Time</button>
-      <button type="button" onclick="searchContract('Vacation')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Vacation</button>
-    </div>
-
     <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;">
-      <a href="contract.pdf" download class="btn-red">📥 Download PDF</a>
+      <a href="contract.pdf" download class="btn-slate">📥 Download PDF</a>
       <a href="contract.pdf" target="_blank" class="btn-outline">🔗 Open New Tab</a>
       <button onclick="copyContractLink()" class="btn-outline" id="copyContractBtn">🔗 Copy Link</button>
     </div>
@@ -159,7 +149,7 @@
   <footer class="no-print">
     <p>Local 10 Member Resources • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;" aria-label="Share this page">📤 Share</button>
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-outline" style="font-size:0.85rem;" aria-label="Share this page">📤 Share</button>
       <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
@@ -169,7 +159,7 @@
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
     <a href="tel:+16124288004" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">📞 612-428-8004</a>
-    <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
+    <a href="mailto:gorillagrad9@gmail.com" class="btn-muted-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
   </div>
   <div style="height:60px;" class="md:hidden"></div>
 
