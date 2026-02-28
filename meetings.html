@@ -202,8 +202,10 @@
         errEl.classList.add('hidden');
         if (!text || text.length < 5) { errEl.classList.remove('hidden'); return; }
         const body = '[MEETING TOPIC SUGGESTION]\n\n' + text + '\n\n— Submitted via Local 10 Hub\n' + window.location.href;
-        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Meeting Topic Suggestion') + '&body=' + encodeURIComponent(body);
-        alert('✅ Sent!');
+        const note = body + '\n\nCall/Text Steward: 612-428-8004';
+        navigator.clipboard.writeText(note).then(function() {
+          alert('✅ Topic copied. Call or text your steward at 612-428-8004.');
+        });
         document.getElementById('event-suggestion').value = '';
       }
     </script>
@@ -234,7 +236,7 @@
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
     <a href="tel:+16124288004" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">📞 612-428-8004</a>
-    <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
+    <a href="sms:+16124288004" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">💬 Text</a>
   </div>
   <div style="height:60px;" class="md:hidden"></div>
   <script>
