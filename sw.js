@@ -7,7 +7,10 @@ const STATIC_ASSETS = [
   '/meetings.html',
   '/benefits.html',
   '/contract.pdf',
-  '/manifest.json'
+  '/manifest.json',
+  '/_shared.css',
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 self.addEventListener('install', event => {
