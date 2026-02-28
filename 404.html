@@ -27,8 +27,9 @@
     @media print { nav, footer, .no-print, #sticky-bar, #mobile-menu { display: none !important; } body { background: white; color: black; } a { color: black; } }
     ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #0a1428; } ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 3px; }
   </style>
-  <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));</script>
+  <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js"));</script>
   <link rel="stylesheet" href="_shared.css">
+  <script src="_shared.js"></script>
 </head>
 <body class="bg-navy font-body min-h-screen flex flex-col">
     <nav aria-label="Main navigation" data-page="404" style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;">
@@ -38,7 +39,7 @@
         <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Member Hub</span>
       </a>
       <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
-        <a href="index.html" class="nav-link">📄 Contract</a>
+        <a href="index.html" class="nav-link">📄 Home</a>
         <a href="grievances.html" class="nav-link">⚖️ Grievances</a>
         <a href="safety.html" class="nav-link">🦺 Safety</a>
         <a href="meetings.html" class="nav-link">📅 Meetings</a>
@@ -47,7 +48,7 @@
       <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
-      <a href="index.html" class="mobile-link">📄 Contract</a>
+      <a href="index.html" class="mobile-link">📄 Home</a>
       <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
       <a href="safety.html" class="mobile-link">🦺 Safety</a>
       <a href="meetings.html" class="mobile-link">📅 Meetings</a>
