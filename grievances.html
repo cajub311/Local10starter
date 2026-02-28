@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="description" content="Local 10 Grievances — File a concern, know your steps, FAQs for SMART Sheet Metal Workers Local 10">
+  <meta name="robots" content="noindex, nofollow">
   <title>Grievances & FAQs — Local 10</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png">
@@ -51,7 +52,7 @@
       <a href="meetings.html" class="mobile-link">📅 Meetings</a>
       <a href="benefits.html" class="mobile-link">💰 Benefits</a>
       <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
-        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Steward: 612-428-8004</a>
+        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Steward Charles Grinstead: 612-428-8004</a>
       </div>
     </div>
   </nav>
@@ -70,6 +71,7 @@
     .accordion-body{display:none;padding:1rem;background:#0f1a2e;border-top:1px solid #1e3a5f;color:#94a3b8;font-size:0.9rem;line-height:1.6;}
     .accordion-item.open .accordion-body{display:block;}
     @media (min-width:640px){.deadline-grid{grid-template-columns:1fr 1fr;}}
+    @media (max-width:500px){.contact-grid{grid-template-columns:1fr!important;}}
   </style>
   <script>
     function toggleAccordion(id){const el=document.getElementById(id);el.classList.toggle('open');}
@@ -85,11 +87,20 @@
       (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
     </script>
 
-    <div class="card" style="background:#dc2626;border-color:#b91c1c;text-align:center;padding:1.5rem;">
-      <p style="margin:0 0 0.75rem;font-weight:700;color:white;font-size:1.2rem;">Call or Text Steward</p>
-      <a href="tel:+16124288004" style="display:block;font-size:1.75rem;font-weight:800;color:white;text-decoration:none;margin-bottom:0.75rem;">612-428-8004</a>
-      <p style="margin:0 0 0.5rem;color:white;font-size:1rem;">Email</p>
-      <a href="mailto:gorillagrad9@gmail.com" style="color:white;text-decoration:underline;font-weight:600;font-size:1.1rem;">gorillagrad9@gmail.com</a>
+    <div class="contact-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+      <div class="card" style="background:#7f1d1d;border:2px solid #dc2626;text-align:center;padding:1.25rem;">
+        <p style="margin:0 0 0.25rem;font-weight:700;color:#fecaca;font-size:0.9rem;">Union Rep — Joel Rasmussen</p>
+        <p style="margin:0 0 0.5rem;color:#fca5a5;font-size:0.75rem;">Call or text — for emergencies</p>
+        <a href="tel:+17639570618" style="display:block;font-size:1.4rem;font-weight:800;color:white;text-decoration:none;">763-957-0618</a>
+        <a href="tel:+16513666417" style="color:#fecaca;font-size:0.8rem;">651-366-6417</a>
+        <a href="mailto:jrasmussen@smw10.org" style="color:#fecaca;font-size:0.8rem;text-decoration:underline;">jrasmussen@smw10.org</a>
+      </div>
+      <div class="card" style="background:#dc2626;border-color:#b91c1c;text-align:center;padding:1.25rem;">
+        <p style="margin:0 0 0.5rem;font-weight:700;color:white;font-size:1rem;">Call or Text Steward — Charles Grinstead</p>
+        <a href="tel:+16124288004" style="display:block;font-size:1.4rem;font-weight:800;color:white;text-decoration:none;">612-428-8004</a>
+        <p style="margin:0 0 0.25rem;color:white;font-size:0.9rem;">Email</p>
+        <a href="mailto:gorillagrad9@gmail.com" style="color:white;font-size:0.85rem;text-decoration:underline;">gorillagrad9@gmail.com</a>
+      </div>
     </div>
 
     <!-- DEADLINE CALLOUTS — contract Article 6 -->
@@ -183,79 +194,27 @@
       </form>
     </div>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">⏱️ INCIDENT TIMESTAMP — COPY FOR YOUR RECORDS</p>
-    <div class="card">
-      <p style="color:#94a3b8;font-size:0.8rem;margin-bottom:0.75rem;">The timestamp matters legally. Fill this out right after an incident, then copy to clipboard.</p>
-      <form id="timestamp-form">
-        <div style="margin-bottom:0.75rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">Date & Time</label>
-          <input type="datetime-local" id="ts-datetime" style="width:100%;max-width:240px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <div style="margin-bottom:0.75rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">Location / job site</label>
-          <input type="text" id="ts-location" placeholder="e.g. Shop floor, Building A" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <div style="margin-bottom:0.75rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">What happened?</label>
-          <textarea id="ts-what" rows="3" placeholder="Facts only — what occurred" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
-        </div>
-        <div style="margin-bottom:0.75rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">Witnesses</label>
-          <input type="text" id="ts-witnesses" placeholder="Names of anyone who saw it" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <button type="button" onclick="copyTimestamp()" class="btn-red">📋 Copy to Clipboard</button>
-      </form>
-    </div>
-
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📋 INCIDENT LOG — SAVE TO DEVICE</p>
-    <div class="card">
-      <form id="incident-log" onsubmit="return logIncident(event)">
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Date of incident</label>
-          <input type="date" name="date" required style="width:100%;max-width:200px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Location / job site</label>
-          <input type="text" name="location" placeholder="e.g. Shop floor, Job site address" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">What happened? (facts only)</label>
-          <textarea name="description" rows="4" required placeholder="Describe what occurred, who was involved, witnesses..." style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Witnesses (names)</label>
-          <input type="text" name="witnesses" placeholder="Names of anyone who saw it" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <button type="submit" class="btn-red">📝 Save to My Records</button>
-      </form>
-      <p style="color:#64748b;font-size:0.8rem;margin-top:0.75rem;">This form saves to your device only. Use it to document incidents before talking to your steward.</p>
-    </div>
-
   </main>
 
   <footer class="no-print">
     <p>Local 10 Member Resources • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
-      <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
     </div>
   </footer>
 
-  <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
-    <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
-    <a href="tel:+16124288004" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">📞 612-428-8004</a>
+  <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+    <a href="tel:+17639570618" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">Union Rep 763-957-0618</a>
+    <span style="color:#94a3b8;font-size:0.8rem;">Steward Charles Grinstead:</span>
+    <a href="tel:+16124288004" class="btn-red" style="font-size:0.85rem;padding:0.4rem 0.8rem;">612-428-8004</a>
     <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
   </div>
-  <div style="height:60px;" class="md:hidden"></div>
+  <div style="height:80px;" class="md:hidden" aria-hidden="true"></div>
 
   <script>
-    (function(){var el=document.getElementById('ts-datetime');if(el){var n=new Date();el.value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}})();
-    function copyTimestamp(){var dt=document.getElementById('ts-datetime').value||'Not set';var loc=document.getElementById('ts-location').value||'';var what=document.getElementById('ts-what').value||'';var wit=document.getElementById('ts-witnesses').value||'';var txt='[INCIDENT RECORD — '+new Date().toLocaleString()+']\n\nDate/Time: '+dt+'\nLocation: '+loc+'\nWhat happened: '+what+'\nWitnesses: '+wit;navigator.clipboard.writeText(txt).then(function(){alert('✅ Copied to clipboard!');});}
-    function logIncident(e){e.preventDefault();const f=e.target;const d={date:f.date.value,location:f.location.value,description:f.description.value,witnesses:f.witnesses.value};localStorage.setItem('incident_'+Date.now(),JSON.stringify(d));alert('Incident logged locally. Share with your steward when ready.');f.reset();return false;}
     function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;var d=new Date().toLocaleDateString();window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Worker Concern — '+d+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
-    function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Grievances: '+window.location.href));}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
   </script>
