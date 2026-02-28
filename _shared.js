@@ -88,6 +88,8 @@
 
   function toggleDarkMode() {
     document.body.classList.toggle('light-mode');
+    var icon = document.getElementById('dark-toggle-icon');
+    if (icon) icon.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
     localStorage.setItem('lightMode', document.body.classList.contains('light-mode'));
   }
   window.toggleDarkMode = toggleDarkMode;
