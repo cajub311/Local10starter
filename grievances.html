@@ -67,6 +67,7 @@
     .accordion-item.open .accordion-header::after{content:'−';}
     .accordion-body{display:none;padding:1rem;background:#0f1a2e;border-top:1px solid #1e3a5f;color:#94a3b8;font-size:0.9rem;line-height:1.6;}
     .accordion-item.open .accordion-body{display:block;}
+    @media (min-width:640px){.deadline-grid{grid-template-columns:1fr 1fr;}}
   </style>
   <script>
     function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}
@@ -75,12 +76,33 @@
 
   <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 1rem;">Grievances & Submit Concern</h1>
+    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;margin-bottom:1rem;">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" style="color:#94a3b8;font-size:0.9rem;text-decoration:underline;">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
 
     <div class="card" style="background:#dc2626;border-color:#b91c1c;text-align:center;padding:1.5rem;">
       <p style="margin:0 0 0.75rem;font-weight:700;color:white;font-size:1.2rem;">Call or Text Steward</p>
       <a href="tel:+16124288004" style="display:block;font-size:1.75rem;font-weight:800;color:white;text-decoration:none;margin-bottom:0.75rem;">612-428-8004</a>
       <p style="margin:0 0 0.5rem;color:white;font-size:1rem;">Email</p>
       <a href="mailto:gorillagrad9@gmail.com" style="color:white;text-decoration:underline;font-weight:600;font-size:1.1rem;">gorillagrad9@gmail.com</a>
+    </div>
+
+    <!-- DEADLINE CALLOUTS — contract Article 6 -->
+    <div class="deadline-grid" style="display:grid;grid-template-columns:1fr;gap:0.75rem;margin-bottom:1.5rem;">
+      <div style="background:#7f1d1d;border:2px solid #dc2626;border-radius:0.5rem;padding:1rem;text-align:center;">
+        <div style="color:#fca5a5;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;margin-bottom:0.25rem;">⚠️ STEP 1</div>
+        <div style="color:white;font-weight:800;font-size:1.25rem;">48 HOURS</div>
+        <div style="color:#fecaca;font-size:0.85rem;">Meeting with Steward & Management. If not resolved, submit in writing within 3 days.</div>
+      </div>
+      <div style="background:#78350f;border:2px solid #f59e0b;border-radius:0.5rem;padding:1rem;text-align:center;">
+        <div style="color:#fde68a;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;margin-bottom:0.25rem;">⚠️ STEP 2</div>
+        <div style="color:white;font-weight:800;font-size:1.25rem;">10 WORKING DAYS</div>
+        <div style="color:#fef3c7;font-size:0.85rem;">Steward, Business Rep & Management. If not resolved, proceed to Step 3.</div>
+      </div>
     </div>
 
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1rem 0 0.5rem;">⚖️ GRIEVANCE FAQs — TAP TO EXPAND</p>
@@ -127,17 +149,30 @@
       </div>
       <div class="accordion-item" id="faq13">
         <button class="accordion-header" onclick="toggleAccordion('faq13')">Fume exposure claims — welding, grinding, paint?</button>
-        <div class="accordion-body">If you suspect hazardous fume exposure (e.g., welding fumes, paint overspray, grinding dust), document it immediately. Report to your steward and request a safety review. OSHA requires ventilation and PPE. See contract and <a href="index.html" target="_blank">Safety page</a> for PPE requirements.</div>
+        <div class="accordion-body">If you suspect hazardous fume exposure (e.g., welding fumes, paint overspray, grinding dust), document it immediately. Report to your steward and request a safety review. OSHA requires ventilation and PPE. See contract and <a href="safety.html" target="_blank">Safety page</a> for PPE requirements.</div>
       </div>
       <div class="accordion-item" id="faq14">
         <button class="accordion-header" onclick="toggleAccordion('faq14')">Tool allowance shortfalls?</button>
         <div class="accordion-body">If your contract provides a tool allowance and the employer isn't paying it, that's a grievance. Check your contract for the exact amount and timing. Keep records of what you've spent. Report to your steward.</div>
+      </div>
+      <div class="accordion-item" id="faq15">
+        <button class="accordion-header" onclick="toggleAccordion('faq15')">FMLA vs PFML — what's the difference?</button>
+        <div class="accordion-body"><strong>FMLA</strong> (federal) = job-protected unpaid leave for serious health conditions, family care. <strong>PFML</strong> (MN state, 2026) = paid leave — up to 12 weeks at ~90% of wages. Apply at paidleave.mn.gov. You may have both; ask your Steward how they work together with your union benefits.</div>
       </div>
     </div>
 
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📤 SUBMIT A CONCERN</p>
     <div class="card">
       <form id="submit-concern" onsubmit="return submitConcernSimple(event)">
+        <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Category</label>
+        <select name="category" style="width:100%;max-width:280px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;margin-bottom:0.75rem;">
+          <option value="">— Select —</option>
+          <option value="Safety">Safety</option>
+          <option value="Pay">Pay</option>
+          <option value="Harassment">Harassment</option>
+          <option value="Non-Union Work">Non-Union Work</option>
+          <option value="Other">Other</option>
+        </select>
         <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Your message</label>
         <textarea name="message" rows="4" required placeholder="Describe your concern..." style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
         <label style="display:flex;align-items:center;gap:0.5rem;color:#94a3b8;font-size:0.85rem;margin:0.75rem 0;cursor:pointer;">
@@ -147,7 +182,31 @@
       </form>
     </div>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📋 INCIDENT LOG — DOCUMENT FOR YOUR RECORDS</p>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">⏱️ INCIDENT TIMESTAMP — COPY FOR YOUR RECORDS</p>
+    <div class="card">
+      <p style="color:#94a3b8;font-size:0.8rem;margin-bottom:0.75rem;">The timestamp matters legally. Fill this out right after an incident, then copy to clipboard.</p>
+      <form id="timestamp-form">
+        <div style="margin-bottom:0.75rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">Date & Time</label>
+          <input type="datetime-local" id="ts-datetime" style="width:100%;max-width:240px;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        </div>
+        <div style="margin-bottom:0.75rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">Location / job site</label>
+          <input type="text" id="ts-location" placeholder="e.g. Shop floor, Building A" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        </div>
+        <div style="margin-bottom:0.75rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">What happened?</label>
+          <textarea id="ts-what" rows="3" placeholder="Facts only — what occurred" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
+        </div>
+        <div style="margin-bottom:0.75rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.25rem;">Witnesses</label>
+          <input type="text" id="ts-witnesses" placeholder="Names of anyone who saw it" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        </div>
+        <button type="button" onclick="copyTimestamp()" class="btn-red">📋 Copy to Clipboard</button>
+      </form>
+    </div>
+
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📋 INCIDENT LOG — SAVE TO DEVICE</p>
     <div class="card">
       <form id="incident-log" onsubmit="return logIncident(event)">
         <div style="margin-bottom:1rem;">
@@ -183,16 +242,18 @@
     </div>
   </footer>
 
-  <div style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+  <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
     <a href="tel:+16124288004" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">📞 612-428-8004</a>
     <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
   </div>
-  <div style="height:60px;"></div>
+  <div style="height:60px;" class="md:hidden"></div>
 
   <script>
+    (function(){var el=document.getElementById('ts-datetime');if(el){var n=new Date();el.value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}})();
+    function copyTimestamp(){var dt=document.getElementById('ts-datetime').value||'Not set';var loc=document.getElementById('ts-location').value||'';var what=document.getElementById('ts-what').value||'';var wit=document.getElementById('ts-witnesses').value||'';var txt='[INCIDENT RECORD — '+new Date().toLocaleString()+']\n\nDate/Time: '+dt+'\nLocation: '+loc+'\nWhat happened: '+what+'\nWitnesses: '+wit;navigator.clipboard.writeText(txt).then(function(){alert('✅ Copied to clipboard!');});}
     function logIncident(e){e.preventDefault();const f=e.target;const d={date:f.date.value,location:f.location.value,description:f.description.value,witnesses:f.witnesses.value};localStorage.setItem('incident_'+Date.now(),JSON.stringify(d));alert('Incident logged locally. Share with your steward when ready.');f.reset();return false;}
-    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var body=(anon?'[ANONYMOUS]\n\n':'')+f.message.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Local 10 Concern')+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
+    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Local 10 Concern'+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
     function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Grievances: '+window.location.href));}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}

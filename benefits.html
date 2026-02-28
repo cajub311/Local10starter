@@ -81,7 +81,22 @@
   <main class="max-w-5xl mx-auto px-4 py-6" id="main-content">
 
     <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-1">Benefits & Pay Estimator</h1>
-    <p class="text-slate-400 text-sm mb-6">Rates from your Union Contract.</p>
+    <p class="text-slate-400 text-sm mb-2">Rates from your Union Contract.</p>
+    <div class="flex flex-wrap gap-3 items-center mb-6">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" class="text-slate-400 text-sm hover:underline">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
+
+    <!-- Wage breakdown callout -->
+    <section class="mb-6" aria-label="Wage and total package">
+      <div class="bg-green-400/10 border border-green-400/30 rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-green-400 mb-2">💰 Your Total Package</h2>
+        <p class="text-slate-200 text-sm">Your pay = <strong class="text-white">base wage</strong> (Exhibit C) + <strong class="text-white">fringes</strong> (health, pension, etc.). The employer pays both. Example: Sheet Metal Mechanic $33.29/hr base + pension 4.5% + health & other fringes. Full breakdown at <a href="https://www.smw10.org/benefits" target="_blank" rel="noopener" class="text-red-400 font-bold hover:underline">smw10.org/benefits</a>.</p>
+      </div>
+    </section>
 
     <!-- PAY ESTIMATOR -->
     <section class="mb-6" aria-label="Pay estimator calculator">
@@ -174,10 +189,38 @@
       </div>
     </section>
 
+    <!-- Apprentice scale sample -->
+    <section class="mb-6" aria-label="Apprentice wage scale">
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-white mb-2">📊 Apprentice Scale (4/1/2026 — from Exhibit C)</h2>
+        <p class="text-slate-400 text-sm mb-3">Rates vary by classification. Sample:</p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead><tr class="text-slate-400 border-b border-[#1e3a5f]"><th class="py-2">Classification</th><th class="py-2">Apprentice Rate</th><th class="py-2">Advanced Rate</th></tr></thead>
+            <tbody class="text-slate-200">
+              <tr class="border-b border-[#1e3a5f]/50"><td>Painter</td><td>$21.37</td><td>$29.11</td></tr>
+              <tr class="border-b border-[#1e3a5f]/50"><td>Welder</td><td>$26.84</td><td>$33.43 (Master)</td></tr>
+              <tr class="border-b border-[#1e3a5f]/50"><td>Assembler</td><td>$25.77</td><td>$29.83</td></tr>
+              <tr class="border-b border-[#1e3a5f]/50"><td>Fabricator III</td><td>$24.80</td><td>$26.31</td></tr>
+              <tr><td>Maintenance Mechanic</td><td>$31.42</td><td>$36.37</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-slate-500 text-xs mt-2">See contract Exhibit C for full scale.</p>
+      </div>
+    </section>
+
     <!-- Resource Library -->
     <section class="mb-6" aria-label="Member resource library">
       <h2 class="font-heading text-2xl font-bold text-white mb-3">📚 Resource Library</h2>
       <div class="space-y-2">
+        <a href="https://www.smw10.org/benefits" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="View Local 10 benefits at smw10.org">
+          <span class="text-xl" aria-hidden="true">💰</span>
+          <div>
+            <div class="text-white font-bold text-sm group-hover:text-red-400">Local 10 Benefits — smw10.org/benefits</div>
+            <div class="text-slate-400 text-xs">Health, pension, full wage & fringe breakdown</div>
+          </div>
+        </a>
         <a href="contract.pdf" target="_blank" rel="noopener" class="flex items-center gap-3 bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl px-4 py-3 hover:border-red-600 transition-colors group" aria-label="Open Local 10 collective bargaining agreement PDF">
           <span class="text-xl" aria-hidden="true">📄</span>
           <div>

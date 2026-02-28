@@ -90,7 +90,14 @@
 
   <main class="max-w-5xl mx-auto px-4 py-6" id="main-content">
 
-    <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-6">Safety & Your Rights</h1>
+    <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-2">Safety & Your Rights</h1>
+    <div class="flex flex-wrap gap-3 items-center mb-6">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" class="text-slate-400 text-sm hover:underline">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
 
     <!-- Right to Refuse -->
     <section class="mb-6" aria-label="Right to refuse unsafe work">
@@ -200,6 +207,22 @@
       </div>
     </section>
 
+    <!-- Know Before You Sign — printable checklist -->
+    <section class="mb-6" aria-label="Know before you sign checklist">
+      <div class="bg-[#0f1f3d] border-2 border-amber-400 rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-amber-400 mb-2">📋 Know Before You Sign — After an Injury</h2>
+        <p class="text-slate-300 text-sm mb-3">In shock? Use this checklist. One tap to print.</p>
+        <ul class="text-sm text-slate-200 space-y-2 mb-3">
+          <li>☐ Reported to supervisor</li>
+          <li>☐ Called steward (612-428-8004)</li>
+          <li>☐ Did NOT sign anything (no medical releases, no waivers)</li>
+          <li>☐ Got medical treatment</li>
+          <li>☐ Documented incident</li>
+        </ul>
+        <button onclick="window.print()" class="btn-red" aria-label="Print checklist">🖨️ Print Checklist</button>
+      </div>
+    </section>
+
     <!-- Report Safety Concern -->
     <section class="mb-6" aria-label="Report safety concern or incident">
       <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
@@ -224,7 +247,32 @@
         alert('✅ Sent!');
         document.getElementById('safety-report').value = '';
       }
+      function reportNonUnion() {
+        const text = document.getElementById('nonunion-report').value.trim();
+        const errEl = document.getElementById('nonunion-error');
+        errEl.classList.add('hidden');
+        if (!text || text.length < 5) { errEl.classList.remove('hidden'); return; }
+        const anon = document.getElementById('nonunion-anon') && document.getElementById('nonunion-anon').checked;
+        const body = (anon ? '[ANONYMOUS]\n\n' : '') + '[NON-UNION JOB SITE REPORT]\n\n' + text + '\n\n— Local 10 Safety Hub';
+        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Non-Union Job Site Report') + '&body=' + encodeURIComponent(body);
+        alert('✅ Sent!');
+        document.getElementById('nonunion-report').value = '';
+      }
     </script>
+
+    <!-- Non-Union Work Report -->
+    <section class="mb-6" aria-label="Report non-union work">
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-white mb-2">📋 Report Non-Union Job Site Work</h2>
+        <p class="text-slate-400 text-sm mb-2">See non-union workers on a job that should be union? Report it to your steward.</p>
+        <label class="flex items-center gap-2 text-slate-400 text-sm mb-2 cursor-pointer">
+          <input type="checkbox" id="nonunion-anon"> Anonymous
+        </label>
+        <textarea id="nonunion-report" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-3 text-sm resize-none focus:border-red-600 focus:outline-none" rows="4" placeholder="Location, company name, what you observed..." aria-label="Describe non-union work"></textarea>
+        <button onclick="reportNonUnion()" class="mt-2 btn-red" aria-label="Send to steward">Send to Steward</button>
+        <div id="nonunion-error" class="hidden mt-1 text-red-400 text-xs" role="alert">Please add details.</div>
+      </div>
+    </section>
 
   </main>
 
