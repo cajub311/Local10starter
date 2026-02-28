@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Local 10 Union Contract</title>
+  <title>Sheet Metal Workers Local 10 — Union Contract</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -34,191 +35,137 @@
     .font-display { font-family: 'Oswald', sans-serif; }
   </style>
 </head>
-<body class="bg-union-navy text-white min-h-screen">
-  <div class="max-w-4xl mx-auto px-4 py-6">
+<body class="bg-slate-100 dark:bg-union-navy text-slate-900 dark:text-white min-h-screen transition-colors">
+  <div class="max-w-4xl mx-auto px-4 py-4 sm:py-6">
 
-    <!-- Compact top section -->
-    <div class="text-center py-6 px-4">
-      <h1 class="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
-        Local 10 Union Contract
-      </h1>
-      <div class="flex justify-center mb-2">
-        <div id="qrcode" class="w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] p-2 bg-white rounded-lg border border-union-red inline-flex items-center justify-center overflow-hidden"></div>
-      </div>
-      <p class="text-sm text-slate-300">
-        Scan with your phone → opens Full Contract PDF
-      </p>
+    <!-- Dark mode toggle -->
+    <div class="flex justify-end mb-2">
+      <button id="darkToggle" onclick="toggleDark()" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-sm font-medium" aria-label="Toggle dark mode">
+        <span id="darkLabel">Dark</span> mode
+      </button>
     </div>
 
-    <!-- Search hint + PDF viewer (the star) -->
+    <!-- TOP SECTION — ultra-compact -->
+    <div class="text-center py-4 px-4 sm:py-6">
+      <h1 class="font-display text-xl sm:text-2xl font-bold text-union-navy dark:text-white mb-3">
+        Sheet Metal Workers Local 10 — Union Contract
+      </h1>
+      <div class="flex justify-center mb-2">
+        <div id="qrcode" class="w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] p-2 bg-white rounded-lg border border-union-red inline-flex items-center justify-center overflow-hidden"></div>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">📱 Scan with phone → opens Full Contract PDF</p>
+      <a id="directPdfLink" href="contract.pdf" class="text-sm text-union-red hover:underline break-all block mt-2">
+      </a>
+    </div>
+
+    <!-- SEARCHABLE PDF — 80% of screen, the star -->
     <div class="mb-4">
-      <p class="text-sm sm:text-base text-slate-300 mb-3">
-        🔍 Tap the 🔎 inside the PDF to search: pay, sick time, overtime, vacation, seniority, benefits, etc.
-      </p>
+      <p class="text-sm text-slate-600 dark:text-slate-300 mb-2">🔍 Search the full contract</p>
+      <div class="flex flex-wrap gap-2 mb-3">
+        <button onclick="searchContract('pay')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Pay Rates</button>
+        <button onclick="searchContract('sick')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Sick Time</button>
+        <button onclick="searchContract('overtime')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Overtime</button>
+        <button onclick="searchContract('vacation')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Vacation</button>
+        <button onclick="searchContract('seniority')" class="search-chip px-4 py-2 rounded-lg bg-union-red hover:bg-union-red-dark text-white text-sm font-semibold transition-all">Seniority</button>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Tap the 🔎 inside the viewer to search anything (benefits, grievance, etc.)</p>
       <iframe 
         id="pdfViewer" 
         src="" 
-        style="width:100%; height:68vh; min-height:460px; border:none; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2);" 
+        style="width:100%; height:74vh; min-height:520px; border:none; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2);" 
         allowfullscreen
         title="Union Contract PDF Viewer"
       ></iframe>
     </div>
 
-    <!-- Buttons below PDF (stacked on phones) -->
-    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-12">
+    <!-- BUTTONS — big, stacked on phones -->
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8">
       <a id="downloadBtn" href="contract.pdf" download="union-contract.pdf" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide text-center shadow-lg transition-all">
         Download PDF
       </a>
       <a id="newTabBtn" href="contract.pdf" target="_blank" rel="noopener" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide text-center shadow-lg transition-all">
         Open PDF in New Tab
       </a>
-      <button id="copyBtn" onclick="copyPdfLink()" class="flex-1 px-6 py-4 rounded-xl bg-slate-600 hover:bg-slate-500 text-white font-display font-bold text-lg uppercase tracking-wide shadow-lg transition-all">
+      <button id="copyBtn" onclick="copyPdfLink()" class="flex-1 px-6 py-4 rounded-xl bg-slate-600 hover:bg-slate-500 text-white font-display font-bold text-lg uppercase tracking-wide transition-all">
         Copy Direct PDF Link
       </button>
     </div>
 
-    <!-- ========== NEW SECTIONS BELOW PDF ========== -->
-
-    <!-- 1. Search the Contract - massive CTA -->
-    <section class="mb-12">
-      <a href="#pdfViewer" class="block w-full py-6 px-6 rounded-2xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-2xl sm:text-3xl uppercase tracking-wide text-center shadow-xl transition-all border-2 border-white/20">
-        🔍 Search the Contract
-      </a>
-      <p class="text-center text-slate-400 text-sm mt-2">Tap above, then use the 🔎 magnifier inside the PDF viewer</p>
-    </section>
-
-    <!-- 2. Shop Floor Poster -->
-    <section class="mb-12 p-6 rounded-2xl bg-union-navy-light border border-slate-600">
-      <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-3">📋 Shop Floor Poster</h2>
-      <p class="text-slate-300 mb-4">Print this poster and tape it to toolboxes, breakroom walls, or bulletin boards. Anyone can scan the QR code for instant contract access.</p>
-      <a href="shop-floor-poster.pdf" download="local10-union-contract-poster.pdf" class="inline-block px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold uppercase tracking-wide">
-        Download Shop Floor Poster PDF
-      </a>
-    </section>
-
-    <!-- 3. Know Your Rights / Floor Protocol -->
-    <section class="mb-12 p-6 rounded-2xl bg-union-navy-light border border-slate-600">
-      <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-4">🛡️ Know Your Rights — Floor Protocol</h2>
-      <p class="text-slate-300 mb-4">When someone outside your chain of command (office staff, sales, etc.) tries to give you orders or complain about a miscount:</p>
-      <ul class="list-disc list-inside text-slate-300 space-y-2 mb-4">
-        <li><strong class="text-white">Stay calm and professional.</strong> You have the right to work without improper interference.</li>
-        <li><strong class="text-white">Politely redirect:</strong> "I report to [Operations Management / my supervisor]. Please take this up with them."</li>
-        <li><strong class="text-white">Don't accept discipline</strong> from anyone outside your chain of command. Only Operations Management (Plant Manager, Production Supervisors) can direct your work and discipline.</li>
-        <li><strong class="text-white">Document it.</strong> Note date, time, who approached you, and what was said. Tell your Steward.</li>
+    <!-- LOCAL 10 MEMBER RESOURCES -->
+    <section class="mb-8 p-6 rounded-2xl bg-slate-200 dark:bg-union-navy-light border border-slate-300 dark:border-slate-600">
+      <h2 class="font-display text-xl font-bold text-union-navy dark:text-white mb-4">Local 10 Member Resources</h2>
+      <ul class="space-y-3 text-slate-600 dark:text-slate-300 text-sm">
+        <li><strong class="text-union-navy dark:text-white">Official Local 10 Website:</strong> <a href="https://www.smw10.org/" target="_blank" rel="noopener" class="text-union-red hover:underline">https://www.smw10.org/</a></li>
+        <li><strong class="text-union-navy dark:text-white">Union Hall:</strong> 1681 East Cope Ave Suite A, Maplewood MN 55109 • <a href="tel:+16517702388" class="text-union-red hover:underline">(651) 770-2388</a></li>
+        <li><strong class="text-union-navy dark:text-white">Business Manager Matt Fairbanks:</strong> <a href="mailto:mfairbanks@smw10.org" class="text-union-red hover:underline">mfairbanks@smw10.org</a></li>
+        <li><strong class="text-union-navy dark:text-white">Minnesota DLI</strong> (wages, earned sick time, complaints): <a href="https://www.dli.mn.gov/" target="_blank" rel="noopener" class="text-union-red hover:underline">https://www.dli.mn.gov/</a> • <a href="tel:+16512845075" class="text-union-red hover:underline">651-284-5075</a></li>
+        <li><strong class="text-union-navy dark:text-white">MN OSHA</strong> Safety Help & Free Consultation: <a href="https://www.dli.mn.gov/business/workplace-safety-and-health" target="_blank" rel="noopener" class="text-union-red hover:underline">https://www.dli.mn.gov/business/workplace-safety-and-health</a> • <a href="tel:+16512845060" class="text-union-red hover:underline">651-284-5060</a></li>
+        <li><strong class="text-union-navy dark:text-white">Workers' Comp Questions:</strong> Contact your steward or DLI</li>
       </ul>
-      <p class="text-slate-400 text-sm">Per the contract: Production employees report to Operations Management. Office/sales staff cannot displace or micromanage union work.</p>
     </section>
 
-    <!-- 4. Contact Your Steward & Weingarten Rights -->
-    <section class="mb-12 p-6 rounded-2xl bg-union-navy-light border border-slate-600">
-      <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-4">📞 Contact Your Steward</h2>
-      <p class="text-slate-300 mb-4">When things go sideways with management, reach out to your Union Steward or Business Representative. They're here to help.</p>
-      <a href="mailto:steward@smartlocal10.org" class="inline-block px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold uppercase tracking-wide mb-6">
-        Contact Your Steward
-      </a>
-
-      <h3 class="font-display text-lg font-bold text-union-red mb-3">Weingarten Rights</h3>
-      <p class="text-slate-400 text-sm mb-3">You have the right to union representation during any meeting that could lead to discipline. If you're pulled into the office, you can read this verbatim:</p>
-      <div class="p-4 rounded-xl bg-slate-800 border-l-4 border-union-red text-slate-200 text-sm sm:text-base leading-relaxed">
-        <em>"If this discussion could in any way lead to my being disciplined or terminated, or affect my personal working conditions, I request that my union representative, steward, or coworker be present at this meeting. Until I have this representation, I choose not to answer any questions."</em>
-      </div>
-      <p class="text-slate-500 text-xs mt-2">Save this page or screenshot the card above. You can pull it up on your phone and read it to a supervisor if needed.</p>
-    </section>
-
-    <!-- 5. Exhibit B: Benefits Quick-Reference -->
-    <section class="mb-12 p-6 rounded-2xl bg-union-navy-light border border-slate-600">
-      <h2 class="font-display text-xl sm:text-2xl font-bold text-white mb-4">💰 Benefits Quick-Reference (Exhibit B)</h2>
-      <p class="text-slate-400 text-sm mb-6">Contract legalese simplified. Always refer to the full contract and SPDs for official terms.</p>
-
-      <div class="space-y-6">
-        <div>
-          <h4 class="font-display text-union-red font-bold mb-2">ESST (Earned Sick & Safe Time)</h4>
-          <ul class="text-slate-300 text-sm space-y-1">
-            <li>• <strong>Accrual:</strong> 1 hour for every 30 hours worked</li>
-            <li>• <strong>Max per year:</strong> 48 hours</li>
-            <li>• <strong>Max carryover:</strong> 80 hours into next year</li>
-            <li>• <strong>Min increment:</strong> 15 minutes</li>
-            <li>• No waiting period — use as you accrue</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-display text-union-red font-bold mb-2">Wellness Incentive (HSA)</h4>
-          <ul class="text-slate-300 text-sm space-y-1">
-            <li>• Complete annual physical + USPSTF preventive screenings</li>
-            <li>• <strong>Single:</strong> Up to $600/year ($11.54/week) into your HSA</li>
-            <li>• <strong>Family/other:</strong> Up to $1,200/year ($23.08/week) into your HSA</li>
-            <li>• Effective 4/1/25 — provide documentation to HR</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-display text-union-red font-bold mb-2">Medical Insurance</h4>
-          <ul class="text-slate-300 text-sm space-y-1">
-            <li>• <strong>Single:</strong> Company pays 85%</li>
-            <li>• <strong>Family/other tiers:</strong> Company pays 80%</li>
-            <li>• Spousal surcharge $150 if spouse has access to employer coverage (effective 1/1/26)</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-display text-union-red font-bold mb-2">Dental Insurance</h4>
-          <ul class="text-slate-300 text-sm space-y-1">
-            <li>• <strong>Cost share:</strong> 50% Company, 50% employee</li>
-            <li>• Delta Preferred Option or Select Plus (choice at open enrollment)</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-display text-union-red font-bold mb-2">Vacation Accrual</h4>
-          <ul class="text-slate-300 text-sm space-y-1">
-            <li>• Year 1: 40 hrs (0.77/hr per week)</li>
-            <li>• Years 2–5: 80 hrs (1.54/hr per week)</li>
-            <li>• Years 6–10: 120 hrs (2.31/hr per week)</li>
-            <li>• Years 11–19: 160 hrs (3.08/hr per week)</li>
-            <li>• Years 20+: 200 hrs (3.85/hr per week)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    <!-- FOOTER -->
+    <footer class="text-center text-slate-500 dark:text-slate-500 text-xs py-6 border-t border-slate-300 dark:border-slate-700">
+      For informational use only • Always verify with your union rep • Updated February 2026
+    </footer>
   </div>
 
   <script>
     function getPdfUrl() {
-      return new URL('contract.pdf', window.location.href).href;
+      return window.location.origin + '/contract.pdf';
+    }
+
+    let viewerBaseUrl = '';
+
+    function searchContract(term) {
+      if (!viewerBaseUrl) return;
+      const searchUrl = viewerBaseUrl + '#search=' + encodeURIComponent(term) + '&zoom=page-width';
+      document.getElementById('pdfViewer').src = searchUrl;
+      document.getElementById('pdfViewer').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       const pdfUrl = getPdfUrl();
+      viewerBaseUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(pdfUrl);
       
-      // PDF viewer - Mozilla PDF.js with built-in search
-      const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(pdfUrl) + '#zoom=page-width';
-      document.getElementById('pdfViewer').src = viewerUrl;
-      
+      document.getElementById('pdfViewer').src = viewerBaseUrl + '#zoom=page-width';
       document.getElementById('downloadBtn').href = pdfUrl;
       document.getElementById('newTabBtn').href = pdfUrl;
+      document.getElementById('directPdfLink').href = pdfUrl;
+      document.getElementById('directPdfLink').textContent = pdfUrl;
       
-      // QR code: 220px on phones, 260px on larger screens — always links to live contract.pdf
-      const qrSize = window.matchMedia('(min-width: 640px)').matches ? 260 : 220;
+      // QR code: 200px phones, 240px desktop — points to window.location.origin + '/contract.pdf'
+      const qrSize = window.matchMedia('(min-width: 640px)').matches ? 240 : 200;
       new QRCode(document.getElementById('qrcode'), {
         text: pdfUrl,
         width: qrSize,
         height: qrSize
       });
+
+      if (localStorage.getItem('darkMode') === 'false') {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('darkLabel').textContent = 'Dark';
+      } else {
+        document.documentElement.classList.add('dark');
+        document.getElementById('darkLabel').textContent = 'Light';
+      }
     });
 
     function copyPdfLink() {
-      const url = getPdfUrl();
-      navigator.clipboard.writeText(url).then(function() {
+      navigator.clipboard.writeText(getPdfUrl()).then(function() {
         const btn = document.getElementById('copyBtn');
         const orig = btn.textContent;
         btn.textContent = 'Copied!';
         btn.classList.add('bg-green-600');
-        setTimeout(function() {
-          btn.textContent = orig;
-          btn.classList.remove('bg-green-600');
-        }, 2000);
+        setTimeout(function() { btn.textContent = orig; btn.classList.remove('bg-green-600'); }, 2000);
       });
+    }
+
+    function toggleDark() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      document.getElementById('darkLabel').textContent = isDark ? 'Light' : 'Dark';
     }
   </script>
 </body>
