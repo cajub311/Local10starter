@@ -4,124 +4,180 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a1428">
-  <title>Safety & Worker Rights — Local 10</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Local 10 Safety — Emergency contacts, right to refuse, PPE, heat rules, ergonomics for SMART Sheet Metal Workers Local 10">
+  <title>Safety & Rights — Local 10</title>
   <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { union: { navy: '#0a1428', 'navy-light': '#1e3a5f', red: '#dc2626', 'red-dark': '#b91c1c' } },
-          fontFamily: { sans: ['Roboto', 'system-ui', 'sans-serif'] }
-        }
-      }
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
   </script>
 </head>
-<body class="bg-union-navy text-white min-h-screen font-sans">
+<body>
   <!-- NAV -->
-  <nav class="bg-union-navy-light border-b border-white/10" role="navigation" aria-label="Main navigation">
-    <div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-14">
-      <button id="navToggle" class="md:hidden p-2 rounded-lg hover:bg-white/10" aria-label="Open menu" aria-expanded="false">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-      <div id="navLinks" class="hidden md:flex gap-1">
-        <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Home</a>
-        <a href="grievances.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Grievances</a>
-        <a href="safety.html" class="px-3 py-2 rounded-lg bg-union-red hover:bg-union-red-dark font-bold">Safety</a>
-        <a href="meetings.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Meetings</a>
-        <a href="benefits.html" class="px-3 py-2 rounded-lg hover:bg-white/10">Benefits</a>
+  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;">
+    <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
+        <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
+        <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Member Hub</span>
+      </a>
+      <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
+        <a href="index.html" class="nav-link">📄 Contract</a>
+        <a href="grievances.html" class="nav-link">⚖️ Grievances</a>
+        <a href="safety.html" class="nav-link active">🦺 Safety</a>
+        <a href="meetings.html" class="nav-link">📅 Meetings</a>
+        <a href="benefits.html" class="nav-link">💰 Benefits</a>
       </div>
-      <form action="index.html" method="get" class="flex-1 md:max-w-xs ml-2">
-        <input type="search" name="q" placeholder="Search contract..." class="w-full px-3 py-1.5 rounded-lg bg-white/10 text-white placeholder-slate-400 text-sm border border-white/20 focus:outline-none focus:ring-2 focus:ring-union-red" aria-label="Search contract">
-      </form>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
     </div>
-    <div id="navMobile" class="hidden md:hidden border-t border-white/10">
-      <a href="index.html" class="block px-4 py-3 hover:bg-white/10">Home</a>
-      <a href="grievances.html" class="block px-4 py-3 hover:bg-white/10">Grievances</a>
-      <a href="safety.html" class="block px-4 py-3 font-bold bg-union-red">Safety</a>
-      <a href="meetings.html" class="block px-4 py-3 hover:bg-white/10">Meetings</a>
-      <a href="benefits.html" class="block px-4 py-3 hover:bg-white/10">Benefits</a>
+    <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
+      <a href="index.html" class="mobile-link">📄 Contract</a>
+      <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
+      <a href="safety.html" class="mobile-link">🦺 Safety</a>
+      <a href="meetings.html" class="mobile-link">📅 Meetings</a>
+      <a href="benefits.html" class="mobile-link">💰 Benefits</a>
+      <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
+        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Steward: 612-428-8004</a>
+      </div>
     </div>
   </nav>
+  <style>
+    .nav-link{color:#94a3b8;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.03em;padding:0.4rem 0.6rem;border-radius:6px;text-decoration:none;transition:color 0.15s,background 0.15s;}
+    .nav-link:hover{color:#f1f5f9;background:#1e3a5f;text-decoration:none;}
+    .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
+    .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
+    .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
+    @media (max-width:640px){#nav-links{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
+  </style>
+  <script>
+    function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}
+  </script>
 
-  <main class="max-w-4xl mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold text-white mb-6">Safety Tips & Your Rights</h1>
+  <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
+    <div style="text-align:center;padding:1.5rem 0 1rem;">
+      <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 0.25rem;">Safety & Worker Rights</h1>
+      <p style="color:#94a3b8;margin:0;">OSHA • Right to refuse • PPE • Heat rules</p>
+    </div>
 
-    <!-- Right to Refuse Unsafe Work -->
-    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
-      <h2 class="text-xl font-bold text-union-red mb-3">Right to Refuse Unsafe Work</h2>
-      <p class="text-slate-300 text-sm mb-2">You can refuse work that poses an <strong>imminent danger</strong>. Example: <em>Post-fire — can't force return until building is deemed safe.</em></p>
-      <p class="text-slate-400 text-xs">OSHA 29 CFR 1910.176 — Safe material handling. Employer must provide a safe workplace.</p>
-    </section>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1rem 0 0.5rem;">🚨 EMERGENCY CONTACTS</p>
+    <div class="card">
+      <div style="display:grid;gap:0.75rem;">
+        <a href="tel:911" class="btn-red" style="display:block;text-align:center;padding:0.8rem;">🚨 911 — Life-threatening emergency</a>
+        <a href="tel:+16124288004" class="btn-outline" style="display:block;text-align:center;padding:0.7rem;">📞 Steward: 612-428-8004</a>
+        <a href="tel:+16517702388" class="btn-outline" style="display:block;text-align:center;padding:0.7rem;">📞 Local 10 Hall: (651) 770-2388</a>
+        <a href="https://www.osha.gov/workers" target="_blank" class="btn-outline" style="display:block;text-align:center;padding:0.7rem;">🛡️ OSHA — Report workplace hazard</a>
+        <a href="tel:+16512969060" class="btn-outline" style="display:block;text-align:center;padding:0.7rem;">📞 MN OSHA: (651) 296-9060</a>
+      </div>
+    </div>
 
-    <!-- Common Hazards -->
-    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
-      <h2 class="text-xl font-bold text-union-red mb-3">Common Hazards</h2>
-      <ul class="text-slate-300 text-sm space-y-2">
-        <li><strong class="text-white">PPE for sharp edges:</strong> Gloves, cut-resistant sleeves</li>
-        <li><strong class="text-white">Dust masks:</strong> Required when cutting, grinding, welding</li>
-        <li><strong class="text-white">Eye protection:</strong> OSHA 29 CFR 1910.133 — Safety glasses in all shop areas</li>
-        <li><strong class="text-white">Hearing protection:</strong> Paint Shop, Grinding areas, Flat Cell — OSHA 1910.138</li>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🛑 RIGHT TO REFUSE UNSAFE WORK</p>
+    <div class="card info-box">
+      <p style="margin:0 0 0.75rem;color:#f1f5f9;"><strong>You have the legal right to refuse work you believe is imminently dangerous.</strong></p>
+      <ol style="margin:0;padding-left:1.25rem;color:#94a3b8;line-height:1.7;">
+        <li>Tell your supervisor you believe the work is unsafe.</li>
+        <li>Request correction. If they refuse, you may refuse the task.</li>
+        <li>Report to your steward and document the incident.</li>
+        <li>OSHA protects you from retaliation. Retaliation is illegal.</li>
+      </ol>
+      <p style="margin:0.75rem 0 0;color:#60a5fa;font-size:0.9rem;"><a href="https://www.osha.gov/workers/right-to-refuse" target="_blank" style="color:#60a5fa;">OSHA Right to Refuse →</a></p>
+    </div>
+
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🦺 PPE — PERSONAL PROTECTIVE EQUIPMENT</p>
+    <div class="card">
+      <p style="color:#f1f5f9;margin:0 0 0.5rem;">Employers must provide required PPE at no cost to you.</p>
+      <ul style="margin:0;padding-left:1.25rem;color:#94a3b8;line-height:1.7;">
+        <li><strong>Hard hats</strong> — Required in areas with overhead hazards</li>
+        <li><strong>Safety glasses / face shields</strong> — Eye protection for grinding, welding, cutting</li>
+        <li><strong>Hearing protection</strong> — When noise exceeds 85 dB</li>
+        <li><strong>Gloves</strong> — Cut-resistant, chemical-resistant as needed</li>
+        <li><strong>Respirators</strong> — When required by hazard assessment</li>
+        <li><strong>Fall protection</strong> — Harness & lanyard at 4 ft+ (6 ft construction)</li>
       </ul>
-    </section>
+      <p style="margin:0.75rem 0 0;color:#f59e0b;">If PPE is missing or defective, report to your steward. Do not perform the task without proper protection.</p>
+    </div>
 
-    <!-- Heat Illness -->
-    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
-      <h2 class="text-xl font-bold text-union-red mb-3">Heat Illness Prevention</h2>
-      <p class="text-slate-300 text-sm">New OSHA 2026 rule: rest, water, shade required.</p>
-    </section>
-
-    <!-- Wage Theft -->
-    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
-      <h2 class="text-xl font-bold text-union-red mb-3">Wage Theft Reporting</h2>
-      <p class="text-slate-300 text-sm">MN DLI: <a href="tel:+16512845075" class="text-union-red hover:underline">651-284-5075</a></p>
-    </section>
-
-    <!-- EMERGENCY -->
-    <section class="mb-6 p-6 rounded-2xl bg-union-red/20 border-2 border-union-red">
-      <h2 class="text-xl font-bold text-white mb-3">Emergency Contacts</h2>
-      <ul class="text-white font-bold space-y-2">
-        <li>MN OSHA (hazards): <a href="tel:+16512845050" class="hover:underline">651-284-5050</a></li>
-        <li>24/7: <a href="tel:+18774706742" class="hover:underline">877-470-6742</a></li>
-        <li>Federal OSHA (fatalities): <a href="tel:+18003216742" class="hover:underline">800-321-6742</a></li>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🌡️ HEAT RULES — OSHA 2026</p>
+    <div class="card warning-box">
+      <p style="margin:0 0 0.5rem;color:#f1f5f9;"><strong>New OSHA heat standard (2026) — mandatory protections:</strong></p>
+      <ul style="margin:0;padding-left:1.25rem;color:#f1f5f9;line-height:1.7;">
+        <li><strong>Rest breaks</strong> — In shade/cool area when heat index is high</li>
+        <li><strong>Water</strong> — Potable water readily available</li>
+        <li><strong>Shade</strong> — Access to shaded rest area</li>
+        <li><strong>Acclimatization</strong> — Gradual increase for new workers</li>
+        <li><strong>Training</strong> — Heat illness signs and first aid</li>
       </ul>
-    </section>
+      <p style="margin:0.75rem 0 0;color:#fca5a5;">Heat illness can be fatal. If you feel dizzy, nauseous, or confused — stop work, get to shade, drink water, tell someone.</p>
+    </div>
 
-    <!-- Sheet Metal Tips -->
-    <section class="mb-6 p-6 rounded-2xl bg-union-navy-light border border-white/10">
-      <h2 class="text-xl font-bold text-union-red mb-3">Sheet Metal Tips</h2>
-      <ul class="text-slate-300 text-sm space-y-2">
-        <li><strong class="text-white">Proper lifting:</strong> Bend knees, keep load close</li>
-        <li><strong class="text-white">Machine guarding:</strong> Never remove guards — report damaged guards</li>
-        <li><strong class="text-white">Ergonomics:</strong> Avoid repetitive strain — take breaks, stretch</li>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🪑 ERGONOMICS & REPETITIVE STRAIN</p>
+    <div class="card">
+      <p style="color:#f1f5f9;margin:0 0 0.5rem;">Report ergonomic issues before they become injuries.</p>
+      <ul style="margin:0;padding-left:1.25rem;color:#94a3b8;line-height:1.7;">
+        <li>Request adjustable workstations, tools, or lifting aids</li>
+        <li>Rotate tasks when possible to reduce repetitive strain</li>
+        <li>Report wrist, back, or shoulder pain early</li>
+        <li>Workers' comp covers ergonomic injuries — document and report</li>
       </ul>
-    </section>
+    </div>
 
-    <!-- OSHA Link -->
-    <a href="https://www.osha.gov/sheet-metal" target="_blank" rel="noopener" class="inline-block px-6 py-3 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-bold text-center">
-      Official OSHA Sheet Metal Guide →
-    </a>
-
-    <!-- SHARE -->
-    <div class="flex flex-wrap gap-2 mt-8">
-      <button onclick="window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Safety ' + location.href), '_blank')" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-bold">WhatsApp</button>
-      <button onclick="location.href='mailto:?subject=Local%2010%20Safety&body='+encodeURIComponent(location.href)" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold">Email</button>
-      <button onclick="navigator.clipboard.writeText(location.href).then(()=>alert('Copied!'))" class="px-4 py-2 rounded-lg bg-slate-600 hover:bg-slate-500 text-white text-sm font-bold">Copy URL</button>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📋 REPORT NON-UNION / WAGE THEFT (ANONYMOUS OPTION)</p>
+    <div class="card">
+      <p style="color:#f1f5f9;margin:0 0 0.75rem;">If you work non-union or suspect wage theft, you can report anonymously:</p>
+      <form id="nonunion-report" onsubmit="return submitNonUnionReport(event)">
+        <div style="margin-bottom:1rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Report type</label>
+          <select name="type" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+            <option value="nonunion">Non-union work on union job</option>
+            <option value="wagetheft">Wage theft / unpaid wages</option>
+            <option value="misclassification">Misclassification (e.g. 1099)</option>
+            <option value="other">Other violation</option>
+          </select>
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Company / job site (optional)</label>
+          <input type="text" name="company" placeholder="Where is this happening?" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Details (optional — anonymous if left blank)</label>
+          <textarea name="details" rows="3" placeholder="What do you want to report?" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label style="display:flex;align-items:center;gap:0.5rem;color:#94a3b8;font-size:0.85rem;cursor:pointer;">
+            <input type="checkbox" name="anonymous" checked> Report anonymously (no contact info)
+          </label>
+        </div>
+        <button type="submit" class="btn-red">📤 Submit Report</button>
+      </form>
+      <p style="color:#64748b;font-size:0.8rem;margin-top:0.75rem;">Sends to <a href="mailto:gorillagrad9@gmail.com" style="color:#60a5fa;">gorillagrad9@gmail.com</a>. MN Dept of Labor: <a href="tel:+16512843400" style="color:#60a5fa;">(651) 284-3400</a> for wage claims.</p>
     </div>
   </main>
 
-  <footer class="text-center text-slate-500 text-xs py-6 border-t border-white/10 mt-8">
-    Informational only • Verify with rep • Updated Feb 2026 • Local 10: <a href="https://www.smw10.org/" target="_blank" rel="noopener" class="text-union-red hover:underline">smw10.org</a>
+  <footer>
+    <p>⚠️ <strong>Informational only</strong> — Always verify with your union rep before acting.</p>
+    <p>Updated February 2026 • SMART Sheet Metal Workers Local 10</p>
+    <p><a href="https://www.smw10.org" target="_blank">smw10.org</a> • <a href="tel:+16517702388">(651) 770-2388</a></p>
+    <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
+      <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
+      <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
+    </div>
+    <p style="margin-top:1rem;color:#475569;font-size:0.75rem;">🔒 Protected under MN law & OSHA — You may report safety violations and wage theft anonymously. Retaliation is illegal.</p>
   </footer>
 
+  <div style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+    <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
+    <a href="tel:+16124288004" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">📞 612-428-8004</a>
+    <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
+  </div>
+  <div style="height:60px;"></div>
+
   <script>
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
-    document.getElementById('navToggle').addEventListener('click', function() {
-      document.getElementById('navMobile').classList.toggle('hidden');
-      this.setAttribute('aria-expanded', document.getElementById('navMobile').classList.contains('hidden') ? 'false' : 'true');
-    });
+    function submitNonUnionReport(e){e.preventDefault();const f=e.target;const subj='Local 10 Report: '+f.type.options[f.type.selectedIndex].text;let body='Type: '+f.type.options[f.type.selectedIndex].text+'\nCompany/Site: '+f.company.value+'\nDetails: '+f.details.value;if(f.anonymous.checked)body+='\n\n[Submitted anonymously]';window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);return false;}
+    function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Safety: '+window.location.href));}
+    function shareEmail(){window.location.href='mailto:?subject=Local 10 Safety Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
+    function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
   </script>
 </body>
 </html>
