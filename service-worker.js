@@ -1,4 +1,4 @@
-const CACHE_NAME = 'local10-v6';
+const CACHE_NAME = 'local10-v7';
 const PRECACHE = [
   '/',
   '/index.html',
