@@ -117,6 +117,31 @@
       (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
     </script>
 
+    <!-- Contract PDF — view & search -->
+    <section style="margin-bottom:1.5rem;">
+      <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
+        <iframe id="pdf-frame" src="" title="Union contract PDF" style="width:100%;height:75vh;min-height:350px;border:none;"></iframe>
+      </div>
+      <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.9rem;margin:1rem 0 0.5rem;">Tap to search in contract:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+        <button type="button" onclick="searchContract('grievance')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Grievance</button>
+        <button type="button" onclick="searchContract('overtime')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Overtime</button>
+        <button type="button" onclick="searchContract('vacation')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Vacation</button>
+        <button type="button" onclick="searchContract('seniority')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Seniority</button>
+        <button type="button" onclick="searchContract('wage')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Wage</button>
+        <button type="button" onclick="searchContract('safety')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Safety</button>
+        <button type="button" onclick="searchContract('layoff')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Layoff</button>
+        <button type="button" onclick="searchContract('Exhibit C')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Exhibit C</button>
+        <button type="button" onclick="searchContract('health')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Health</button>
+        <button type="button" onclick="searchContract('pension')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Pension</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+        <a href="contract.pdf" download class="btn-red" style="font-size:0.9rem;">📥 Download PDF</a>
+        <a href="contract.pdf" target="_blank" class="btn-outline" style="font-size:0.9rem;">🔗 Open New Tab</a>
+        <button type="button" onclick="copyContractLink()" class="btn-outline" style="font-size:0.9rem;" id="copyContractBtn">🔗 Copy Link</button>
+      </div>
+    </section>
+
     <!-- Important Numbers to Call -->
     <section style="margin-bottom:1.5rem;">
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:#94a3b8;letter-spacing:0.06em;margin-bottom:0.75rem;">📞 IMPORTANT NUMBERS TO CALL</h2>
@@ -175,12 +200,19 @@
       base=base.replace(/\/?$/,'/');
       var contractUrl=base+'contract.pdf';
       var qrUrl=base+'index.html';
+      var pdfFrame=document.getElementById('pdf-frame');
+      if(pdfFrame)pdfFrame.src=contractUrl+'#zoom=page-width';
       var linkEl=document.getElementById('contract-direct-link');
       if(linkEl)linkEl.href=contractUrl;
       var qrEl=document.getElementById('qrcode');
       if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:qrUrl,width:200,height:200});}
       var copyBottom=document.getElementById('copyBtnBottom');
       if(copyBottom)copyBottom.onclick=function(){navigator.clipboard.writeText(qrUrl).then(function(){copyBottom.textContent='✅ Copied!';setTimeout(function(){copyBottom.textContent='🔗 Copy site URL';},2000);});};
+      function copyContractLink(){navigator.clipboard.writeText(contractUrl).then(function(){var b=document.getElementById('copyContractBtn');if(b){b.textContent='✅ Copied!';setTimeout(function(){b.textContent='🔗 Copy Link';},2000);}});}
+      window.copyContractLink=copyContractLink;
+      var params=new URLSearchParams(window.location.search);
+      var q=params.get('search');
+      if(q&&typeof searchContract==='function'){searchContract(q);}
     })();
   </script>
 </body>
