@@ -35,6 +35,7 @@
         <a href="meetings.html" class="nav-link">📅 Meetings</a>
         <a href="benefits.html" class="nav-link">💰 Benefits</a>
       </div>
+      <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
       <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
@@ -73,9 +74,13 @@
   </script>
 
   <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
-    <div style="text-align:center;padding:1.5rem 0 1rem;">
-      <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 0.25rem;">Grievances & FAQs</h1>
-      <p style="color:#94a3b8;margin:0;">Know your steps • File a concern • Get help</p>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 1rem;">Grievances & Submit Concern</h1>
+
+    <div class="card" style="background:#dc2626;border-color:#b91c1c;text-align:center;padding:1.5rem;">
+      <p style="margin:0 0 0.75rem;font-weight:700;color:white;font-size:1.2rem;">Call or Text Steward</p>
+      <a href="tel:+16124288004" style="display:block;font-size:1.75rem;font-weight:800;color:white;text-decoration:none;margin-bottom:0.75rem;">612-428-8004</a>
+      <p style="margin:0 0 0.5rem;color:white;font-size:1rem;">Email</p>
+      <a href="mailto:gorillagrad9@gmail.com" style="color:white;text-decoration:underline;font-weight:600;font-size:1.1rem;">gorillagrad9@gmail.com</a>
     </div>
 
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1rem 0 0.5rem;">⚖️ GRIEVANCE FAQs — TAP TO EXPAND</p>
@@ -116,14 +121,6 @@
         <button class="accordion-header" onclick="toggleAccordion('faq9')">Do I need to put it in writing?</button>
         <div class="accordion-body">Some steps require written grievances. Your steward will help you draft it. Include date, facts, contract section violated, and remedy requested.</div>
       </div>
-      <div class="accordion-item" id="faq10">
-        <button class="accordion-header" onclick="toggleAccordion('faq10')">What if I'm not sure it's grievable?</button>
-        <div class="accordion-body">Contact your steward anyway. They can advise whether it's covered by the contract. When in doubt, ask — that's what the union is for.</div>
-      </div>
-      <div class="accordion-item" id="faq11">
-        <button class="accordion-header" onclick="toggleAccordion('faq11')">Can I report anonymously?</button>
-        <div class="accordion-body">For safety violations, you may report to OSHA anonymously. For grievances, your steward can discuss options. MN law protects whistleblowers from retaliation.</div>
-      </div>
       <div class="accordion-item" id="faq12">
         <button class="accordion-header" onclick="toggleAccordion('faq12')">What are the time limits?</button>
         <div class="accordion-body">Grievances must usually be filed within a set number of days (often 5–10) of when you knew or should have known of the violation. Check your contract — delays can waive your rights.</div>
@@ -136,21 +133,18 @@
         <button class="accordion-header" onclick="toggleAccordion('faq14')">Tool allowance shortfalls?</button>
         <div class="accordion-body">If your contract provides a tool allowance and the employer isn't paying it, that's a grievance. Check your contract for the exact amount and timing. Keep records of what you've spent. Report to your steward.</div>
       </div>
-      <div class="accordion-item" id="faq15">
-        <button class="accordion-header" onclick="toggleAccordion('faq15')">Non-union job reporting?</button>
-        <div class="accordion-body">If you spot non-union workers performing sheet metal work on a job site, don't confront anyone. Document date, time, location, company name, and report to your steward. The union may pursue contract violations. See <a href="safety.html">Safety page</a> for the report form.</div>
-      </div>
     </div>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🛡️ WHISTLEBLOWER PROTECTION</p>
-    <div class="card info-box">
-      <p style="margin:0 0 0.5rem;">Report safety violations anonymously. OSHA protects whistleblowers from retaliation.</p>
-      <a href="https://www.osha.gov/whistleblower" target="_blank" rel="noopener noreferrer" class="btn-outline" style="display:inline-block;">Report to OSHA (anonymous) →</a>
-    </div>
-
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1rem 0 0.5rem;">📞 STEWARD</p>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📤 SUBMIT A CONCERN</p>
     <div class="card">
-      <p style="margin:0;"><a href="tel:+16124288004">612-428-8004</a> • <a href="mailto:gorillagrad9@gmail.com">gorillagrad9@gmail.com</a></p>
+      <form id="submit-concern" onsubmit="return submitConcernSimple(event)">
+        <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Your message</label>
+        <textarea name="message" rows="4" required placeholder="Describe your concern..." style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
+        <label style="display:flex;align-items:center;gap:0.5rem;color:#94a3b8;font-size:0.85rem;margin:0.75rem 0;cursor:pointer;">
+          <input type="checkbox" name="anonymous" id="anon-cb"> Submit anonymously
+        </label>
+        <button type="submit" class="btn-red">Send to Steward</button>
+      </form>
     </div>
 
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📋 INCIDENT LOG — DOCUMENT FOR YOUR RECORDS</p>
@@ -177,55 +171,16 @@
       <p style="color:#64748b;font-size:0.8rem;margin-top:0.75rem;">This form saves to your device only. Use it to document incidents before talking to your steward.</p>
     </div>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📤 SUBMIT A CONCERN TO YOUR STEWARD</p>
-    <div class="card">
-      <form id="submit-concern" onsubmit="return submitConcern(event)">
-        <div style="margin-bottom:1rem;">
-          <label style="display:flex;align-items:center;gap:0.5rem;color:#94a3b8;font-size:0.85rem;cursor:pointer;">
-            <input type="checkbox" name="anonymous" id="anon-cb">
-            Submit anonymously (no name/contact)
-          </label>
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Your name (optional)</label>
-          <input type="text" name="name" placeholder="How your steward can reach you" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Phone or email</label>
-          <input type="text" name="contact" placeholder="612-xxx-xxxx or email" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Type of concern</label>
-          <select name="type" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-            <option value="pay">Pay / wage issue</option>
-            <option value="discipline">Discipline / unfair treatment</option>
-            <option value="safety">Safety / hazard</option>
-            <option value="seniority">Seniority violation</option>
-            <option value="overtime">Overtime</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div style="margin-bottom:1rem;">
-          <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Describe your concern</label>
-          <textarea name="body" rows="4" required placeholder="What happened? When? Any witnesses?" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;resize:vertical;"></textarea>
-        </div>
-        <button type="submit" class="btn-red">✉️ Email Steward</button>
-      </form>
-      <p style="color:#64748b;font-size:0.8rem;margin-top:0.75rem;">Opens your email app. For urgent issues, call <a href="tel:+16124288004">612-428-8004</a>.</p>
-    </div>
   </main>
 
-  <footer>
-    <p>⚠️ <strong>Informational only</strong> — Always verify with your union rep before acting.</p>
-    <p>Updated February 2026 • SMART Sheet Metal Workers Local 10</p>
-    <p><a href="https://www.smw10.org" target="_blank">smw10.org</a> • <a href="tel:+16517702388">(651) 770-2388</a></p>
+  <footer class="no-print">
+    <p>Local 10 Member Resources • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
       <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
     </div>
-    <p style="margin-top:1rem;color:#475569;font-size:0.75rem;">🔒 Protected under MN law & OSHA — You may report safety violations and wage theft anonymously. Retaliation is illegal.</p>
   </footer>
 
   <div style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
@@ -237,7 +192,7 @@
 
   <script>
     function logIncident(e){e.preventDefault();const f=e.target;const d={date:f.date.value,location:f.location.value,description:f.description.value,witnesses:f.witnesses.value};localStorage.setItem('incident_'+Date.now(),JSON.stringify(d));alert('Incident logged locally. Share with your steward when ready.');f.reset();return false;}
-    function submitConcern(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var subj='Local 10 Concern: '+f.type.options[f.type.selectedIndex].text;var body=(anon?'[ANONYMOUS]\n\n':'Name: '+f.name.value+'\nContact: '+f.contact.value+'\n\n')+'Type: '+f.type.options[f.type.selectedIndex].text+'\n\n'+f.body.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);if(typeof showToast==='function')showToast('Sent! Check your email app.');else alert('Sent! Check your email app.');return false;}
+    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var body=(anon?'[ANONYMOUS]\n\n':'')+f.message.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Local 10 Concern')+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
     function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Grievances: '+window.location.href));}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
