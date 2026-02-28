@@ -1,7 +1,13 @@
 {
   "rewrites": [
     {"source": "/", "destination": "/index.html"},
-    {"source": "/index", "destination": "/index.html"}
+    {"source": "/index", "destination": "/index.html"},
+    {"source": "/grievance", "destination": "/grievances.html"},
+    {"source": "/grievances", "destination": "/grievances.html"},
+    {"source": "/safety", "destination": "/safety.html"},
+    {"source": "/benefits", "destination": "/benefits.html"},
+    {"source": "/meetings", "destination": "/meetings.html"},
+    {"source": "/qr", "destination": "/qr.html"}
   ],
   "headers": [
     {"source": "/(.*).html", "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}]},
