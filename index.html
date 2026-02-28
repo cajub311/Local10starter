@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Union Contract — Local 10</title>
+  <title>Local 10 Union Contract</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -33,105 +32,74 @@
   <style>
     body { font-family: 'Work Sans', system-ui, sans-serif; }
     .font-display { font-family: 'Oswald', sans-serif; }
-    .qr-container { min-width: 380px; min-height: 380px; }
-    @media (max-width: 480px) {
-      .qr-container { min-width: 320px; min-height: 320px; }
-    }
   </style>
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen transition-colors">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-    
-    <!-- Dark mode toggle -->
-    <div class="flex justify-end mb-4">
-      <button id="darkToggle" onclick="toggleDark()" class="px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-sm font-medium" aria-label="Toggle dark mode">
-        <span id="darkLabel">Dark</span> mode
-      </button>
-    </div>
+<body class="bg-union-navy text-white min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 py-6">
 
-    <!-- QR Code Section -->
-    <div class="mb-8 p-6 rounded-2xl bg-white dark:bg-slate-800 shadow-xl border-2 border-union-red">
-      <p class="font-display text-xl sm:text-2xl text-union-navy dark:text-slate-100 mb-4 text-center">
-        📱 Scan with your phone → opens Full Contract PDF
-      </p>
-      <div class="flex justify-center">
-        <div id="qrcode" class="qr-container p-4 bg-white rounded-xl border-4 border-union-red inline-block"></div>
-      </div>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex flex-wrap gap-4 justify-center mb-8">
-      <a id="downloadBtn" href="contract.pdf" download="union-contract.pdf" class="px-8 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide shadow-lg hover:shadow-xl transition-all">
-        Download PDF
-      </a>
-      <a id="newTabBtn" href="contract.pdf" target="_blank" rel="noopener" class="px-8 py-4 rounded-xl bg-union-navy hover:bg-union-navy-light text-white font-display font-bold text-lg uppercase tracking-wide shadow-lg hover:shadow-xl transition-all">
-        Open PDF in New Tab
-      </a>
-      <button id="copyBtn" onclick="copyPdfLink()" class="px-8 py-4 rounded-xl bg-slate-700 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-500 text-white font-display font-bold text-lg uppercase tracking-wide shadow-lg hover:shadow-xl transition-all">
-        Copy Direct PDF Link
-      </button>
-    </div>
-
-    <!-- Main Heading & Instructions -->
-    <div class="mb-6">
-      <h1 class="font-display text-3xl sm:text-4xl md:text-5xl text-union-navy dark:text-white mb-3">
-        Union Contract — Search or Scroll Below
+    <!-- Compact top section -->
+    <div class="text-center py-6 px-4">
+      <h1 class="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+        Local 10 Union Contract
       </h1>
-      <p class="text-lg text-slate-600 dark:text-slate-400">
-        Use the search box inside the PDF viewer (magnifier icon). Type words like: <span class="font-semibold text-union-navy dark:text-slate-200">pay</span>, <span class="font-semibold text-union-navy dark:text-slate-200">sick time</span>, <span class="font-semibold text-union-navy dark:text-slate-200">overtime</span>, <span class="font-semibold text-union-navy dark:text-slate-200">vacation</span>, <span class="font-semibold text-union-navy dark:text-slate-200">seniority</span>, <span class="font-semibold text-union-navy dark:text-slate-200">benefits</span>, <span class="font-semibold text-union-navy dark:text-slate-200">grievance</span>, etc.
+      <div class="flex justify-center mb-2">
+        <div id="qrcode" class="w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] p-2 bg-white rounded-lg border border-union-red inline-flex items-center justify-center overflow-hidden"></div>
+      </div>
+      <p class="text-sm text-slate-300">
+        Scan with your phone → opens Full Contract PDF
       </p>
     </div>
 
-    <!-- PDF Viewer - loads directly, no splash -->
-    <div class="rounded-2xl overflow-hidden shadow-2xl border-2 border-slate-200 dark:border-slate-700">
+    <!-- Search hint + PDF viewer (the star) -->
+    <div class="mb-4">
+      <p class="text-sm sm:text-base text-slate-300 mb-3">
+        🔍 Tap the 🔎 inside the PDF to search: pay, sick time, overtime, vacation, seniority, benefits, etc.
+      </p>
       <iframe 
         id="pdfViewer" 
         src="" 
-        style="width:100%; height:78vh; min-height:500px; border: none;" 
+        style="width:100%; height:68vh; min-height:460px; border:none; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2);" 
         allowfullscreen
         title="Union Contract PDF Viewer"
       ></iframe>
     </div>
 
-    <!-- Direct contract link for accessibility -->
-    <div class="mt-6 text-center">
-      <a id="contractLink" href="contract.pdf" class="inline-block px-6 py-3 rounded-lg bg-union-red hover:bg-union-red-dark text-white font-semibold">
-        📄 Union Contract — Open PDF Directly
+    <!-- Buttons below PDF (stacked on phones) -->
+    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+      <a id="downloadBtn" href="contract.pdf" download="union-contract.pdf" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide text-center shadow-lg transition-all">
+        Download PDF
       </a>
+      <a id="newTabBtn" href="contract.pdf" target="_blank" rel="noopener" class="flex-1 px-6 py-4 rounded-xl bg-union-red hover:bg-union-red-dark text-white font-display font-bold text-lg uppercase tracking-wide text-center shadow-lg transition-all">
+        Open PDF in New Tab
+      </a>
+      <button id="copyBtn" onclick="copyPdfLink()" class="flex-1 px-6 py-4 rounded-xl bg-slate-600 hover:bg-slate-500 text-white font-display font-bold text-lg uppercase tracking-wide shadow-lg transition-all">
+        Copy Direct PDF Link
+      </button>
     </div>
   </div>
 
   <script>
-    // Get PDF URL - works for any deployment (root or subpath)
     function getPdfUrl() {
       return new URL('contract.pdf', window.location.href).href;
     }
 
-    // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
       const pdfUrl = getPdfUrl();
       
-      // Set PDF viewer iframe src (Mozilla PDF.js with built-in search)
+      // PDF viewer - Mozilla PDF.js with built-in search
       const viewerUrl = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(pdfUrl) + '#zoom=page-width';
       document.getElementById('pdfViewer').src = viewerUrl;
       
-      // Set download and new tab links
       document.getElementById('downloadBtn').href = pdfUrl;
       document.getElementById('newTabBtn').href = pdfUrl;
-      document.getElementById('contractLink').href = pdfUrl;
       
-      // Generate QR code (380x380 minimum) - always points to live PDF URL
+      // QR code: 220px on phones, 260px on larger screens — always links to live contract.pdf
+      const qrSize = window.matchMedia('(min-width: 640px)').matches ? 260 : 220;
       new QRCode(document.getElementById('qrcode'), {
         text: pdfUrl,
-        width: 380,
-        height: 380
+        width: qrSize,
+        height: qrSize
       });
-      
-      // Restore dark mode preference
-      if (localStorage.getItem('darkMode') === 'true') {
-        document.documentElement.classList.add('dark');
-        document.getElementById('darkLabel').textContent = 'Light';
-      }
     });
 
     function copyPdfLink() {
@@ -146,13 +114,6 @@
           btn.classList.remove('bg-green-600');
         }, 2000);
       });
-    }
-
-    function toggleDark() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('darkMode', isDark);
-      document.getElementById('darkLabel').textContent = isDark ? 'Light' : 'Dark';
     }
   </script>
 </body>
