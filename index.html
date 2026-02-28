@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#0a1428">
   <meta name="description" content="Sheet Metal Workers Local 10 — Union Contract Hub. Ultra-searchable contract, grievances, safety, benefits. Offline-ready PWA.">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -39,11 +40,7 @@
     .faq-item.open .faq-icon { transform: rotate(180deg); }
     @media (prefers-color-scheme: dark) { :root { color-scheme: dark; } }
     @media (max-width: 768px) {
-      #qrcode { display: none !important; }
-      .qr-section .contract-mobile-btn { display: block !important; }
-    }
-    @media (min-width: 769px) {
-      .contract-mobile-btn { display: none !important; }
+      #qrcode-section { display: none !important; }
     }
     @media print {
       nav, footer, .no-print, #sticky-bar, #mobile-menu { display: none !important; }
@@ -119,10 +116,9 @@
       (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
     </script>
 
-    <div class="qr-section" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:1.5rem;">
-      <div id="qrcode" aria-label="Scan QR code to open contract" role="img" title="Scan to open"></div>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:1.5rem;">
       <a href="contract.pdf" class="btn-red" style="font-size:1.1rem;padding:0.75rem 1.5rem;text-decoration:none;text-align:center;" id="contract-direct-link">📄 Open Contract PDF →</a>
-      <a href="contract.pdf" class="btn-red contract-mobile-btn" style="font-size:1.2rem;padding:1rem 1.5rem;text-decoration:none;text-align:center;min-height:48px;display:none;">📄 View Full Contract</a>
+      <a href="qr.html" class="btn-outline" style="font-size:1rem;padding:0.6rem 1rem;">📱 QR Code</a>
     </div>
 
     <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
@@ -148,6 +144,15 @@
       <a href="contract.pdf" target="_blank" class="btn-outline">🔗 Open New Tab</a>
       <button onclick="copyContractLink()" class="btn-outline" id="copyContractBtn">🔗 Copy Link</button>
     </div>
+
+    <!-- QR Code — bottom of page for copy/paste, flyers (hidden on mobile) -->
+    <section id="qrcode-section" style="margin-top:2rem;padding-top:2rem;border-top:1px solid #1e3a5f;text-align:center;">
+      <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:1rem;">Scan to open — for flyers, posters, locker room</p>
+      <div id="qrcode" aria-label="Scan QR code to open contract" role="img" title="Scan to open"></div>
+      <p style="margin-top:1rem;">
+        <button class="btn-outline" id="copyBtnBottom">🔗 Copy site URL</button>
+      </p>
+    </section>
 
   </main>
 
@@ -178,6 +183,8 @@
       if(linkEl)linkEl.href=contractUrl;
       var qrEl=document.getElementById('qrcode');
       if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:qrUrl,width:200,height:200});}
+      var copyBottom=document.getElementById('copyBtnBottom');
+      if(copyBottom)copyBottom.onclick=function(){navigator.clipboard.writeText(qrUrl).then(function(){copyBottom.textContent='✅ Copied!';setTimeout(function(){copyBottom.textContent='🔗 Copy site URL';},2000);});};
       var params=new URLSearchParams(window.location.search);
       var s=params.get('search');
       if(s){var f=document.getElementById('pdf-frame');var inp=document.getElementById('global-search');if(inp)inp.value=s;if(f)f.src=base+'contract.pdf#search='+encodeURIComponent(s)+'&zoom=page-width';}

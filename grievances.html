@@ -9,6 +9,8 @@
   <meta name="description" content="Local 10 Grievances — File a concern, know your steps, FAQs for SMART Sheet Metal Workers Local 10">
   <title>Grievances & FAQs — Local 10</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="_shared.css">
   <script src="_shared.js"></script>
@@ -252,7 +254,7 @@
     (function(){var el=document.getElementById('ts-datetime');if(el){var n=new Date();el.value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}})();
     function copyTimestamp(){var dt=document.getElementById('ts-datetime').value||'Not set';var loc=document.getElementById('ts-location').value||'';var what=document.getElementById('ts-what').value||'';var wit=document.getElementById('ts-witnesses').value||'';var txt='[INCIDENT RECORD — '+new Date().toLocaleString()+']\n\nDate/Time: '+dt+'\nLocation: '+loc+'\nWhat happened: '+what+'\nWitnesses: '+wit;navigator.clipboard.writeText(txt).then(function(){alert('✅ Copied to clipboard!');});}
     function logIncident(e){e.preventDefault();const f=e.target;const d={date:f.date.value,location:f.location.value,description:f.description.value,witnesses:f.witnesses.value};localStorage.setItem('incident_'+Date.now(),JSON.stringify(d));alert('Incident logged locally. Share with your steward when ready.');f.reset();return false;}
-    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Local 10 Concern'+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
+    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;var d=new Date().toLocaleDateString();window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Worker Concern — '+d+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
     function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Grievances: '+window.location.href));}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
