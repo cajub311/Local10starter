@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#0a1428">
   <meta name="description" content="Sheet Metal Workers Local 10 — Union Contract Hub. Ultra-searchable contract, grievances, safety, benefits. Offline-ready PWA.">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -38,6 +39,9 @@
     .faq-icon { transition: transform 0.2s; }
     .faq-item.open .faq-icon { transform: rotate(180deg); }
     @media (prefers-color-scheme: dark) { :root { color-scheme: dark; } }
+    @media (max-width: 768px) {
+      #qrcode-section { display: none !important; }
+    }
     @media print {
       nav, footer, .no-print, #sticky-bar, #mobile-menu { display: none !important; }
       body { background: white; color: black; font-size: 12pt; }
@@ -76,7 +80,7 @@
         <a href="benefits.html" class="nav-link">💰 Benefits</a>
       </div>
       <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
-      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
       <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
@@ -101,32 +105,38 @@
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
-  <script>function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}</script>
 
   <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 1rem;text-align:center;">Sheet Metal Workers Local 10 — Union Contract</h1>
+    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;justify-content:center;margin-bottom:1rem;">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="https://translate.google.com/translate?u=REPLACE_URL&sl=en&tl=es" target="_blank" rel="noopener" id="spanish-link" style="color:#94a3b8;font-size:0.9rem;text-decoration:underline;">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
 
     <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:1.5rem;">
-      <div id="qrcode" aria-label="Scan QR code to open contract" role="img" title="Scan to open"></div>
       <a href="contract.pdf" class="btn-red" style="font-size:1.1rem;padding:0.75rem 1.5rem;text-decoration:none;text-align:center;" id="contract-direct-link">📄 Open Contract PDF →</a>
+      <a href="qr.html" class="btn-outline" style="font-size:1rem;padding:0.6rem 1rem;">📱 QR Code</a>
     </div>
 
     <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
       <iframe src="contract.pdf#zoom=page-width" title="Union contract PDF" style="width:100%;height:85vh;min-height:400px;border:none;" id="pdf-frame"></iframe>
     </div>
 
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.9rem;margin:1.5rem 0 0.75rem;">Tap to search & highlight in PDF:</p>
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.9rem;margin:1.5rem 0 0.75rem;">Tap to search in contract:</p>
     <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.5rem;">
-      <button type="button" onclick="searchContract('journeyman pay')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Journeyman Pay</button>
-      <button type="button" onclick="searchContract('apprentice')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Apprentice Rates</button>
-      <button type="button" onclick="searchContract('paint shop')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Paint Shop Pay</button>
-      <button type="button" onclick="searchContract('assembly fab')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Assembly/Fab Pay</button>
-      <button type="button" onclick="searchContract('overtime')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Overtime</button>
-      <button type="button" onclick="searchContract('vacation')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Vacation Pay</button>
-      <button type="button" onclick="searchContract('sick')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Sick Time</button>
-      <button type="button" onclick="searchContract('seniority')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Seniority</button>
-      <button type="button" onclick="searchContract('grievance')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Grievance Procedure</button>
-      <button type="button" onclick="searchContract('PFML leave')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">PFML Leave</button>
+      <button type="button" onclick="searchContract('Painter')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Painter</button>
+      <button type="button" onclick="searchContract('Welder')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Welder</button>
+      <button type="button" onclick="searchContract('Assembler')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Assembler</button>
+      <button type="button" onclick="searchContract('Fabricator')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Fabricator</button>
+      <button type="button" onclick="searchContract('Sheet Metal Mechanic')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Journeyman</button>
+      <button type="button" onclick="searchContract('Apprentice')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Apprentice</button>
+      <button type="button" onclick="searchContract('Maintenance')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Foreman</button>
+      <button type="button" onclick="searchContract('Overtime')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Overtime</button>
+      <button type="button" onclick="searchContract('ESST')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Sick Time</button>
+      <button type="button" onclick="searchContract('Vacation')" class="btn-red" style="font-size:1rem;padding:0.6rem 1rem;">Vacation</button>
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.5rem;">
@@ -135,20 +145,25 @@
       <button onclick="copyContractLink()" class="btn-outline" id="copyContractBtn">🔗 Copy Link</button>
     </div>
 
-    <div class="card info-box">
-      <p style="margin:0;font-weight:600;color:#f1f5f9;">Prevailing Wage (May 1 2026): $60.96/hr base + $35.82 fringes = $96.78 total package (Ramsey/Hennepin sheet metal)</p>
-    </div>
+    <!-- QR Code — bottom of page for copy/paste, flyers (hidden on mobile) -->
+    <section id="qrcode-section" style="margin-top:2rem;padding-top:2rem;border-top:1px solid #1e3a5f;text-align:center;">
+      <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:1rem;">Scan to open — for flyers, posters, locker room</p>
+      <div id="qrcode" aria-label="Scan QR code to open contract" role="img" title="Scan to open"></div>
+      <p style="margin-top:1rem;">
+        <button class="btn-outline" id="copyBtnBottom">🔗 Copy site URL</button>
+      </p>
+    </section>
+
   </main>
 
   <footer class="no-print">
-    <p>For Local 10 Members • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
+    <p>Local 10 Member Resources • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;" aria-label="Share this page">📤 Share</button>
       <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
     </div>
-    <p style="margin-top:1rem;color:#475569;font-size:0.75rem;">🔒 Protected under MN law & OSHA — You may report safety violations and wage theft anonymously. Retaliation is illegal.</p>
   </footer>
 
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
@@ -168,6 +183,8 @@
       if(linkEl)linkEl.href=contractUrl;
       var qrEl=document.getElementById('qrcode');
       if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:qrUrl,width:200,height:200});}
+      var copyBottom=document.getElementById('copyBtnBottom');
+      if(copyBottom)copyBottom.onclick=function(){navigator.clipboard.writeText(qrUrl).then(function(){copyBottom.textContent='✅ Copied!';setTimeout(function(){copyBottom.textContent='🔗 Copy site URL';},2000);});};
       var params=new URLSearchParams(window.location.search);
       var s=params.get('search');
       if(s){var f=document.getElementById('pdf-frame');var inp=document.getElementById('global-search');if(inp)inp.value=s;if(f)f.src=base+'contract.pdf#search='+encodeURIComponent(s)+'&zoom=page-width';}

@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#0a1428">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -51,7 +52,7 @@
         <a href="benefits.html" class="nav-link">💰 Benefits</a>
       </div>
       <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
-      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
       <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
@@ -76,12 +77,29 @@
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
-  <script>function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}</script>
 
   <main class="max-w-5xl mx-auto px-4 py-6" id="main-content">
 
     <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-1">Meetings & Local Info</h1>
-    <p class="text-slate-400 text-sm mb-6">Stay connected. Show up. Your voice matters.</p>
+    <p class="text-slate-400 text-sm mb-2">Stay connected. Show up. Your voice matters.</p>
+    <div class="flex flex-wrap gap-3 items-center mb-6">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" class="text-slate-400 text-sm hover:underline">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
+
+    <!-- Next Meeting Card -->
+    <section class="mb-4" aria-label="Next meeting">
+      <div class="bg-red-600/20 border-2 border-red-600 rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-red-400 mb-2">📅 Next Meeting</h2>
+        <p class="text-white font-bold text-lg">General Membership Meeting</p>
+        <p class="text-slate-200 text-sm mt-1">March 15, 2026 • 7:00 PM</p>
+        <p class="text-slate-300 text-sm">Union Hall — 1681 East Cope Ave Suite A, Maplewood MN 55109</p>
+        <p class="text-amber-400 text-xs mt-2">Check <a href="https://www.smw10.org" target="_blank" rel="noopener" class="underline">smw10.org</a> for updates.</p>
+      </div>
+    </section>
 
     <!-- Union Hall Card -->
     <section class="mb-4" aria-label="Union hall information">
@@ -104,6 +122,18 @@
           <div class="text-white font-bold">Matt Fairbanks — Business Manager</div>
           <a href="mailto:mfairbanks@smw10.org" class="text-red-400 text-sm hover:underline" aria-label="Email Matt Fairbanks">mfairbanks@smw10.org</a>
         </div>
+      </div>
+    </section>
+
+    <!-- What Happens at Meetings -->
+    <section class="mb-6" aria-label="About union meetings">
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-white mb-2">📋 About Union Meetings</h2>
+        <ul class="text-sm text-slate-200 space-y-1.5">
+          <li><strong class="text-white">What happens:</strong> Reports from officers, committee updates, votes on local business, discussion of contract and workplace issues</li>
+          <li><strong class="text-white">Apprentices:</strong> Yes — apprentices are members and can attend. Some votes may be members-only; check with your steward</li>
+          <li><strong class="text-white">Excused from work:</strong> Your contract may allow time off for union meetings. Check with your steward — many employers grant release time for official union business</li>
+        </ul>
       </div>
     </section>
 
@@ -153,14 +183,14 @@
       </div>
     </section>
 
-    <!-- Suggest an Event Form -->
-    <section class="mb-6" aria-label="Suggest a member event">
-      <h2 class="font-heading text-2xl font-bold text-white mb-2">💡 Suggest a Member Event</h2>
-      <p class="text-slate-400 text-sm mb-3">Family nights, skills workshops, safety trainings, community events — your ideas shape what Local 10 does.</p>
+    <!-- Suggest Meeting Topic Form -->
+    <section class="mb-6" aria-label="Suggest meeting topic">
+      <h2 class="font-heading text-2xl font-bold text-white mb-2">💡 Suggest Meeting Topic</h2>
+      <p class="text-slate-400 text-sm mb-3">What would you like to discuss at the next meeting? Your ideas shape Local 10.</p>
       <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
-        <label for="event-suggestion" class="text-slate-400 text-xs font-semibold block mb-1">Your idea: <span class="text-red-400">*</span></label>
-        <textarea id="event-suggestion" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-3 text-sm resize-none focus:border-red-600 focus:outline-none" rows="3" placeholder="Describe the event idea, why it would benefit members, preferred timing..." aria-required="true" aria-label="Describe your event suggestion"></textarea>
-        <button onclick="suggestEvent()" class="mt-2 bg-red-600 text-white font-bold px-4 py-2.5 rounded-xl hover:bg-red-700 transition-colors text-sm" aria-label="Send event suggestion to steward">📤 Send Suggestion</button>
+        <label for="event-suggestion" class="text-slate-400 text-xs font-semibold block mb-1">Your topic: <span class="text-red-400">*</span></label>
+        <textarea id="event-suggestion" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-3 text-sm resize-none focus:border-red-600 focus:outline-none" rows="3" placeholder="Describe the meeting topic you'd like to see discussed..." aria-required="true" aria-label="Describe your meeting topic suggestion"></textarea>
+        <button onclick="suggestEvent()" class="mt-2 bg-red-600 text-white font-bold px-4 py-2.5 rounded-xl hover:bg-red-700 transition-colors text-sm" aria-label="Send meeting topic to steward">📤 Send to Steward</button>
         <div id="event-error" class="hidden mt-1 text-red-400 text-xs" role="alert">Please add your suggestion before submitting.</div>
       </div>
     </section>
@@ -171,8 +201,8 @@
         const errEl = document.getElementById('event-error');
         errEl.classList.add('hidden');
         if (!text || text.length < 5) { errEl.classList.remove('hidden'); return; }
-        const body = '[MEMBER EVENT SUGGESTION]\n\n' + text + '\n\n— Submitted via Local 10 Hub\n' + window.location.href;
-        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Member Event Suggestion') + '&body=' + encodeURIComponent(body);
+        const body = '[MEETING TOPIC SUGGESTION]\n\n' + text + '\n\n— Submitted via Local 10 Hub\n' + window.location.href;
+        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Meeting Topic Suggestion') + '&body=' + encodeURIComponent(body);
         alert('✅ Sent!');
         document.getElementById('event-suggestion').value = '';
       }
@@ -193,14 +223,13 @@
   </main>
 
     <footer class="no-print">
-    <p>For Local 10 Members • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
+    <p>Local 10 Member Resources • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
       <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
     </div>
-    <p style="margin-top:1rem;color:#475569;font-size:0.75rem;">🔒 Protected under MN law & OSHA — You may report safety violations and wage theft anonymously. Retaliation is illegal.</p>
   </footer>
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>

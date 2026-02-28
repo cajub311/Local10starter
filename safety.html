@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#0a1428">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -51,7 +52,7 @@
         <a href="benefits.html" class="nav-link">💰 Benefits</a>
       </div>
       <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
-      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
       <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
@@ -76,7 +77,6 @@
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
-  <script>function toggleMobileMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='none'?'block':'none';}</script>
 
   <!-- INJURED RIGHT NOW BANNER — top of page, always first -->
   <div class="bg-red-600 text-white px-4 py-4 border-b-4 border-red-900 no-print" role="alert" aria-live="assertive">
@@ -90,7 +90,14 @@
 
   <main class="max-w-5xl mx-auto px-4 py-6" id="main-content">
 
-    <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-6">Safety & Your Rights</h1>
+    <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-2">Safety & Your Rights</h1>
+    <div class="flex flex-wrap gap-3 items-center mb-6">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" class="text-slate-400 text-sm hover:underline">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
 
     <!-- Right to Refuse -->
     <section class="mb-6" aria-label="Right to refuse unsafe work">
@@ -128,7 +135,7 @@
           <div class="text-3xl mb-1" aria-hidden="true">🔊</div>
           <div class="text-white font-bold text-xs">Hearing Protection</div>
           <div class="text-slate-400 text-xs mt-1">Paint Shop, Grinding areas, Flat Cell — earplugs required</div>
-          <div class="text-slate-500 text-xs mt-0.5">OSHA 1910.138</div>
+          <div class="text-slate-500 text-xs mt-0.5">OSHA 29 CFR 1910.95</div>
         </div>
         <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-3 text-center">
           <div class="text-3xl mb-1" aria-hidden="true">🏋️</div>
@@ -154,18 +161,69 @@
       </div>
     </section>
 
-    <!-- 2026 Heat Stress Checklist -->
-    <section class="mb-6" aria-label="2026 heat stress checklist">
-      <div class="bg-amber-400/10 border border-amber-400/40 rounded-xl p-4">
-        <h2 class="font-heading text-xl font-bold text-amber-400 mb-2">🌡️ Heat Stress Checklist (2026 OSHA)</h2>
+    <!-- Heat Illness Prevention — expanded, accurate Feb 2026 -->
+    <section class="mb-6" aria-label="Heat illness prevention">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">🌡️ Heat Illness Prevention — Know Your Rights</h2>
+
+      <div class="bg-amber-400/10 border border-amber-400/40 rounded-xl p-4 mb-4">
+        <h3 class="font-heading text-lg font-bold text-amber-400 mb-2">⚠️ Current Status (Feb 2026)</h3>
+        <p class="text-slate-200 text-sm mb-2"><strong>Federal OSHA proposed a heat rule in 2024</strong> but it has NOT been finalized yet. However, you are STILL protected:</p>
         <ul class="text-sm text-slate-200 space-y-1.5">
-          <li>💧 <strong class="text-white">Water:</strong> Cool drinking water accessible at all times</li>
-          <li>🏖️ <strong class="text-white">Shade & Rest:</strong> Required when heat index exceeds 80°F</li>
-          <li>⏱️ <strong class="text-white">Rest Breaks:</strong> Mandatory paid cool-down breaks in high heat</li>
-          <li>👥 <strong class="text-white">Buddy System:</strong> Required when heat index above 90°F</li>
-          <li>📋 <strong class="text-white">Acclimatization:</strong> Plan for workers new to heat or returning from absence</li>
+          <li><strong class="text-white">OSHA Heat National Emphasis Program (NEP)</strong> — Active through April 2026. OSHA is inspecting and citing employers for heat hazards using the General Duty Clause.</li>
+          <li><strong class="text-white">Minnesota Rule 5205.0110</strong> — MN has its OWN indoor heat standard. Your employer must control indoor heat based on work intensity and temperature.</li>
         </ul>
-        <p class="text-slate-400 text-xs mt-3">If your employer isn't providing these — that's an OSHA violation. Call: <a href="tel:+16512845050" class="text-red-400 font-bold hover:underline">651-284-5050</a></p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+        <div class="bg-green-400/10 border-2 border-green-400/50 rounded-xl p-4">
+          <h4 class="font-heading font-bold text-green-400 mb-2">At 80°F Heat Index</h4>
+          <ul class="text-sm text-slate-200 space-y-1">
+            <li>Cool drinking water — at least 1 quart/hour per worker</li>
+            <li>Shaded rest areas (outdoor) or fans/AC (indoor)</li>
+            <li>Paid rest breaks as needed</li>
+            <li>New workers: gradual acclimatization</li>
+          </ul>
+        </div>
+        <div class="bg-red-400/10 border-2 border-red-400/50 rounded-xl p-4">
+          <h4 class="font-heading font-bold text-red-400 mb-2">At 90°F Heat Index</h4>
+          <ul class="text-sm text-slate-200 space-y-1">
+            <li>Everything above PLUS:</li>
+            <li><strong>15-min paid rest break every 2 hours</strong></li>
+            <li>Buddy system or supervisor monitoring</li>
+            <li>Pre-shift hazard alert</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4 mb-4">
+        <h3 class="font-heading text-lg font-bold text-white mb-2">🚨 Warning Signs</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div>
+            <div class="text-amber-400 font-bold mb-1">Heat Exhaustion</div>
+            <p class="text-slate-300">Heavy sweating, dizziness, nausea, headache. <strong>Action:</strong> Move to shade, cool water, rest.</p>
+          </div>
+          <div>
+            <div class="text-red-400 font-bold mb-1">Heat Stroke (EMERGENCY)</div>
+            <p class="text-slate-300">No sweating, hot/red skin, confusion, seizures. <strong>Action:</strong> CALL 911, cool with water/ice.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4 mb-4">
+        <h3 class="font-heading text-lg font-bold text-white mb-2">✊ What You Can Do Right Now</h3>
+        <ul class="text-sm text-slate-200 space-y-1.5">
+          <li><strong>Ask for water, shade, and breaks</strong> — your employer must provide a safe workplace under the General Duty Clause</li>
+          <li><strong>Report unsafe heat:</strong> MN OSHA <a href="tel:+16512845050" class="text-red-400 font-bold hover:underline">651-284-5050</a> or Federal OSHA <a href="tel:+18003216742" class="text-red-400 font-bold hover:underline">800-321-6742</a></li>
+          <li><strong>You CANNOT be fired for reporting</strong> — retaliation is illegal</li>
+          <li><strong>New to job or returning from 14+ days off?</strong> — Highest risk. Demand gradual work increase.</li>
+          <li><strong>Contact your steward</strong> if employer refuses water, shade, or rest breaks</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <a href="https://www.osha.gov/heat-exposure" target="_blank" rel="noopener" class="text-red-400 text-sm font-bold hover:underline">OSHA Heat Resources →</a>
+        <a href="https://www.revisor.mn.gov/rules/5205.0110/" target="_blank" rel="noopener" class="text-red-400 text-sm font-bold hover:underline">MN Rule 5205.0110 →</a>
+        <a href="tel:+16512845050" class="text-red-400 text-sm font-bold hover:underline">📞 MN OSHA: 651-284-5050</a>
       </div>
     </section>
 
@@ -195,51 +253,88 @@
     <section class="mb-6" aria-label="Wage theft reporting">
       <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
         <h2 class="font-heading text-xl font-bold text-white mb-1">💵 Wage Theft Reporting</h2>
-        <p class="text-sm text-slate-300">Unpaid overtime, skipped breaks, or pay errors = wage theft. Report to MN DLI: <a href="tel:+16512845075" class="text-red-400 font-bold hover:underline" aria-label="Call MN DLI at 651-284-5075">651-284-5075</a> or <a href="https://www.dli.mn.gov" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:underline">dli.mn.gov</a></p>
+        <p class="text-sm text-slate-300">Unpaid overtime, skipped breaks, or pay errors = wage theft. DLI: <a href="tel:+16512845075" class="text-red-400 font-bold hover:underline" aria-label="Call MN DLI at 651-284-5075">651-284-5075</a></p>
         <p class="text-slate-500 text-xs mt-1">Anonymous reports accepted. You are protected from retaliation by MN law.</p>
       </div>
     </section>
 
-    <!-- Non-Union Job Site Report -->
-    <section class="mb-6" aria-label="Report non-union work on job site">
-      <div class="bg-[#0f1f3d] border border-amber-400/30 rounded-xl p-4">
-        <h2 class="font-heading text-xl font-bold text-amber-400 mb-1">🚧 Spot Non-Union Work On Site?</h2>
-        <p class="text-sm text-slate-400 mb-3">Don't confront anyone. Document details below and report to your Steward — this may be a contract violation the union can act on.</p>
-        <label class="flex items-center gap-2 text-slate-400 text-xs mb-2 cursor-pointer">
-          <input type="checkbox" id="nonunion-anon"> Submit anonymously
-        </label>
-        <label for="nonunion-text" class="text-slate-400 text-xs font-semibold block mb-1">Details: <span class="text-red-400">*</span></label>
-        <textarea id="nonunion-text" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-3 text-sm resize-none focus:border-red-600 focus:outline-none" rows="3" placeholder="Date, time, exact location, company name/logo, number of workers, type of work being performed..." aria-required="true" aria-label="Describe what non-union work you observed"></textarea>
-        <button onclick="reportNonUnion()" class="mt-2 bg-amber-400 text-[#0a1428] font-bold px-4 py-2 rounded-lg hover:bg-amber-300 transition-colors text-sm" aria-label="Send non-union work report to steward">📤 Report to Steward</button>
-        <div id="nonunion-error" class="hidden mt-1 text-red-400 text-xs" role="alert">Please add details before submitting.</div>
+    <!-- Know Before You Sign — printable checklist -->
+    <section class="mb-6" aria-label="Know before you sign checklist">
+      <div class="bg-[#0f1f3d] border-2 border-amber-400 rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-amber-400 mb-2">📋 Know Before You Sign — After an Injury</h2>
+        <p class="text-slate-300 text-sm mb-3">In shock? Use this checklist. One tap to print.</p>
+        <ul class="text-sm text-slate-200 space-y-2 mb-3">
+          <li>☐ Reported to supervisor</li>
+          <li>☐ Called steward (612-428-8004)</li>
+          <li>☐ Did NOT sign anything (no medical releases, no waivers)</li>
+          <li>☐ Got medical treatment</li>
+          <li>☐ Documented incident</li>
+        </ul>
+        <button onclick="window.print()" class="btn-red" aria-label="Print checklist">🖨️ Print Checklist</button>
       </div>
     </section>
 
+    <!-- Report Safety Concern -->
+    <section class="mb-6" aria-label="Report safety concern or incident">
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-white mb-2">Report Safety Concern or Incident</h2>
+        <label class="flex items-center gap-2 text-slate-400 text-sm mb-2 cursor-pointer">
+          <input type="checkbox" id="safety-anon"> Anonymous
+        </label>
+        <textarea id="safety-report" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-3 text-sm resize-none focus:border-red-600 focus:outline-none" rows="4" placeholder="Describe the safety concern or incident..." aria-label="Describe safety concern"></textarea>
+        <button onclick="reportSafety()" class="mt-2 btn-red" aria-label="Send to steward">Send to Steward</button>
+        <div id="safety-error" class="hidden mt-1 text-red-400 text-xs" role="alert">Please add details.</div>
+      </div>
+    </section>
     <script>
+      function reportSafety() {
+        const text = document.getElementById('safety-report').value.trim();
+        const errEl = document.getElementById('safety-error');
+        errEl.classList.add('hidden');
+        if (!text || text.length < 5) { errEl.classList.remove('hidden'); return; }
+        const anon = document.getElementById('safety-anon') && document.getElementById('safety-anon').checked;
+        const body = (anon ? '[ANONYMOUS]\n\n' : '') + '[SAFETY REPORT]\n\n' + text + '\n\n— Local 10 Safety Hub';
+        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Safety Concern Report') + '&body=' + encodeURIComponent(body);
+        alert('✅ Sent!');
+        document.getElementById('safety-report').value = '';
+      }
       function reportNonUnion() {
-        const text = document.getElementById('nonunion-text').value.trim();
+        const text = document.getElementById('nonunion-report').value.trim();
         const errEl = document.getElementById('nonunion-error');
         errEl.classList.add('hidden');
-        if (!text || text.length < 10) { errEl.classList.remove('hidden'); return; }
+        if (!text || text.length < 5) { errEl.classList.remove('hidden'); return; }
         const anon = document.getElementById('nonunion-anon') && document.getElementById('nonunion-anon').checked;
-        const body = (anon ? '[ANONYMOUS]\n\n' : '') + '[NON-UNION WORK REPORT]\n\n' + text + '\n\n— Reported via Local 10 Safety Hub\n' + window.location.href;
-        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Non-Union Work Sighting') + '&body=' + encodeURIComponent(body);
+        const body = (anon ? '[ANONYMOUS]\n\n' : '') + '[NON-UNION JOB SITE REPORT]\n\n' + text + '\n\n— Local 10 Safety Hub';
+        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Non-Union Job Site Report') + '&body=' + encodeURIComponent(body);
         alert('✅ Sent!');
-        document.getElementById('nonunion-text').value = '';
+        document.getElementById('nonunion-report').value = '';
       }
     </script>
+
+    <!-- Non-Union Work Report -->
+    <section class="mb-6" aria-label="Report non-union work">
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
+        <h2 class="font-heading text-xl font-bold text-white mb-2">📋 Report Non-Union Job Site Work</h2>
+        <p class="text-slate-400 text-sm mb-2">See non-union workers on a job that should be union? Report it to your steward.</p>
+        <label class="flex items-center gap-2 text-slate-400 text-sm mb-2 cursor-pointer">
+          <input type="checkbox" id="nonunion-anon"> Anonymous
+        </label>
+        <textarea id="nonunion-report" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-3 text-sm resize-none focus:border-red-600 focus:outline-none" rows="4" placeholder="Location, company name, what you observed..." aria-label="Describe non-union work"></textarea>
+        <button onclick="reportNonUnion()" class="mt-2 btn-red" aria-label="Send to steward">Send to Steward</button>
+        <div id="nonunion-error" class="hidden mt-1 text-red-400 text-xs" role="alert">Please add details.</div>
+      </div>
+    </section>
 
   </main>
 
     <footer class="no-print">
-    <p>For Local 10 Members • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
+    <p>Local 10 Member Resources • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
       <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
     </div>
-    <p style="margin-top:1rem;color:#475569;font-size:0.75rem;">🔒 Protected under MN law & OSHA — You may report safety violations and wage theft anonymously. Retaliation is illegal.</p>
   </footer>
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
     <span style="color:#94a3b8;font-size:0.8rem;font-family:'Barlow Condensed',sans-serif;">Your Steward:</span>
