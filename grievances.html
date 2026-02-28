@@ -11,8 +11,9 @@
   <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="_shared.css">
+  <script src="_shared.js"></script>
   <script>
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
   </script>
 </head>
 <body>
@@ -23,8 +24,12 @@
         <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
         <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Member Hub</span>
       </a>
+      <div id="nav-search" style="flex:1;min-width:120px;max-width:200px;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
+        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;font-size:0.85rem;" aria-label="Search">🔍</button>
+      </div>
       <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
-        <a href="index.html" class="nav-link">📄 Contract</a>
+        <a href="index.html" class="nav-link">📄 Home</a>
         <a href="grievances.html" class="nav-link active">⚖️ Grievances</a>
         <a href="safety.html" class="nav-link">🦺 Safety</a>
         <a href="meetings.html" class="nav-link">📅 Meetings</a>
@@ -33,7 +38,11 @@
       <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
-      <a href="index.html" class="mobile-link">📄 Contract</a>
+      <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." style="flex:1;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        <button onclick="doSearch();toggleMobileMenu();" class="btn-red" style="padding:0.5rem;">🔍</button>
+      </div>
+      <a href="index.html" class="mobile-link">📄 Home</a>
       <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
       <a href="safety.html" class="mobile-link">🦺 Safety</a>
       <a href="meetings.html" class="mobile-link">📅 Meetings</a>
@@ -49,7 +58,7 @@
     .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
     .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
-    @media (max-width:640px){#nav-links{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
+    @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
     .accordion-item{border:1px solid #1e3a5f;border-radius:0.5rem;margin-bottom:0.5rem;overflow:hidden;}
     .accordion-header{width:100%;text-align:left;background:#111f3a;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;padding:0.9rem 1rem;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
     .accordion-header:hover{background:#162545;}
@@ -119,6 +128,29 @@
         <button class="accordion-header" onclick="toggleAccordion('faq12')">What are the time limits?</button>
         <div class="accordion-body">Grievances must usually be filed within a set number of days (often 5–10) of when you knew or should have known of the violation. Check your contract — delays can waive your rights.</div>
       </div>
+      <div class="accordion-item" id="faq13">
+        <button class="accordion-header" onclick="toggleAccordion('faq13')">Fume exposure claims — welding, grinding, paint?</button>
+        <div class="accordion-body">If you suspect hazardous fume exposure (e.g., welding fumes, paint overspray, grinding dust), document it immediately. Report to your steward and request a safety review. OSHA requires ventilation and PPE. See contract and <a href="index.html" target="_blank">Safety page</a> for PPE requirements.</div>
+      </div>
+      <div class="accordion-item" id="faq14">
+        <button class="accordion-header" onclick="toggleAccordion('faq14')">Tool allowance shortfalls?</button>
+        <div class="accordion-body">If your contract provides a tool allowance and the employer isn't paying it, that's a grievance. Check your contract for the exact amount and timing. Keep records of what you've spent. Report to your steward.</div>
+      </div>
+      <div class="accordion-item" id="faq15">
+        <button class="accordion-header" onclick="toggleAccordion('faq15')">Non-union job reporting?</button>
+        <div class="accordion-body">If you spot non-union workers performing sheet metal work on a job site, don't confront anyone. Document date, time, location, company name, and report to your steward. The union may pursue contract violations. See <a href="safety.html">Safety page</a> for the report form.</div>
+      </div>
+    </div>
+
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">🛡️ WHISTLEBLOWER PROTECTION</p>
+    <div class="card info-box">
+      <p style="margin:0 0 0.5rem;">Report safety violations anonymously. OSHA protects whistleblowers from retaliation.</p>
+      <a href="https://www.osha.gov/whistleblower" target="_blank" rel="noopener noreferrer" class="btn-outline" style="display:inline-block;">Report to OSHA (anonymous) →</a>
+    </div>
+
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1rem 0 0.5rem;">📞 STEWARD</p>
+    <div class="card">
+      <p style="margin:0;"><a href="tel:+16124288004">612-428-8004</a> • <a href="mailto:gorillagrad9@gmail.com">gorillagrad9@gmail.com</a></p>
     </div>
 
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📋 INCIDENT LOG — DOCUMENT FOR YOUR RECORDS</p>
@@ -148,6 +180,12 @@
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📤 SUBMIT A CONCERN TO YOUR STEWARD</p>
     <div class="card">
       <form id="submit-concern" onsubmit="return submitConcern(event)">
+        <div style="margin-bottom:1rem;">
+          <label style="display:flex;align-items:center;gap:0.5rem;color:#94a3b8;font-size:0.85rem;cursor:pointer;">
+            <input type="checkbox" name="anonymous" id="anon-cb">
+            Submit anonymously (no name/contact)
+          </label>
+        </div>
         <div style="margin-bottom:1rem;">
           <label style="display:block;color:#94a3b8;font-size:0.85rem;margin-bottom:0.35rem;">Your name (optional)</label>
           <input type="text" name="name" placeholder="How your steward can reach you" style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
@@ -182,6 +220,7 @@
     <p>Updated February 2026 • SMART Sheet Metal Workers Local 10</p>
     <p><a href="https://www.smw10.org" target="_blank">smw10.org</a> • <a href="tel:+16517702388">(651) 770-2388</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
       <button onclick="shareWhatsApp()" class="btn-outline" style="font-size:0.85rem;">💬 WhatsApp</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
@@ -198,7 +237,7 @@
 
   <script>
     function logIncident(e){e.preventDefault();const f=e.target;const d={date:f.date.value,location:f.location.value,description:f.description.value,witnesses:f.witnesses.value};localStorage.setItem('incident_'+Date.now(),JSON.stringify(d));alert('Incident logged locally. Share with your steward when ready.');f.reset();return false;}
-    function submitConcern(e){e.preventDefault();const f=e.target;const subj='Local 10 Concern: '+f.type.options[f.type.selectedIndex].text;const body='Name: '+f.name.value+'\nContact: '+f.contact.value+'\nType: '+f.type.options[f.type.selectedIndex].text+'\n\n'+f.body.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);return false;}
+    function submitConcern(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var subj='Local 10 Concern: '+f.type.options[f.type.selectedIndex].text;var body=(anon?'[ANONYMOUS]\n\n':'Name: '+f.name.value+'\nContact: '+f.contact.value+'\n\n')+'Type: '+f.type.options[f.type.selectedIndex].text+'\n\n'+f.body.value;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);if(typeof showToast==='function')showToast('Sent! Check your email app.');else alert('Sent! Check your email app.');return false;}
     function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Local 10 Grievances: '+window.location.href));}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}

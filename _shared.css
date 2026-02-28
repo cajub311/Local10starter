@@ -13,6 +13,12 @@
   --warning: #d97706;
   font-family: 'Barlow Condensed', 'Oswald', sans-serif;
 }
+body.light-mode {
+  --bg-primary: #1e293b;
+  --bg-card: #334155;
+  --bg-card-hover: #475569;
+  --border: #475569;
+}
 
 body {
   background-color: var(--bg-primary);

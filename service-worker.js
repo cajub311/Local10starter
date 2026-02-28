@@ -13,7 +13,6 @@ const PRECACHE = [
   '/_shared.js'
 ];
 
-// Install — cache core assets
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -22,7 +21,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// Activate — delete old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -33,16 +31,12 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch — cache-first for HTML/PDF, network-first for everything else
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-
-  // Skip non-GET and cross-origin requests
   if (event.request.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;
 
-  // Cache-first for HTML pages and PDF
-  if (url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('.pdf')) {
+  if (url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('.pdf') || url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
     event.respondWith(
       caches.match(event.request).then(cached => {
         if (cached) return cached;
@@ -56,7 +50,6 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Network-first for fonts, CDN resources
   event.respondWith(
     fetch(event.request).catch(() => caches.match(event.request))
   );
