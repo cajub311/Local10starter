@@ -124,3 +124,8 @@ footer {
   border-top: 1px solid var(--border);
   margin-top: 2rem;
 }
+
+/* Mobile: ensure content scrolls above sticky bar */
+@media (max-width: 768px) {
+  main { padding-bottom: 2rem !important; }
+}

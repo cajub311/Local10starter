@@ -94,7 +94,7 @@
       <a href="meetings.html" class="mobile-link">📅 Meetings</a>
       <a href="benefits.html" class="mobile-link">💰 Benefits</a>
       <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
-        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Steward Charlie g: 612-428-8004</a>
+        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Steward Charles Grinstead: 612-428-8004</a>
       </div>
     </div>
   </nav>
@@ -117,6 +117,31 @@
       (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
     </script>
 
+    <!-- Contract PDF — view & search -->
+    <section style="margin-bottom:1.5rem;">
+      <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
+        <iframe id="pdf-frame" src="" title="Union contract PDF" style="width:100%;height:75vh;min-height:350px;border:none;"></iframe>
+      </div>
+      <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.9rem;margin:1rem 0 0.5rem;">Tap to search in contract:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+        <button type="button" onclick="searchContract('grievance')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Grievance</button>
+        <button type="button" onclick="searchContract('overtime')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Overtime</button>
+        <button type="button" onclick="searchContract('vacation')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Vacation</button>
+        <button type="button" onclick="searchContract('seniority')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Seniority</button>
+        <button type="button" onclick="searchContract('wage')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Wage</button>
+        <button type="button" onclick="searchContract('safety')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Safety</button>
+        <button type="button" onclick="searchContract('layoff')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Layoff</button>
+        <button type="button" onclick="searchContract('Exhibit C')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Exhibit C</button>
+        <button type="button" onclick="searchContract('health')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Health</button>
+        <button type="button" onclick="searchContract('pension')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Pension</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+        <a href="contract.pdf" download class="btn-red" style="font-size:0.9rem;">📥 Download PDF</a>
+        <a href="contract.pdf" target="_blank" class="btn-outline" style="font-size:0.9rem;">🔗 Open New Tab</a>
+        <button type="button" onclick="copyContractLink()" class="btn-outline" style="font-size:0.9rem;" id="copyContractBtn">🔗 Copy Link</button>
+      </div>
+    </section>
+
     <!-- Important Numbers to Call -->
     <section style="margin-bottom:1.5rem;">
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:#94a3b8;letter-spacing:0.06em;margin-bottom:0.75rem;">📞 IMPORTANT NUMBERS TO CALL</h2>
@@ -129,7 +154,7 @@
           <a href="mailto:jrasmussen@smw10.org" style="color:#fecaca;font-size:0.85rem;text-decoration:underline;">jrasmussen@smw10.org</a>
         </div>
         <div style="background:#0f1f3d;border:1px solid #1e3a5f;border-radius:0.5rem;padding:1rem;">
-          <div style="color:#f1f5f9;font-weight:700;font-size:0.95rem;">Union Steward — Charlie g</div>
+          <div style="color:#f1f5f9;font-weight:700;font-size:0.95rem;">Union Steward — Charles Grinstead</div>
           <a href="tel:+16124288004" style="display:block;color:#dc2626;font-weight:800;font-size:1.25rem;text-decoration:none;">612-428-8004</a>
           <a href="mailto:gorillagrad9@gmail.com" style="color:#94a3b8;font-size:0.85rem;text-decoration:underline;">gorillagrad9@gmail.com</a>
         </div>
@@ -163,11 +188,11 @@
 
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
     <a href="tel:+17639570618" class="btn-red" style="font-size:0.9rem;padding:0.45rem 1rem;">Union Rep 763-957-0618</a>
-    <span style="color:#94a3b8;font-size:0.8rem;">Steward Charlie g:</span>
+    <span style="color:#94a3b8;font-size:0.8rem;">Steward Charles Grinstead:</span>
     <a href="tel:+16124288004" class="btn-red" style="font-size:0.85rem;padding:0.4rem 0.8rem;">612-428-8004</a>
     <a href="mailto:gorillagrad9@gmail.com" class="btn-outline" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email</a>
   </div>
-  <div style="height:60px;" class="md:hidden"></div>
+  <div style="height:80px;" class="md:hidden" aria-hidden="true"></div>
 
   <script>
     (function(){
@@ -175,12 +200,19 @@
       base=base.replace(/\/?$/,'/');
       var contractUrl=base+'contract.pdf';
       var qrUrl=base+'index.html';
+      var pdfFrame=document.getElementById('pdf-frame');
+      if(pdfFrame)pdfFrame.src=contractUrl+'#zoom=page-width';
       var linkEl=document.getElementById('contract-direct-link');
       if(linkEl)linkEl.href=contractUrl;
       var qrEl=document.getElementById('qrcode');
       if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:qrUrl,width:200,height:200});}
       var copyBottom=document.getElementById('copyBtnBottom');
       if(copyBottom)copyBottom.onclick=function(){navigator.clipboard.writeText(qrUrl).then(function(){copyBottom.textContent='✅ Copied!';setTimeout(function(){copyBottom.textContent='🔗 Copy site URL';},2000);});};
+      function copyContractLink(){navigator.clipboard.writeText(contractUrl).then(function(){var b=document.getElementById('copyContractBtn');if(b){b.textContent='✅ Copied!';setTimeout(function(){b.textContent='🔗 Copy Link';},2000);}});}
+      window.copyContractLink=copyContractLink;
+      var params=new URLSearchParams(window.location.search);
+      var q=params.get('search');
+      if(q&&typeof searchContract==='function'){searchContract(q);}
     })();
   </script>
 </body>
