@@ -2,7 +2,15 @@
 (function() {
   function toggleMobileMenu() {
     const m = document.getElementById('mobile-menu');
-    if (m) m.style.display = m.style.display === 'none' ? 'block' : 'none';
+    const h = document.getElementById('hamburger');
+    if (m) {
+      const open = m.style.display === 'block';
+      m.style.display = open ? 'none' : 'block';
+      if (h) {
+        h.setAttribute('aria-expanded', !open);
+        h.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
+      }
+    }
   }
   window.toggleMobileMenu = toggleMobileMenu;
 
