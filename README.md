@@ -7,7 +7,7 @@ PWA resource portal for SMART Sheet Metal Workers Local 10 (Minnesota). Mobile-f
 - **grievances.html** — FAQs, deadlines, incident log, submit concern
 - **safety.html** — Right to refuse, PPE, heat rules, emergency contacts
 - **meetings.html** — Hall (1681 E Cope Ave, Maplewood), Matt Fairbanks, calendar
-- **benefits.html** — Prevailing wage, pay calculator, PFML, health/pension
+- **benefits.html** — Pay calculator, PFML, health/pension, apprentice scale
 
 ## Tech
 Pure HTML/CSS/JS. Tailwind via CDN. QRCode.js. No build tools. `manifest.json` + `sw.js` for PWA.
