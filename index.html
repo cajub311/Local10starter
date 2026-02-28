@@ -69,10 +69,6 @@
         <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
         <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Contract Hub</span>
       </a>
-      <div id="nav-search" style="flex:1;min-width:120px;max-width:200px;display:flex;gap:0.25rem;">
-        <input id="global-search" class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract PDF" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
-        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;font-size:0.85rem;" aria-label="Search">🔍</button>
-      </div>
       <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
         <a href="index.html" class="nav-link active">📄 Home</a>
         <a href="grievances.html" class="nav-link">⚖️ Grievances</a>
@@ -84,10 +80,6 @@
       <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
     </div>
     <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
-      <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
-        <input id="mobile-search" class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract" style="flex:1;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
-        <button onclick="doSearch();toggleMobileMenu();" class="btn-red" style="padding:0.5rem;">🔍</button>
-      </div>
       <a href="index.html" class="mobile-link">📄 Home</a>
       <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
       <a href="safety.html" class="mobile-link">🦺 Safety</a>
@@ -104,10 +96,22 @@
     .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
     .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
-    @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
+    @media (max-width:640px){#nav-links{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
 
   <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
+    <!-- Union Contract PDF — first thing -->
+    <section style="margin-bottom:1.5rem;">
+      <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
+        <iframe id="pdf-frame" src="" title="Union contract PDF" style="width:100%;height:75vh;min-height:350px;border:none;"></iframe>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;">
+        <a href="contract.pdf" download class="btn-red" style="font-size:0.9rem;">📥 Download PDF</a>
+        <a href="contract.pdf" target="_blank" class="btn-outline" style="font-size:0.9rem;">🔗 Open New Tab</a>
+        <button type="button" onclick="copyContractLink()" class="btn-outline" style="font-size:0.9rem;" id="copyContractBtn">🔗 Copy Link</button>
+      </div>
+    </section>
+
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 1rem;text-align:center;">Sheet Metal Workers Local 10 — Union Contract</h1>
     <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;justify-content:center;margin-bottom:1rem;">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
@@ -116,31 +120,6 @@
     <script>
       (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
     </script>
-
-    <!-- Contract PDF — view & search -->
-    <section style="margin-bottom:1.5rem;">
-      <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
-        <iframe id="pdf-frame" src="" title="Union contract PDF" style="width:100%;height:75vh;min-height:350px;border:none;"></iframe>
-      </div>
-      <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.9rem;margin:1rem 0 0.5rem;">Tap to search in contract:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
-        <button type="button" onclick="searchContract('grievance')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Grievance</button>
-        <button type="button" onclick="searchContract('overtime')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Overtime</button>
-        <button type="button" onclick="searchContract('vacation')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Vacation</button>
-        <button type="button" onclick="searchContract('seniority')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Seniority</button>
-        <button type="button" onclick="searchContract('wage')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Wage</button>
-        <button type="button" onclick="searchContract('safety')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Safety</button>
-        <button type="button" onclick="searchContract('layoff')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Layoff</button>
-        <button type="button" onclick="searchContract('Exhibit C')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Exhibit C</button>
-        <button type="button" onclick="searchContract('health')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Health</button>
-        <button type="button" onclick="searchContract('pension')" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.75rem;">Pension</button>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
-        <a href="contract.pdf" download class="btn-red" style="font-size:0.9rem;">📥 Download PDF</a>
-        <a href="contract.pdf" target="_blank" class="btn-outline" style="font-size:0.9rem;">🔗 Open New Tab</a>
-        <button type="button" onclick="copyContractLink()" class="btn-outline" style="font-size:0.9rem;" id="copyContractBtn">🔗 Copy Link</button>
-      </div>
-    </section>
 
     <!-- Important Numbers to Call -->
     <section style="margin-bottom:1.5rem;">
@@ -210,9 +189,6 @@
       if(copyBottom)copyBottom.onclick=function(){navigator.clipboard.writeText(qrUrl).then(function(){copyBottom.textContent='✅ Copied!';setTimeout(function(){copyBottom.textContent='🔗 Copy site URL';},2000);});};
       function copyContractLink(){navigator.clipboard.writeText(contractUrl).then(function(){var b=document.getElementById('copyContractBtn');if(b){b.textContent='✅ Copied!';setTimeout(function(){b.textContent='🔗 Copy Link';},2000);}});}
       window.copyContractLink=copyContractLink;
-      var params=new URLSearchParams(window.location.search);
-      var q=params.get('search');
-      if(q&&typeof searchContract==='function'){searchContract(q);}
     })();
   </script>
 </body>
