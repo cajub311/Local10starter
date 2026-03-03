@@ -168,7 +168,7 @@
       <h2 class="font-heading text-2xl font-bold text-white mb-3">🌡️ Heat Illness Prevention — Know Your Rights</h2>
 
       <div class="bg-amber-400/10 border border-amber-400/40 rounded-xl p-4 mb-4">
-        <h3 class="font-heading text-lg font-bold text-amber-400 mb-2">⚠️ Current Status (Feb 2026)</h3>
+        <h3 class="font-heading text-lg font-bold text-amber-400 mb-2">⚠️ Current Status (March 2026)</h3>
         <p class="text-slate-200 text-sm mb-2"><strong>Federal OSHA proposed a heat rule, but it is not final yet.</strong> You are still protected right now:</p>
         <ul class="text-sm text-slate-200 space-y-1.5">
           <li><strong class="text-white">Federal OSHA</strong> can cite dangerous heat conditions under the General Duty Clause and heat-focused enforcement.</li>
@@ -311,7 +311,7 @@
         const anon = document.getElementById('safety-anon') && document.getElementById('safety-anon').checked;
         const body = (anon ? '[ANONYMOUS]\n\n' : '') + '[SAFETY REPORT]\n\n' + text + '\n\n— Local 10 Safety Hub';
         window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Safety Concern Report') + '&body=' + encodeURIComponent(body);
-        alert('✅ Sent!');
+        alert('✅ Email ready — hit Send in your mail app to reach the Steward.');
         document.getElementById('safety-report').value = '';
       }
       function reportNonUnion() {
@@ -322,7 +322,7 @@
         const anon = document.getElementById('nonunion-anon') && document.getElementById('nonunion-anon').checked;
         const body = (anon ? '[ANONYMOUS]\n\n' : '') + '[NON-UNION JOB SITE REPORT]\n\n' + text + '\n\n— Local 10 Safety Hub';
         window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Non-Union Job Site Report') + '&body=' + encodeURIComponent(body);
-        alert('✅ Sent!');
+        alert('✅ Email ready — hit Send in your mail app to reach the Steward.');
         document.getElementById('nonunion-report').value = '';
       }
     </script>

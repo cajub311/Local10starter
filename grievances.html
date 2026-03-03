@@ -109,7 +109,7 @@
     <div class="accordion">
       <div class="accordion-item" id="faq1">
         <button class="accordion-header" onclick="toggleAccordion('faq1')">What is a grievance?</button>
-        <div class="accordion-body">A grievance is a formal complaint when the employer violates the contract. Members have the right to file one. Contact the union steward first — the steward guides members through the steps.</div>
+        <div class="accordion-body">A grievance is a formal complaint when the employer violates the contract. Members have the right to file one. Contact your union steward first — they will guide you through every step of the process.</div>
       </div>
       <div class="accordion-item" id="faq2">
         <button class="accordion-header" onclick="toggleAccordion('faq2')">How many steps are in the grievance process?</button>
@@ -201,7 +201,7 @@
   <div style="height:80px;" class="md:hidden" aria-hidden="true"></div>
 
   <script>
-    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;var d=new Date().toLocaleDateString();window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Worker Concern — '+d+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
+    function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;var d=new Date().toLocaleDateString();window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Worker Concern — '+d+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Email ready — hit Send in your mail app to reach the Steward.');return false;}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
   </script>
