@@ -152,11 +152,29 @@
           </div>
         </div>
         <button onclick="calcPay()" class="btn-red" style="font-size:1rem;padding:0.6rem 1.25rem;" aria-label="Calculate pay">Calculate</button>
-        <div id="pay-result" class="hidden mt-4 p-4 bg-navy border border-red-600 rounded-xl text-center">
-          <div class="text-slate-400 text-xs mb-1">Estimated Gross Pay</div>
-          <div id="result-total" class="font-heading text-5xl font-bold text-red-400"></div>
-          <div id="result-breakdown" class="text-slate-400 text-xs mt-1"></div>
-          <p class="text-slate-500 text-xs mt-3">Based on your union contract rate (Exhibit C). Verify with your pay stub.</p>
+        <div id="pay-result" class="hidden mt-4 p-4 bg-navy border border-red-600 rounded-xl">
+          <div class="text-slate-400 text-xs mb-1 text-center">Estimated Gross Pay — This Week</div>
+          <div id="result-total" class="font-heading text-5xl font-bold text-red-400 text-center"></div>
+          <div id="result-breakdown" class="text-slate-400 text-xs mt-1 text-center"></div>
+          <div class="mt-3 pt-3 border-t border-[#1e3a5f] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+            <div>
+              <div class="text-slate-500 text-xs">Biweekly</div>
+              <div id="result-biweekly" class="text-white font-bold text-sm"></div>
+            </div>
+            <div>
+              <div class="text-slate-500 text-xs">Monthly est.</div>
+              <div id="result-monthly" class="text-white font-bold text-sm"></div>
+            </div>
+            <div>
+              <div class="text-slate-500 text-xs">Annual est.</div>
+              <div id="result-annual" class="text-white font-bold text-sm"></div>
+            </div>
+            <div>
+              <div class="text-slate-500 text-xs">Take-home est. <span class="text-slate-600">(~70%)</span></div>
+              <div id="result-takehome" class="text-amber-400 font-bold text-sm"></div>
+            </div>
+          </div>
+          <p class="text-slate-500 text-xs mt-3 text-center">Based on union contract rate (Exhibit C). Biweekly/annual assumes same hours each week. Take-home is a rough estimate — actual deductions vary.</p>
         </div>
       </div>
     </section>
@@ -169,10 +187,15 @@
         const ot = Math.max(0, reg - 40);
         const otPay = ot * rate * 1.5;
         const total = regularPay + otPay;
-        document.getElementById('result-total').textContent = '$' + total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        const fmt = n => '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('result-total').textContent = fmt(total);
         document.getElementById('result-breakdown').textContent =
           'Regular (' + Math.min(reg,40) + ' hrs × $' + rate + '): $' + regularPay.toFixed(2) +
           (ot > 0 ? ' + OT (' + ot + ' hrs × $' + (rate * 1.5).toFixed(2) + '): $' + otPay.toFixed(2) : '');
+        document.getElementById('result-biweekly').textContent = fmt(total * 2);
+        document.getElementById('result-monthly').textContent = fmt(total * 52 / 12);
+        document.getElementById('result-annual').textContent = fmt(total * 52);
+        document.getElementById('result-takehome').textContent = fmt(total * 0.70) + '/wk';
         document.getElementById('pay-result').classList.remove('hidden');
       }
       ['hours-input', 'class-select'].forEach(id => {

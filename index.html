@@ -107,59 +107,128 @@
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
   </style>
 
+  <style>
+    .search-chip{background:#1e3a5f;color:#f1f5f9;border:1px solid #2d4f7a;border-radius:20px;padding:0.3rem 0.75rem;font-size:0.82rem;font-family:'Barlow Condensed',sans-serif;font-weight:600;cursor:pointer;transition:background 0.15s,border-color 0.15s;white-space:nowrap;}
+    .search-chip:hover,.search-chip.chip-active{background:#dc2626;border-color:#dc2626;color:white;}
+    .nav-card{background:#0f1f3d;border:1px solid #1e3a5f;border-radius:0.5rem;padding:0.9rem;text-decoration:none;display:block;transition:border-color 0.15s,background 0.15s;}
+    .nav-card:hover{border-color:#dc2626;background:#162545;}
+  </style>
+
   <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
-    <!-- Union Contract PDF — first thing -->
-    <section style="margin-bottom:1.5rem;">
-      <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
-        <iframe id="pdf-frame" src="" title="Union contract PDF" style="width:100%;height:75vh;min-height:350px;border:none;"></iframe>
+
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 0.15rem;text-align:center;">Union Steward Resource Hub</h1>
+    <p style="text-align:center;color:#94a3b8;font-size:0.78rem;margin:0 0 0.75rem;">Unofficial — Not affiliated with or endorsed by SMART Local 10</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;justify-content:center;margin-bottom:1rem;">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;padding:0.4rem 0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" style="color:#94a3b8;font-size:0.85rem;text-decoration:underline;">¿En español? →</a>
+    </div>
+    <script>(function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();</script>
+
+    <!-- CONTRACT SEARCH — big and prominent -->
+    <section style="margin-bottom:1.25rem;">
+      <div style="background:#0f1f3d;border:2px solid #1e3a5f;border-radius:0.75rem;padding:1.25rem;">
+        <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.15rem;color:#f1f5f9;margin:0 0 0.4rem;letter-spacing:0.04em;">🔍 Search the Contract PDF</h2>
+        <p style="color:#94a3b8;font-size:0.82rem;margin:0 0 0.65rem;">Type any topic and hit Search — or tap a quick button to jump right to that section:</p>
+        <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
+          <input id="main-contract-search" type="search" placeholder="e.g. overtime, vacation, discipline, seniority..."
+                 style="flex:1;padding:0.65rem 0.85rem;background:#0a1428;border:2px solid #1e3a5f;border-radius:8px;color:#f1f5f9;font-size:1rem;outline:none;transition:border-color 0.15s;"
+                 onkeydown="if(event.key==='Enter')runMainSearch()"
+                 onfocus="this.style.borderColor='#dc2626'" onblur="this.style.borderColor='#1e3a5f'"
+                 aria-label="Search contract PDF">
+          <button onclick="runMainSearch()" class="btn-red" style="padding:0.65rem 1.1rem;font-size:1rem;white-space:nowrap;" aria-label="Search contract">🔍 Search</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.6rem;">
+          <button onclick="quickSearch('overtime')" class="search-chip">🕐 Overtime</button>
+          <button onclick="quickSearch('vacation')" class="search-chip">🏖️ Vacation</button>
+          <button onclick="quickSearch('discipline')" class="search-chip">⚖️ Discipline</button>
+          <button onclick="quickSearch('seniority')" class="search-chip">📊 Seniority</button>
+          <button onclick="quickSearch('grievance')" class="search-chip">📝 Grievance</button>
+          <button onclick="quickSearch('safety')" class="search-chip">🦺 Safety</button>
+          <button onclick="quickSearch('health insurance')" class="search-chip">💊 Health Ins.</button>
+          <button onclick="quickSearch('shift differential')" class="search-chip">💲 Shift Diff</button>
+          <button onclick="quickSearch('leave')" class="search-chip">😷 Leave/FMLA</button>
+          <button onclick="quickSearch('layoff')" class="search-chip">👋 Layoff</button>
+          <button onclick="quickSearch('wage')" class="search-chip">💰 Wages</button>
+          <button onclick="quickSearch('probation')" class="search-chip">🆕 Probation</button>
+          <button onclick="quickSearch('bereavement')" class="search-chip">🕊️ Bereavement</button>
+          <button onclick="quickSearch('jury duty')" class="search-chip">🏛️ Jury Duty</button>
+          <button onclick="quickSearch('holiday')" class="search-chip">🎉 Holidays</button>
+        </div>
+        <p style="color:#475569;font-size:0.72rem;margin:0;">Works best in Chrome. In Firefox/Safari use Ctrl+F inside the PDF below after it opens.</p>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;">
+    </section>
+    <script>
+      function runMainSearch(){var inp=document.getElementById('main-contract-search');var q=inp?inp.value.trim():'';if(!q)return;document.querySelectorAll('.global-search-input').forEach(function(i){i.value=q;});if(typeof searchContract==='function')searchContract(q);}
+      function quickSearch(term){var inp=document.getElementById('main-contract-search');if(inp)inp.value=term;document.querySelectorAll('.search-chip').forEach(function(b){b.classList.toggle('chip-active',b.textContent.toLowerCase().indexOf(term.split(' ')[0])>-1);});if(typeof searchContract==='function')searchContract(term);}
+      window.runMainSearch=runMainSearch;window.quickSearch=quickSearch;
+    </script>
+
+    <!-- Union Contract PDF -->
+    <section style="margin-bottom:1.25rem;">
+      <div class="card" style="padding:0;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.4);border:2px solid #1e3a5f;">
+        <iframe id="pdf-frame" src="" title="Union contract PDF" style="width:100%;height:65vh;min-height:320px;border:none;"></iframe>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem;">
         <a href="contract.pdf" download class="btn-red" style="font-size:0.9rem;">📥 Download PDF</a>
         <a href="contract.pdf" target="_blank" class="btn-outline" style="font-size:0.9rem;">🔗 Open New Tab</a>
         <button type="button" onclick="copyContractLink()" class="btn-outline" style="font-size:0.9rem;" id="copyContractBtn">🔗 Copy Link</button>
       </div>
     </section>
 
-    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 0.25rem;text-align:center;">Union Steward Resource Hub</h1>
-    <p style="text-align:center;color:#94a3b8;font-size:0.8rem;margin:0 0 1rem;">Unofficial — Not affiliated with or endorsed by SMART Local 10</p>
-    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;justify-content:center;margin-bottom:1rem;">
-      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
-      <a href="https://translate.google.com/translate?u=REPLACE_URL&sl=en&tl=es" target="_blank" rel="noopener" id="spanish-link" style="color:#94a3b8;font-size:0.9rem;text-decoration:underline;">¿Necesitas esto en español? →</a>
-    </div>
-    <script>
-      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
-    </script>
-
     <!-- Important Numbers to Call -->
-    <section style="margin-bottom:1.5rem;">
-      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:#94a3b8;letter-spacing:0.06em;margin-bottom:0.75rem;">📞 IMPORTANT NUMBERS TO CALL</h2>
-      <div style="display:grid;grid-template-columns:1fr;gap:0.75rem;">
-        <div style="background:#7f1d1d;border:2px solid #dc2626;border-radius:0.5rem;padding:1rem;">
-          <div style="color:#fecaca;font-weight:700;font-size:0.95rem;">Union Rep — Joel Rasmussen (Production Rep, Metro MN)</div>
-          <div style="color:#f1f5f9;font-size:0.85rem;margin-bottom:0.35rem;">Call or text — for emergencies, call Union Rep directly:</div>
-          <a href="tel:+17639570618" style="display:block;color:white;font-weight:800;font-size:1.25rem;text-decoration:none;">763-957-0618</a>
-          <a href="tel:+16513666417" style="display:block;color:#fecaca;font-weight:600;font-size:0.9rem;text-decoration:none;">651-366-6417</a>
-          <a href="mailto:jrasmussen@smw10.org" style="color:#fecaca;font-size:0.85rem;text-decoration:underline;">jrasmussen@smw10.org</a>
+    <section style="margin-bottom:1.25rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;color:#94a3b8;letter-spacing:0.06em;margin-bottom:0.6rem;">📞 IMPORTANT NUMBERS TO CALL</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+        <div style="background:#7f1d1d;border:2px solid #dc2626;border-radius:0.5rem;padding:0.9rem;">
+          <div style="color:#fecaca;font-weight:700;font-size:0.85rem;margin-bottom:0.15rem;">Union Rep — Joel Rasmussen</div>
+          <div style="color:#f1f5f9;font-size:0.78rem;margin-bottom:0.25rem;">Emergencies — call direct:</div>
+          <a href="tel:+17639570618" style="display:block;color:white;font-weight:800;font-size:1.15rem;text-decoration:none;">763-957-0618</a>
+          <a href="tel:+16513666417" style="display:block;color:#fecaca;font-weight:600;font-size:0.82rem;text-decoration:none;">651-366-6417</a>
+          <a href="mailto:jrasmussen@smw10.org" style="color:#fecaca;font-size:0.78rem;text-decoration:underline;">jrasmussen@smw10.org</a>
         </div>
-        <div style="background:#0f1f3d;border:1px solid #1e3a5f;border-radius:0.5rem;padding:1rem;">
-          <div style="color:#f1f5f9;font-weight:700;font-size:0.95rem;">Union Steward — Charles Grinstead</div>
-          <a href="tel:+16124288004" style="display:block;color:#dc2626;font-weight:800;font-size:1.25rem;text-decoration:none;">612-428-8004</a>
-          <a href="mailto:gorillagrad9@gmail.com" style="color:#94a3b8;font-size:0.85rem;text-decoration:underline;">gorillagrad9@gmail.com</a>
+        <div style="background:#0f1f3d;border:2px solid #dc2626;border-radius:0.5rem;padding:0.9rem;">
+          <div style="color:#f1f5f9;font-weight:700;font-size:0.85rem;margin-bottom:0.15rem;">Union Steward — Charles Grinstead</div>
+          <a href="tel:+16124288004" style="display:block;color:#dc2626;font-weight:800;font-size:1.15rem;text-decoration:none;">612-428-8004</a>
+          <a href="mailto:gorillagrad9@gmail.com" style="color:#94a3b8;font-size:0.78rem;text-decoration:underline;">gorillagrad9@gmail.com</a>
         </div>
       </div>
     </section>
 
-    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:center;margin-bottom:1.5rem;">
-      <a href="contract.pdf" class="btn-red" style="font-size:1.1rem;padding:0.75rem 1.5rem;text-decoration:none;text-align:center;" id="contract-direct-link">📄 Open Contract PDF →</a>
-      <a href="qr.html" class="btn-outline" style="font-size:1rem;padding:0.6rem 1rem;">📱 QR Code</a>
-    </div>
+    <!-- Section nav cards -->
+    <section style="margin-bottom:1.25rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;color:#94a3b8;letter-spacing:0.06em;margin-bottom:0.6rem;">📚 MEMBER RESOURCES</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+        <a href="grievances.html" class="nav-card" aria-label="Go to Grievances">
+          <div style="font-size:1.5rem;margin-bottom:0.3rem;">⚖️</div>
+          <div style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Grievances</div>
+          <div style="color:#94a3b8;font-size:0.78rem;margin-top:0.2rem;">File a concern, FAQ, deadlines, incident log</div>
+        </a>
+        <a href="safety.html" class="nav-card" aria-label="Go to Safety">
+          <div style="font-size:1.5rem;margin-bottom:0.3rem;">🦺</div>
+          <div style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Safety</div>
+          <div style="color:#94a3b8;font-size:0.78rem;margin-top:0.2rem;">Rights, PPE, injury checklist, heat</div>
+        </a>
+        <a href="meetings.html" class="nav-card" aria-label="Go to Meetings">
+          <div style="font-size:1.5rem;margin-bottom:0.3rem;">📅</div>
+          <div style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Meetings</div>
+          <div style="color:#94a3b8;font-size:0.78rem;margin-top:0.2rem;">Next meeting, union hall, your rights</div>
+        </a>
+        <a href="benefits.html" class="nav-card" aria-label="Go to Benefits & Pay">
+          <div style="font-size:1.5rem;margin-bottom:0.3rem;">💰</div>
+          <div style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;">Benefits & Pay</div>
+          <div style="color:#94a3b8;font-size:0.78rem;margin-top:0.2rem;">Pay estimator, PFML 2026, health & pension</div>
+        </a>
+      </div>
+    </section>
 
-    <!-- QR Code — bottom of page for copy/paste, flyers (hidden on mobile) -->
-    <section id="qrcode-section" style="margin-top:2rem;padding-top:2rem;border-top:1px solid #1e3a5f;text-align:center;">
+    <!-- QR Code — hidden on mobile, for flyers/posters -->
+    <section id="qrcode-section" style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #1e3a5f;text-align:center;">
       <p style="color:#94a3b8;font-size:0.9rem;margin-bottom:1rem;">Scan to open — for flyers, posters, locker room</p>
       <div id="qrcode" aria-label="Scan QR code to open contract" role="img" title="Scan to open"></div>
-      <p style="margin-top:1rem;">
+      <p style="margin-top:1rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
         <button class="btn-outline" id="copyBtnBottom">🔗 Copy site URL</button>
+        <a href="qr.html" class="btn-outline" style="font-size:0.9rem;">📱 Full QR Page</a>
       </p>
     </section>
 
@@ -188,8 +257,6 @@
       var qrUrl=base+'index.html';
       var pdfFrame=document.getElementById('pdf-frame');
       if(pdfFrame)pdfFrame.src=contractUrl+'#zoom=page-width';
-      var linkEl=document.getElementById('contract-direct-link');
-      if(linkEl)linkEl.href=contractUrl;
       var qrEl=document.getElementById('qrcode');
       if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:qrUrl,width:200,height:200});}
       var copyBottom=document.getElementById('copyBtnBottom');
@@ -198,7 +265,11 @@
       window.copyContractLink=copyContractLink;
       var params=new URLSearchParams(window.location.search);
       var q=params.get('search');
-      if(q&&typeof searchContract==='function'){searchContract(q);}
+      if(q){
+        var si=document.getElementById('main-contract-search');
+        if(si)si.value=q;
+        if(typeof searchContract==='function')searchContract(q);
+      }
     })();
   </script>
 </body>

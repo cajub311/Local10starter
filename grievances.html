@@ -161,6 +161,56 @@
       </div>
     </div>
 
+    <!-- DEADLINE CALCULATOR -->
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📅 GRIEVANCE DEADLINE CALCULATOR</p>
+    <div class="card">
+      <p style="color:#94a3b8;font-size:0.85rem;margin:0 0 0.75rem;">Enter the date the incident happened — this shows typical filing deadlines. <strong style="color:#fecaca;">Always confirm the exact deadline with your steward.</strong></p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:0.75rem;">
+        <div>
+          <label style="display:block;color:#94a3b8;font-size:0.82rem;margin-bottom:0.25rem;">Incident date</label>
+          <input type="date" id="incident-date" style="padding:0.5rem 0.6rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.9rem;">
+        </div>
+        <button onclick="calcDeadline()" class="btn-red" style="font-size:0.9rem;padding:0.5rem 1rem;">Calculate Deadline</button>
+      </div>
+      <div id="deadline-result" style="display:none;"></div>
+    </div>
+    <script>
+      (function(){
+        var today=new Date().toISOString().slice(0,10);
+        var el=document.getElementById('incident-date');
+        if(el&&!el.value)el.value=today;
+      })();
+      function addWorkingDays(d,days){var r=new Date(d);var added=0;while(added<days){r.setDate(r.getDate()+1);var dow=r.getDay();if(dow!==0&&dow!==6)added++;}return r;}
+      function calcDeadline(){
+        var v=document.getElementById('incident-date').value;
+        if(!v){alert('Please select the incident date.');return;}
+        var start=new Date(v+'T12:00:00');
+        var d5=addWorkingDays(start,5),d10=addWorkingDays(start,10),d30=addWorkingDays(start,30);
+        var now=new Date();now.setHours(0,0,0,0);
+        var fmt=function(d){return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});};
+        function badge(target){
+          var diff=Math.ceil((target-now)/(86400000));
+          if(diff<0)return '<span style="background:#7f1d1d;color:#fecaca;font-size:0.72rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;">PAST DUE</span>';
+          if(diff===0)return '<span style="background:#92400e;color:#fef3c7;font-size:0.72rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;">DUE TODAY</span>';
+          var col=diff<=2?'#dc2626':diff<=5?'#d97706':'#16a34a';
+          return '<span style="color:'+col+';font-weight:700;font-size:0.85rem;">'+diff+' day'+(diff===1?'':'s')+' left</span>';
+        }
+        var html='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">';
+        [[5,'Step 1 typical'],[10,'Extended window'],[30,'Arbitration notice']].forEach(function(item,i){
+          var target=[d5,d10,d30][i];
+          html+='<div style="background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;padding:0.6rem;text-align:center;">'
+            +'<div style="color:#94a3b8;font-size:0.72rem;margin-bottom:0.2rem;">'+item[0]+' work days</div>'
+            +'<div style="color:#94a3b8;font-size:0.68rem;margin-bottom:0.3rem;">'+item[1]+'</div>'
+            +'<div style="color:#f1f5f9;font-size:0.82rem;font-weight:700;">'+fmt(target)+'</div>'
+            +'<div style="margin-top:0.3rem;">'+badge(target)+'</div>'
+            +'</div>';
+        });
+        html+='</div><p style="color:#475569;font-size:0.72rem;margin:0;">⚠️ Deadlines vary by contract article — confirm with your steward before you rely on these dates.</p>';
+        var el=document.getElementById('deadline-result');
+        el.innerHTML=html;el.style.display='block';
+      }
+    </script>
+
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📤 SUBMIT A CONCERN</p>
     <div class="card">
       <form id="submit-concern" onsubmit="return submitConcernSimple(event)">
@@ -180,6 +230,38 @@
         </label>
         <button type="submit" class="btn-red">Send to Steward</button>
       </form>
+    </div>
+
+    <!-- PRIVATE INCIDENT LOG -->
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📓 PRIVATE INCIDENT LOG</p>
+    <div class="card">
+      <p style="color:#94a3b8;font-size:0.82rem;margin:0 0 0.75rem;">Keep a private record of incidents for your own reference. <strong style="color:#f1f5f9;">Stored only on this device — never sent anywhere.</strong> Use this to preserve dates and details before you forget them.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">
+        <div>
+          <label style="display:block;color:#94a3b8;font-size:0.8rem;margin-bottom:0.2rem;">Date of incident</label>
+          <input type="date" id="log-date" style="width:100%;padding:0.45rem 0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="display:block;color:#94a3b8;font-size:0.8rem;margin-bottom:0.2rem;">Category</label>
+          <select id="log-cat" style="width:100%;padding:0.45rem 0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;box-sizing:border-box;">
+            <option value="Pay">Pay Issue</option>
+            <option value="Safety">Safety</option>
+            <option value="Harassment">Harassment</option>
+            <option value="Discipline">Discipline</option>
+            <option value="Seniority">Seniority</option>
+            <option value="Non-Union Work">Non-Union Work</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <label style="display:block;color:#94a3b8;font-size:0.8rem;margin-bottom:0.2rem;">What happened (names, times, details, witnesses)</label>
+      <textarea id="log-notes" rows="3" placeholder="Describe the incident — who, what, when, where, witnesses..." style="width:100%;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;resize:vertical;box-sizing:border-box;"></textarea>
+      <div style="display:flex;gap:0.5rem;margin-top:0.6rem;flex-wrap:wrap;">
+        <button onclick="saveIncidentLog()" class="btn-red" style="font-size:0.875rem;">💾 Save Entry</button>
+        <button onclick="exportLog()" class="btn-outline" style="font-size:0.875rem;">📧 Email Log to Steward</button>
+        <button onclick="clearLog()" class="btn-outline" style="font-size:0.875rem;color:#dc2626;border-color:#7f1d1d;">🗑️ Clear All</button>
+      </div>
+      <div id="log-list" style="margin-top:1rem;"></div>
     </div>
 
   </main>
@@ -204,6 +286,66 @@
     function submitConcernSimple(e){e.preventDefault();var f=e.target;var anon=document.getElementById('anon-cb')&&document.getElementById('anon-cb').checked;var cat=(f.category&&f.category.value)?('[Category: '+f.category.value+']\n\n'):'';var body=(anon?'[ANONYMOUS]\n\n':'')+cat+f.message.value;var d=new Date().toLocaleDateString();window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Worker Concern — '+d+(f.category&&f.category.value?' — '+f.category.value:''))+'&body='+encodeURIComponent(body);alert('✅ Sent to Steward!');return false;}
     function shareEmail(){window.location.href='mailto:?subject=Local 10 Grievances Resource&body='+encodeURIComponent('Check out: '+window.location.href);}
     function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
+  </script>
+  <script>
+    (function(){
+      function getLog(){return JSON.parse(localStorage.getItem('stewardIncidentLog')||'[]');}
+      function saveLogData(log){localStorage.setItem('stewardIncidentLog',JSON.stringify(log));}
+      function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+      function renderLog(){
+        var log=getLog();
+        var el=document.getElementById('log-list');
+        if(!el)return;
+        if(!log.length){el.innerHTML='<p style="color:#475569;font-size:0.82rem;text-align:center;padding:0.5rem 0;">No entries yet. Add one above.</p>';return;}
+        var html='<div style="border-top:1px solid #1e3a5f;padding-top:0.75rem;">'
+          +'<div style="color:#64748b;font-size:0.75rem;margin-bottom:0.5rem;">'+log.length+' saved entr'+(log.length===1?'y':'ies')+' — stored on this device only</div>';
+        log.forEach(function(e,i){
+          html+='<div style="background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;padding:0.6rem;margin-bottom:0.4rem;">'
+            +'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;">'
+            +'<div style="flex:1;">'
+            +'<span style="color:#f59e0b;font-size:0.8rem;font-weight:700;">'+e.date+'</span> '
+            +'<span style="background:#1e3a5f;color:#94a3b8;font-size:0.7rem;padding:0.1rem 0.4rem;border-radius:3px;margin-left:0.25rem;">'+esc(e.category)+'</span>'
+            +'<p style="color:#f1f5f9;font-size:0.82rem;margin:0.3rem 0 0;white-space:pre-wrap;">'+esc(e.notes)+'</p>'
+            +'</div>'
+            +'<button onclick="deleteEntry('+i+')" style="background:none;border:none;color:#475569;cursor:pointer;font-size:1rem;padding:0.1rem 0.3rem;flex-shrink:0;line-height:1;" title="Delete">✕</button>'
+            +'</div></div>';
+        });
+        html+='</div>';
+        el.innerHTML=html;
+      }
+      window.saveIncidentLog=function(){
+        var date=document.getElementById('log-date').value;
+        var cat=document.getElementById('log-cat').value;
+        var notes=document.getElementById('log-notes').value.trim();
+        if(!date||!notes){alert('Please enter a date and describe what happened.');return;}
+        var log=getLog();
+        log.unshift({date:date,category:cat,notes:notes,saved:new Date().toISOString()});
+        saveLogData(log);
+        document.getElementById('log-notes').value='';
+        renderLog();
+        if(typeof showToast==='function')showToast('✅ Entry saved to your private log');
+      };
+      window.deleteEntry=function(i){
+        if(!confirm('Delete this entry?'))return;
+        var log=getLog();log.splice(i,1);saveLogData(log);renderLog();
+      };
+      window.clearLog=function(){
+        if(!confirm('Delete ALL log entries? This cannot be undone.'))return;
+        localStorage.removeItem('stewardIncidentLog');renderLog();
+      };
+      window.exportLog=function(){
+        var log=getLog();
+        if(!log.length){alert('No entries to export.');return;}
+        var body='INCIDENT LOG — PRIVATE RECORD\nGenerated: '+new Date().toLocaleDateString()+'\n\n'
+          +log.map(function(e){return '['+e.date+'] '+e.category+'\n'+e.notes;}).join('\n\n---\n\n');
+        window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Incident Log — '+new Date().toLocaleDateString())+'&body='+encodeURIComponent(body);
+      };
+      // set default date to today
+      var todayStr=new Date().toISOString().slice(0,10);
+      var dateEl=document.getElementById('log-date');
+      if(dateEl&&!dateEl.value)dateEl.value=todayStr;
+      renderLog();
+    })();
   </script>
 </body>
 </html>
