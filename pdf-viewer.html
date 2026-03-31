@@ -187,7 +187,11 @@
   function renderPage(doc, pageNum) {
     return doc.getPage(pageNum).then(function(page) {
       var scale = calcScale(page);
+      var dpr = window.devicePixelRatio || 1;
+      // CSS-pixel viewport (sets layout size)
       var viewport = page.getViewport({ scale: scale });
+      // Hi-DPI viewport (renders at physical pixel count for sharp text)
+      var hiDpiViewport = page.getViewport({ scale: scale * dpr });
 
       var wrapper = document.createElement('div');
       wrapper.className = 'pdf-page-wrapper';
@@ -195,8 +199,10 @@
       wrapper.style.height = viewport.height + 'px';
 
       var canvas = document.createElement('canvas');
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
+      // Physical pixels = hi-DPI size → sharp on retina/3x screens
+      canvas.width = hiDpiViewport.width;
+      canvas.height = hiDpiViewport.height;
+      // CSS display size = normal viewport → correct layout
       canvas.style.width = viewport.width + 'px';
       canvas.style.height = viewport.height + 'px';
       wrapper.appendChild(canvas);
@@ -208,7 +214,7 @@
       container.appendChild(label);
       container.appendChild(wrapper);
 
-      return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: hiDpiViewport }).promise
         .then(function() {
           return page.getTextContent();
         })
