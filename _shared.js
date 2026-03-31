@@ -1,4 +1,4 @@
-/* Local 10 Shared JS — nav, search, dark mode, Web Share */
+/* Union Steward Hub (Unofficial) — nav, search, dark mode, Web Share */
 (function() {
   function toggleMobileMenu() {
     const m = document.getElementById('mobile-menu');
@@ -61,20 +61,20 @@
   window.copyURL = copyURL;
 
   function shareWhatsApp() {
-    window.open('https://wa.me/?text=' + encodeURIComponent('Local 10 Union Contract Hub: ' + window.location.href));
+    window.open('https://wa.me/?text=' + encodeURIComponent('Union Steward Resource Hub (Unofficial): ' + window.location.href));
   }
   window.shareWhatsApp = shareWhatsApp;
 
   function shareEmail() {
-    window.location.href = 'mailto:?subject=Local 10 Union Contract Hub&body=' + encodeURIComponent('Check out: ' + window.location.href);
+    window.location.href = 'mailto:?subject=Union Steward Resource Hub (Unofficial)&body=' + encodeURIComponent('Check out: ' + window.location.href);
   }
   window.shareEmail = shareEmail;
 
   function webShare() {
     if (navigator.share) {
       navigator.share({
-        title: 'Local 10 Union Contract Hub',
-        text: 'Check out the Sheet Metal Workers Local 10 contract and resources.',
+        title: 'Union Steward Resource Hub (Unofficial)',
+        text: 'Check out this unofficial union steward resource hub — contract, grievances, safety, benefits.',
         url: window.location.href
       }).catch(function() { shareEmail(); });
     } else {

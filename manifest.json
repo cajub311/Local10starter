@@ -1,7 +1,7 @@
 {
-  "name": "Local 10 Member Hub",
-  "short_name": "Local 10",
-  "description": "SMART Sheet Metal Workers Local 10 — Contract, Grievances, Safety & Benefits",
+  "name": "Union Steward Hub",
+  "short_name": "Steward Hub",
+  "description": "Unofficial union steward resource hub — Contract, Grievances, Safety & Benefits. Not affiliated with SMART Local 10.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
