@@ -23,8 +23,7 @@
     if (!q) return;
     const pdfFrame = document.getElementById('pdf-frame');
     if (pdfFrame) {
-      const base = getContractUrl();
-      pdfFrame.src = base + '#search=' + encodeURIComponent(q) + '&zoom=page-width';
+      pdfFrame.src = getPdfViewerUrl(q);
       pdfFrame.focus();
     } else {
       window.location.href = 'index.html?search=' + encodeURIComponent(q);
@@ -33,10 +32,17 @@
   window.doSearch = doSearch;
 
   function getContractUrl() {
-    const base = window.location.origin + (window.location.pathname || '/').replace(/\/?$/, '/');
-    return base + 'contract.pdf';
+    return window.location.origin + '/contract.pdf';
   }
   window.getContractUrl = getContractUrl;
+
+  function getPdfViewerUrl(search) {
+    var base = window.location.origin + '/';
+    var url = base + 'pdf-viewer.html?file=contract.pdf';
+    if (search) url += '&search=' + encodeURIComponent(search) + '&t=' + Date.now();
+    return url;
+  }
+  window.getPdfViewerUrl = getPdfViewerUrl;
 
   function searchContract(term) {
     var inp = document.getElementById('global-search');
@@ -45,7 +51,7 @@
     if (mobileInp) mobileInp.value = term;
     var pdfFrame = document.getElementById('pdf-frame');
     if (pdfFrame) {
-      pdfFrame.src = getContractUrl() + '#search=' + encodeURIComponent(term) + '&zoom=page-width';
+      pdfFrame.src = getPdfViewerUrl(term);
     } else {
       window.location.href = 'index.html?search=' + encodeURIComponent(term);
     }

@@ -7,7 +7,8 @@
     {"source": "/safety", "destination": "/safety.html"},
     {"source": "/benefits", "destination": "/benefits.html"},
     {"source": "/meetings", "destination": "/meetings.html"},
-    {"source": "/qr", "destination": "/qr.html"}
+    {"source": "/qr", "destination": "/qr.html"},
+    {"source": "/pdf-viewer", "destination": "/pdf-viewer.html"}
   ],
   "headers": [
     {"source": "/(.*).html", "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}]},
