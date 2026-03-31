@@ -98,10 +98,14 @@
         <h2 class="font-heading text-xl font-bold text-red-400 mb-2">📅 Next Meeting</h2>
         <div id="meeting-info">
           <p class="text-white font-bold text-lg" id="meeting-title">Metro Union Meeting</p>
-          <p class="text-slate-200 text-sm mt-1" id="meeting-datetime">April 7, 2026 • 5:00 – 6:30 PM</p>
-          <p class="text-slate-300 text-sm">Maplewood Union Hall — 1681 Cope Ave, Maplewood MN 55109</p>
+          <p class="text-slate-200 text-sm mt-1" id="meeting-datetime">Tuesday, April 7, 2026 • 5:00–6:30 PM</p>
+          <p class="text-slate-300 text-sm">Maplewood Union Hall — 1681 East Cope Ave, Maplewood MN 55109</p>
         </div>
         <div id="meeting-countdown" class="mt-2 text-sm font-bold"></div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-red-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg hover:bg-red-700 transition-colors">📅 View Full Calendar at smw10.org →</a>
+          <a href="https://maps.google.com/?q=1681+East+Cope+Ave+Maplewood+MN+55109" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-[#0f1f3d] border border-[#1e3a5f] text-slate-300 text-xs px-3 py-1.5 rounded-lg hover:border-red-600 transition-colors">📍 Directions</a>
+        </div>
         <p class="text-amber-400 text-xs mt-2">Always verify at <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="underline">smw10.org/calendar.html</a> before heading out.</p>
       </div>
     </section>
@@ -109,7 +113,7 @@
       (function(){
         // Hardcoded next known meeting — auto-expires when date passes
         var meetings = [
-          { title: 'Metro Union Meeting', date: '2026-04-07T17:00:00', end: '2026-04-07T18:30:00', display: 'April 7, 2026 • 5:00 – 6:30 PM' }
+          { title: 'Metro Union Meeting', date: '2026-04-07T17:00:00', end: '2026-04-07T18:30:00', display: 'Tuesday, April 7, 2026 • 5:00–6:30 PM' }
         ];
         var now = new Date();
         var upcoming = null;
@@ -119,7 +123,6 @@
         }
         var el = document.getElementById('meeting-countdown');
         var card = document.getElementById('meeting-card');
-        var info = document.getElementById('meeting-info');
         var titleEl = document.getElementById('meeting-title');
         var dtEl = document.getElementById('meeting-datetime');
         if (!el) return;
@@ -197,7 +200,7 @@
       <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div class="bg-amber-400/10 border border-amber-400/30 rounded-xl p-3">
           <div class="text-amber-400 font-bold text-sm">📋 Metro Union Meeting</div>
-          <div class="text-slate-400 text-xs mt-1">April 7, 2026 @ Maplewood Hall — 5:00 PM</div>
+          <div class="text-slate-400 text-xs mt-1">Tue Apr 7, 2026 • 5:00–6:30 PM @ Hall</div>
           <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="text-blue-400 text-xs mt-1 block hover:underline">Verify at smw10.org →</a>
         </div>
         <div class="bg-amber-400/10 border border-amber-400/30 rounded-xl p-3">
