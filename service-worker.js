@@ -1,4 +1,4 @@
-const CACHE_NAME = 'local10-v6';
+const CACHE_NAME = 'local10-v7';
 const PRECACHE = [
   '/',
   '/index.html',
@@ -37,7 +37,20 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;
 
-  if (url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('.pdf') || url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
+  // HTML: network-first so updates always show immediately
+  if (url.pathname.endsWith('.html') || url.pathname === '/') {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        return response;
+      }).catch(() => caches.match(event.request).then(r => r || caches.match('/index.html')))
+    );
+    return;
+  }
+
+  // CSS/JS/PDF: cache-first (these change less often)
+  if (url.pathname.endsWith('.pdf') || url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
     event.respondWith(
       caches.match(event.request).then(cached => {
         if (cached) return cached;
