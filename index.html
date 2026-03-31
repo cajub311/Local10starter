@@ -256,7 +256,7 @@
       var contractUrl=base+'contract.pdf';
       var qrUrl=base+'index.html';
       var pdfFrame=document.getElementById('pdf-frame');
-      if(pdfFrame)pdfFrame.src=contractUrl+'#zoom=page-width';
+      if(pdfFrame)pdfFrame.src=base+'pdf-viewer.html?file=contract.pdf';
       var qrEl=document.getElementById('qrcode');
       if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:qrUrl,width:200,height:200});}
       var copyBottom=document.getElementById('copyBtnBottom');

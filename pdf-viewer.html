@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contract PDF Viewer</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #0a1428; color: #f1f5f9; font-family: "Source Sans 3", "Segoe UI", sans-serif; }
+
+    #toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f1f3d;
+      border-bottom: 2px solid #dc2626;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    #search-input {
+      flex: 1;
+      min-width: 120px;
+      padding: 5px 10px;
+      background: #0a1428;
+      border: 1px solid #1e3a5f;
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #search-input:focus { border-color: #dc2626; }
+    .btn {
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .btn-red { background: #dc2626; color: white; }
+    .btn-red:hover { background: #b91c1c; }
+    .btn-outline { background: transparent; color: #94a3b8; border: 1px solid #1e3a5f; }
+    .btn-outline:hover { background: #1e3a5f; color: #f1f5f9; }
+    .btn-outline:disabled { opacity: 0.4; cursor: not-allowed; }
+    #match-info { font-size: 0.8rem; color: #94a3b8; white-space: nowrap; }
+
+    #pdf-container {
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pdf-page-wrapper {
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      background: white;
+    }
+    .pdf-page-wrapper canvas { display: block; }
+
+    /* Text layer for search highlight overlay */
+    .text-layer {
+      position: absolute;
+      top: 0; left: 0;
+      overflow: hidden;
+      opacity: 1;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .text-layer span {
+      color: transparent;
+      position: absolute;
+      white-space: pre;
+      cursor: text;
+      transform-origin: 0% 0%;
+    }
+    .text-layer .highlight {
+      background: rgba(255, 200, 0, 0.5);
+      border-radius: 2px;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 3rem;
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+    #error-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: #fca5a5;
+      background: #7f1d1d;
+      border-radius: 8px;
+      margin: 1rem;
+    }
+    .page-num-label {
+      font-size: 0.7rem;
+      color: #475569;
+      text-align: center;
+      font-family: monospace;
+    }
+
+    /* Highlight jump target */
+    .match-target { scroll-margin-top: 70px; }
+  </style>
+</head>
+<body>
+
+<div id="toolbar">
+  <input id="search-input" type="search" placeholder="Search contract…" aria-label="Search PDF text" autocomplete="off">
+  <button class="btn btn-red" onclick="runSearch()" aria-label="Find">🔍 Find</button>
+  <button class="btn btn-outline" id="prev-btn" onclick="prevMatch()" disabled aria-label="Previous match">◀</button>
+  <button class="btn btn-outline" id="next-btn" onclick="nextMatch()" disabled aria-label="Next match">▶</button>
+  <span id="match-info"></span>
+</div>
+
+<div id="loading">Loading PDF…</div>
+<div id="error-msg">Failed to load PDF. <a href="contract.pdf" style="color:#fca5a5;">Download instead</a></div>
+<div id="pdf-container" style="display:none;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  var params = new URLSearchParams(window.location.search);
+  var fileUrl = params.get('file') || 'contract.pdf';
+  var initialSearch = (params.get('search') || '').trim();
+
+  var pdfDoc = null;
+  var pages = [];          // rendered page info: { wrapper, canvas, textItems, pageNum }
+  var matchPages = [];     // page indices with matches
+  var matchCursor = -1;
+
+  var container = document.getElementById('pdf-container');
+  var loadingEl = document.getElementById('loading');
+  var errorEl = document.getElementById('error-msg');
+  var searchInput = document.getElementById('search-input');
+  var matchInfo = document.getElementById('match-info');
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+
+  // --- Load PDF ---
+  pdfjsLib.getDocument({ url: fileUrl, cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/', cMapPacked: true })
+    .promise
+    .then(function(doc) {
+      pdfDoc = doc;
+      loadingEl.textContent = 'Rendering pages…';
+      return renderAllPages(doc);
+    })
+    .then(function() {
+      loadingEl.style.display = 'none';
+      container.style.display = 'flex';
+      if (initialSearch) {
+        searchInput.value = initialSearch;
+        runSearch();
+      }
+    })
+    .catch(function(err) {
+      console.error('PDF load error:', err);
+      loadingEl.style.display = 'none';
+      errorEl.style.display = 'block';
+    });
+
+  // --- Render all pages ---
+  function renderAllPages(doc) {
+    var total = doc.numPages;
+    var chain = Promise.resolve();
+    for (var i = 1; i <= total; i++) {
+      (function(pageNum) {
+        chain = chain.then(function() { return renderPage(doc, pageNum); });
+      })(i);
+    }
+    return chain;
+  }
+
+  function renderPage(doc, pageNum) {
+    return doc.getPage(pageNum).then(function(page) {
+      var scale = calcScale(page);
+      var viewport = page.getViewport({ scale: scale });
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'pdf-page-wrapper';
+      wrapper.style.width = viewport.width + 'px';
+      wrapper.style.height = viewport.height + 'px';
+
+      var canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.width = viewport.width + 'px';
+      canvas.style.height = viewport.height + 'px';
+      wrapper.appendChild(canvas);
+
+      var label = document.createElement('div');
+      label.className = 'page-num-label';
+      label.textContent = 'Page ' + pageNum;
+
+      container.appendChild(label);
+      container.appendChild(wrapper);
+
+      return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise
+        .then(function() {
+          return page.getTextContent();
+        })
+        .then(function(textContent) {
+          var textLayer = buildTextLayer(textContent, viewport);
+          wrapper.appendChild(textLayer);
+          pages.push({
+            wrapper: wrapper,
+            canvas: canvas,
+            textLayer: textLayer,
+            textItems: textContent.items,
+            pageNum: pageNum,
+            viewport: viewport
+          });
+        });
+    });
+  }
+
+  function calcScale(page) {
+    var vp = page.getViewport({ scale: 1 });
+    var maxWidth = Math.min(window.innerWidth - 32, 860);
+    return maxWidth / vp.width;
+  }
+
+  // --- Build text layer (transparent spans for highlight support) ---
+  function buildTextLayer(textContent, viewport) {
+    var div = document.createElement('div');
+    div.className = 'text-layer';
+    div.style.width = viewport.width + 'px';
+    div.style.height = viewport.height + 'px';
+
+    textContent.items.forEach(function(item) {
+      if (!item.str) return;
+      var tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+      var angle = Math.atan2(tx[1], tx[0]);
+      var fontHeight = Math.sqrt(tx[2] * tx[2] + tx[3] * tx[3]);
+      var span = document.createElement('span');
+      span.textContent = item.str;
+      span.style.left = tx[4] + 'px';
+      span.style.top = (tx[5] - fontHeight) + 'px';
+      span.style.fontSize = fontHeight + 'px';
+      span.style.transform = angle !== 0 ? 'rotate(' + (-angle) + 'rad)' : '';
+      if (item.width > 0) {
+        var scaleX = item.width * viewport.scale / (span.getBoundingClientRect ? 1 : 1);
+        span.style.width = (item.width * viewport.scale) + 'px';
+        span.style.transformOrigin = '0% 0%';
+      }
+      div.appendChild(span);
+    });
+    return div;
+  }
+
+  // --- Search ---
+  function runSearch() {
+    var term = searchInput.value.trim();
+    clearHighlights();
+    matchPages = [];
+    matchCursor = -1;
+
+    if (!term) {
+      matchInfo.textContent = '';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    var lower = term.toLowerCase();
+
+    pages.forEach(function(p, idx) {
+      var pageText = p.textItems.map(function(i) { return i.str; }).join(' ').toLowerCase();
+      if (pageText.indexOf(lower) !== -1) {
+        matchPages.push(idx);
+        highlightPage(p, lower);
+      }
+    });
+
+    if (matchPages.length > 0) {
+      matchCursor = 0;
+      scrollToMatch(matchPages[0]);
+      updateMatchInfo();
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
+    } else {
+      matchInfo.textContent = 'No results for "' + term + '"';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+    }
+  }
+
+  function highlightPage(pageInfo, lowerTerm) {
+    var spans = pageInfo.textLayer.querySelectorAll('span');
+    spans.forEach(function(span) {
+      if (span.textContent.toLowerCase().indexOf(lowerTerm) !== -1) {
+        span.classList.add('highlight');
+      }
+    });
+    pageInfo.wrapper.classList.add('match-target');
+  }
+
+  function clearHighlights() {
+    pages.forEach(function(p) {
+      p.textLayer.querySelectorAll('.highlight').forEach(function(el) {
+        el.classList.remove('highlight');
+      });
+      p.wrapper.classList.remove('match-target');
+    });
+  }
+
+  function scrollToMatch(idx) {
+    var p = pages[idx];
+    if (p) {
+      p.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function prevMatch() {
+    if (matchPages.length === 0) return;
+    matchCursor = (matchCursor - 1 + matchPages.length) % matchPages.length;
+    scrollToMatch(matchPages[matchCursor]);
+    updateMatchInfo();
+  }
+
+  function nextMatch() {
+    if (matchPages.length === 0) return;
+    matchCursor = (matchCursor + 1) % matchPages.length;
+    scrollToMatch(matchPages[matchCursor]);
+    updateMatchInfo();
+  }
+
+  function updateMatchInfo() {
+    if (matchPages.length === 0) {
+      matchInfo.textContent = '';
+      return;
+    }
+    matchInfo.textContent = 'Page ' + pages[matchPages[matchCursor]].pageNum + ' (' + (matchCursor + 1) + ' of ' + matchPages.length + ' pages)';
+  }
+
+  // Keyboard: Enter to search, Escape to clear
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.shiftKey ? prevMatch() : (matchPages.length ? nextMatch() : runSearch()); }
+    if (e.key === 'Escape') { searchInput.value = ''; runSearch(); }
+  });
+
+  window.runSearch = runSearch;
+  window.prevMatch = prevMatch;
+  window.nextMatch = nextMatch;
+})();
+</script>
+</body>
+</html>
