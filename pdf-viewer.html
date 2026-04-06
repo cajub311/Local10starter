@@ -64,6 +64,16 @@
     }
     .pdf-page-wrapper canvas { display: block; }
 
+    /* Placeholder shown before canvas renders */
+    .page-placeholder {
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 0.8rem;
+    }
+
     /* Text layer for search highlight overlay */
     .text-layer {
       position: absolute;
@@ -138,8 +148,9 @@
   var initialSearch = (params.get('search') || '').trim();
 
   var pdfDoc = null;
-  var pages = [];          // rendered page info: { wrapper, canvas, textItems, pageNum }
-  var matchPages = [];     // page indices with matches
+  // pages[i] = { wrapper, pageNum, viewport, textItems, textLayer, rendered }
+  var pages = [];
+  var matchPages = [];
   var matchCursor = -1;
 
   var container = document.getElementById('pdf-container');
@@ -150,13 +161,42 @@
   var prevBtn = document.getElementById('prev-btn');
   var nextBtn = document.getElementById('next-btn');
 
+  // Debounce helper
+  function debounce(fn, ms) {
+    var timer;
+    return function() {
+      clearTimeout(timer);
+      var args = arguments;
+      var ctx = this;
+      timer = setTimeout(function() { fn.apply(ctx, args); }, ms);
+    };
+  }
+
+  // --- IntersectionObserver for lazy canvas rendering ---
+  var renderObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var wrapper = entry.target;
+        var idx = parseInt(wrapper.dataset.pageIdx, 10);
+        if (!isNaN(idx)) renderPageCanvas(idx);
+      }
+    });
+  }, {
+    rootMargin: '400px 0px',  // pre-render 400px before entering viewport
+    threshold: 0
+  });
+
   // --- Load PDF ---
-  pdfjsLib.getDocument({ url: fileUrl, cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/', cMapPacked: true })
+  pdfjsLib.getDocument({
+    url: fileUrl,
+    cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+    cMapPacked: true
+  })
     .promise
     .then(function(doc) {
       pdfDoc = doc;
-      loadingEl.textContent = 'Rendering pages…';
-      return renderAllPages(doc);
+      loadingEl.textContent = 'Loading pages…';
+      return buildAllPlaceholders(doc);
     })
     .then(function() {
       loadingEl.style.display = 'none';
@@ -172,64 +212,98 @@
       errorEl.style.display = 'block';
     });
 
-  // --- Render all pages ---
-  function renderAllPages(doc) {
+  // --- Phase 1: Create placeholders + pre-fetch all text content (for search) ---
+  function buildAllPlaceholders(doc) {
     var total = doc.numPages;
     var chain = Promise.resolve();
     for (var i = 1; i <= total; i++) {
-      (function(pageNum) {
-        chain = chain.then(function() { return renderPage(doc, pageNum); });
-      })(i);
+      (function(pageNum, idx) {
+        chain = chain.then(function() {
+          return doc.getPage(pageNum).then(function(page) {
+            var scale = calcScale(page);
+            var viewport = page.getViewport({ scale: scale });
+
+            // Label
+            var label = document.createElement('div');
+            label.className = 'page-num-label';
+            label.textContent = 'Page ' + pageNum;
+            container.appendChild(label);
+
+            // Wrapper with placeholder
+            var wrapper = document.createElement('div');
+            wrapper.className = 'pdf-page-wrapper';
+            wrapper.style.width = viewport.width + 'px';
+            wrapper.style.height = viewport.height + 'px';
+            wrapper.dataset.pageIdx = idx;
+
+            var placeholder = document.createElement('div');
+            placeholder.className = 'page-placeholder';
+            placeholder.style.width = viewport.width + 'px';
+            placeholder.style.height = viewport.height + 'px';
+            placeholder.textContent = 'p.' + pageNum;
+            wrapper.appendChild(placeholder);
+            container.appendChild(wrapper);
+
+            var pageEntry = {
+              wrapper: wrapper,
+              placeholder: placeholder,
+              pageNum: pageNum,
+              viewport: viewport,
+              textItems: [],
+              textLayer: null,
+              rendered: false
+            };
+            pages.push(pageEntry);
+
+            // Pre-fetch text content so search works immediately
+            return page.getTextContent().then(function(tc) {
+              pageEntry.textItems = tc.items;
+              // Build text layer now (no canvas needed for search indexing)
+              var textLayer = buildTextLayer(tc, viewport);
+              wrapper.appendChild(textLayer);
+              pageEntry.textLayer = textLayer;
+            });
+          });
+        });
+      })(i, i - 1);
     }
-    return chain;
+    return chain.then(function() {
+      // Start observing all wrappers for lazy canvas rendering
+      pages.forEach(function(p) { renderObserver.observe(p.wrapper); });
+    });
   }
 
-  function renderPage(doc, pageNum) {
-    return doc.getPage(pageNum).then(function(page) {
-      var scale = calcScale(page);
+  // --- Phase 2: Render canvas for a specific page (called by observer) ---
+  function renderPageCanvas(idx) {
+    var p = pages[idx];
+    if (!p || p.rendered) return;
+    p.rendered = true;
+    renderObserver.unobserve(p.wrapper);
+
+    pdfDoc.getPage(p.pageNum).then(function(page) {
       var dpr = window.devicePixelRatio || 1;
-      // CSS-pixel viewport (sets layout size)
+      var scale = calcScale(page);
       var viewport = page.getViewport({ scale: scale });
-      // Hi-DPI viewport (renders at physical pixel count for sharp text)
       var hiDpiViewport = page.getViewport({ scale: scale * dpr });
 
-      var wrapper = document.createElement('div');
-      wrapper.className = 'pdf-page-wrapper';
-      wrapper.style.width = viewport.width + 'px';
-      wrapper.style.height = viewport.height + 'px';
-
       var canvas = document.createElement('canvas');
-      // Physical pixels = hi-DPI size → sharp on retina/3x screens
       canvas.width = hiDpiViewport.width;
       canvas.height = hiDpiViewport.height;
-      // CSS display size = normal viewport → correct layout
       canvas.style.width = viewport.width + 'px';
       canvas.style.height = viewport.height + 'px';
-      wrapper.appendChild(canvas);
 
-      var label = document.createElement('div');
-      label.className = 'page-num-label';
-      label.textContent = 'Page ' + pageNum;
-
-      container.appendChild(label);
-      container.appendChild(wrapper);
+      // Insert canvas before placeholder, then remove placeholder
+      p.wrapper.insertBefore(canvas, p.placeholder);
 
       return page.render({ canvasContext: canvas.getContext('2d'), viewport: hiDpiViewport }).promise
         .then(function() {
-          return page.getTextContent();
-        })
-        .then(function(textContent) {
-          var textLayer = buildTextLayer(textContent, viewport);
-          wrapper.appendChild(textLayer);
-          pages.push({
-            wrapper: wrapper,
-            canvas: canvas,
-            textLayer: textLayer,
-            textItems: textContent.items,
-            pageNum: pageNum,
-            viewport: viewport
-          });
+          if (p.placeholder && p.placeholder.parentNode) {
+            p.placeholder.parentNode.removeChild(p.placeholder);
+            p.placeholder = null;
+          }
         });
+    }).catch(function(err) {
+      console.warn('Page render error (p.' + p.pageNum + '):', err);
     });
   }
 
@@ -256,11 +330,9 @@
       span.style.left = tx[4] + 'px';
       span.style.top = (tx[5] - fontHeight) + 'px';
       span.style.fontSize = fontHeight + 'px';
-      span.style.transform = angle !== 0 ? 'rotate(' + (-angle) + 'rad)' : '';
+      if (angle !== 0) span.style.transform = 'rotate(' + (-angle) + 'rad)';
       if (item.width > 0) {
-        var scaleX = item.width * viewport.scale / (span.getBoundingClientRect ? 1 : 1);
         span.style.width = (item.width * viewport.scale) + 'px';
-        span.style.transformOrigin = '0% 0%';
       }
       div.appendChild(span);
     });
@@ -305,6 +377,7 @@
   }
 
   function highlightPage(pageInfo, lowerTerm) {
+    if (!pageInfo.textLayer) return;
     var spans = pageInfo.textLayer.querySelectorAll('span');
     spans.forEach(function(span) {
       if (span.textContent.toLowerCase().indexOf(lowerTerm) !== -1) {
@@ -316,6 +389,7 @@
 
   function clearHighlights() {
     pages.forEach(function(p) {
+      if (!p.textLayer) return;
       p.textLayer.querySelectorAll('.highlight').forEach(function(el) {
         el.classList.remove('highlight');
       });
@@ -325,9 +399,7 @@
 
   function scrollToMatch(idx) {
     var p = pages[idx];
-    if (p) {
-      p.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (p) p.wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function prevMatch() {
@@ -345,18 +417,21 @@
   }
 
   function updateMatchInfo() {
-    if (matchPages.length === 0) {
-      matchInfo.textContent = '';
-      return;
-    }
-    matchInfo.textContent = 'Page ' + pages[matchPages[matchCursor]].pageNum + ' (' + (matchCursor + 1) + ' of ' + matchPages.length + ' pages)';
+    if (matchPages.length === 0) { matchInfo.textContent = ''; return; }
+    matchInfo.textContent = 'Page ' + pages[matchPages[matchCursor]].pageNum +
+      ' (' + (matchCursor + 1) + ' of ' + matchPages.length + ' pages)';
   }
 
-  // Keyboard: Enter to search, Escape to clear
+  // Keyboard: Enter to search/navigate, Escape to clear
   searchInput.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') { e.shiftKey ? prevMatch() : (matchPages.length ? nextMatch() : runSearch()); }
     if (e.key === 'Escape') { searchInput.value = ''; runSearch(); }
   });
+
+  // Debounced live search while typing (300ms)
+  searchInput.addEventListener('input', debounce(function() {
+    if (searchInput.value.trim().length >= 2 || searchInput.value.trim() === '') runSearch();
+  }, 300));
 
   window.runSearch = runSearch;
   window.prevMatch = prevMatch;

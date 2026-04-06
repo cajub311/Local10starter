@@ -289,61 +289,122 @@
   </script>
   <script>
     (function(){
+      var MAX_ENTRIES = 200;
+
       function getLog(){return JSON.parse(localStorage.getItem('stewardIncidentLog')||'[]');}
       function saveLogData(log){localStorage.setItem('stewardIncidentLog',JSON.stringify(log));}
-      function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-      function renderLog(){
-        var log=getLog();
-        var el=document.getElementById('log-list');
-        if(!el)return;
-        if(!log.length){el.innerHTML='<p style="color:#475569;font-size:0.82rem;text-align:center;padding:0.5rem 0;">No entries yet. Add one above.</p>';return;}
-        var html='<div style="border-top:1px solid #1e3a5f;padding-top:0.75rem;">'
-          +'<div style="color:#64748b;font-size:0.75rem;margin-bottom:0.5rem;">'+log.length+' saved entr'+(log.length===1?'y':'ies')+' — stored on this device only</div>';
-        log.forEach(function(e,i){
-          html+='<div style="background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;padding:0.6rem;margin-bottom:0.4rem;">'
-            +'<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;">'
-            +'<div style="flex:1;">'
-            +'<span style="color:#f59e0b;font-size:0.8rem;font-weight:700;">'+e.date+'</span> '
-            +'<span style="background:#1e3a5f;color:#94a3b8;font-size:0.7rem;padding:0.1rem 0.4rem;border-radius:3px;margin-left:0.25rem;">'+esc(e.category)+'</span>'
-            +'<p style="color:#f1f5f9;font-size:0.82rem;margin:0.3rem 0 0;white-space:pre-wrap;">'+esc(e.notes)+'</p>'
-            +'</div>'
-            +'<button onclick="deleteEntry('+i+')" style="background:none;border:none;color:#475569;cursor:pointer;font-size:1rem;padding:0.1rem 0.3rem;flex-shrink:0;line-height:1;" title="Delete">✕</button>'
-            +'</div></div>';
-        });
-        html+='</div>';
-        el.innerHTML=html;
+      function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+      // Build a single entry DOM node (no innerHTML for the whole list)
+      function buildEntryNode(e, i) {
+        var outer = document.createElement('div');
+        outer.style.cssText = 'background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;padding:0.6rem;margin-bottom:0.4rem;';
+        outer.dataset.entryIdx = i;
+
+        var row = document.createElement('div');
+        row.style.cssText = 'display:flex;justify-content:space-between;align-items:flex-start;gap:0.5rem;';
+
+        var info = document.createElement('div');
+        info.style.flex = '1';
+
+        var dateSpan = document.createElement('span');
+        dateSpan.style.cssText = 'color:#f59e0b;font-size:0.8rem;font-weight:700;';
+        dateSpan.textContent = e.date;
+
+        var catSpan = document.createElement('span');
+        catSpan.style.cssText = 'background:#1e3a5f;color:#94a3b8;font-size:0.7rem;padding:0.1rem 0.4rem;border-radius:3px;margin-left:0.25rem;';
+        catSpan.textContent = e.category;
+
+        var notes = document.createElement('p');
+        notes.style.cssText = 'color:#f1f5f9;font-size:0.82rem;margin:0.3rem 0 0;white-space:pre-wrap;';
+        notes.textContent = e.notes;
+
+        info.appendChild(dateSpan);
+        info.appendChild(catSpan);
+        info.appendChild(notes);
+
+        var del = document.createElement('button');
+        del.style.cssText = 'background:none;border:none;color:#475569;cursor:pointer;font-size:1rem;padding:0.1rem 0.3rem;flex-shrink:0;line-height:1;';
+        del.title = 'Delete';
+        del.textContent = '✕';
+        del.addEventListener('click', function(){ window.deleteEntry(i); });
+
+        row.appendChild(info);
+        row.appendChild(del);
+        outer.appendChild(row);
+        return outer;
       }
-      window.saveIncidentLog=function(){
-        var date=document.getElementById('log-date').value;
-        var cat=document.getElementById('log-cat').value;
-        var notes=document.getElementById('log-notes').value.trim();
-        if(!date||!notes){alert('Please enter a date and describe what happened.');return;}
-        var log=getLog();
-        log.unshift({date:date,category:cat,notes:notes,saved:new Date().toISOString()});
+
+      function renderLog(){
+        var log = getLog();
+        var el = document.getElementById('log-list');
+        if (!el) return;
+        // Clear existing content efficiently
+        while (el.firstChild) el.removeChild(el.firstChild);
+
+        if (!log.length) {
+          var empty = document.createElement('p');
+          empty.style.cssText = 'color:#475569;font-size:0.82rem;text-align:center;padding:0.5rem 0;';
+          empty.textContent = 'No entries yet. Add one above.';
+          el.appendChild(empty);
+          return;
+        }
+
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'border-top:1px solid #1e3a5f;padding-top:0.75rem;';
+
+        var meta = document.createElement('div');
+        meta.style.cssText = 'color:#64748b;font-size:0.75rem;margin-bottom:0.5rem;';
+        meta.textContent = log.length + ' saved entr' + (log.length === 1 ? 'y' : 'ies') + ' — stored on this device only';
+        if (log.length >= MAX_ENTRIES) {
+          meta.textContent += ' (limit ' + MAX_ENTRIES + ' — oldest auto-removed)';
+        }
+        wrap.appendChild(meta);
+
+        // Use DocumentFragment for a single DOM insertion
+        var frag = document.createDocumentFragment();
+        log.forEach(function(e, i) { frag.appendChild(buildEntryNode(e, i)); });
+        wrap.appendChild(frag);
+        el.appendChild(wrap);
+      }
+
+      window.saveIncidentLog = function(){
+        var date = document.getElementById('log-date').value;
+        var cat = document.getElementById('log-cat').value;
+        var notes = document.getElementById('log-notes').value.trim();
+        if (!date || !notes) { alert('Please enter a date and describe what happened.'); return; }
+        var log = getLog();
+        log.unshift({date: date, category: cat, notes: notes, saved: new Date().toISOString()});
+        // Enforce max entry limit — drop oldest
+        if (log.length > MAX_ENTRIES) log.length = MAX_ENTRIES;
         saveLogData(log);
-        document.getElementById('log-notes').value='';
+        document.getElementById('log-notes').value = '';
         renderLog();
-        if(typeof showToast==='function')showToast('✅ Entry saved to your private log');
+        if (typeof showToast === 'function') showToast('✅ Entry saved to your private log');
       };
-      window.deleteEntry=function(i){
-        if(!confirm('Delete this entry?'))return;
-        var log=getLog();log.splice(i,1);saveLogData(log);renderLog();
+
+      window.deleteEntry = function(i){
+        if (!confirm('Delete this entry?')) return;
+        var log = getLog(); log.splice(i, 1); saveLogData(log); renderLog();
       };
-      window.clearLog=function(){
-        if(!confirm('Delete ALL log entries? This cannot be undone.'))return;
-        localStorage.removeItem('stewardIncidentLog');renderLog();
+
+      window.clearLog = function(){
+        if (!confirm('Delete ALL log entries? This cannot be undone.')) return;
+        localStorage.removeItem('stewardIncidentLog'); renderLog();
       };
-      window.exportLog=function(){
-        var log=getLog();
-        if(!log.length){alert('No entries to export.');return;}
-        var body='INCIDENT LOG — PRIVATE RECORD\nGenerated: '+new Date().toLocaleDateString()+'\n\n'
-          +log.map(function(e){return '['+e.date+'] '+e.category+'\n'+e.notes;}).join('\n\n---\n\n');
-        window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Incident Log — '+new Date().toLocaleDateString())+'&body='+encodeURIComponent(body);
+
+      window.exportLog = function(){
+        var log = getLog();
+        if (!log.length) { alert('No entries to export.'); return; }
+        var body = 'INCIDENT LOG — PRIVATE RECORD\nGenerated: ' + new Date().toLocaleDateString() + '\n\n'
+          + log.map(function(e){ return '[' + e.date + '] ' + e.category + '\n' + e.notes; }).join('\n\n---\n\n');
+        window.location.href = 'mailto:gorillagrad9@gmail.com?subject=' + encodeURIComponent('Incident Log — ' + new Date().toLocaleDateString()) + '&body=' + encodeURIComponent(body);
       };
-      // set default date to today
-      var todayStr=new Date().toISOString().slice(0,10);
-      var dateEl=document.getElementById('log-date');
-      if(dateEl&&!dateEl.value)dateEl.value=todayStr;
+
+      // Set default date to today
+      var todayStr = new Date().toISOString().slice(0, 10);
+      var dateEl = document.getElementById('log-date');
+      if (dateEl && !dateEl.value) dateEl.value = todayStr;
       renderLog();
     })();
   </script>
