@@ -203,8 +203,57 @@
       });
     </script>
 
+    <!-- PAYSTUB DECODER -->
+    <section class="mb-6" aria-labelledby="stub-title">
+      <div class="section-title" id="stub-title">🧾 Paystub Decoder — What Are All These Deductions?</div>
+      <div class="action-card">
+        <p class="text-slate-400 text-sm mb-3">Tap any line on your stub below to see what it's for and who to call with questions.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0.6rem;">
+          <details class="stub-item">
+            <summary><span class="stub-code">UNION DUES</span><span class="stub-name">Local 10 Dues Check-Off</span></summary>
+            <div class="stub-body">Automatically deducted per the CBA. Typically a small percentage of gross or a fixed amount. Funds your contract, rep, steward, grievance defense, organizing. Questions: call the Union Hall.</div>
+          </details>
+          <details class="stub-item">
+            <summary><span class="stub-code">H&W</span><span class="stub-name">Health & Welfare</span></summary>
+            <div class="stub-body">Employer contribution to your health plan — usually shown for transparency, not taken from your check. If you see it subtracted, ask payroll. Claims: 651-646-2650.</div>
+          </details>
+          <details class="stub-item">
+            <summary><span class="stub-code">PENSION</span><span class="stub-name">Defined Benefit Pension</span></summary>
+            <div class="stub-body">Employer contribution per hours worked, credited to your pension account. Not taxed now — taxed when drawn in retirement. Tracks toward vesting (typically 5 yrs).</div>
+          </details>
+          <details class="stub-item">
+            <summary><span class="stub-code">ANNUITY / 401(k)</span><span class="stub-name">Retirement Annuity</span></summary>
+            <div class="stub-body">Additional retirement savings — some of this may be your optional contribution. Check with fund office before changing your deferral rate.</div>
+          </details>
+          <details class="stub-item">
+            <summary><span class="stub-code">PFML</span><span class="stub-name">MN Paid Family & Medical Leave</span></summary>
+            <div class="stub-body">New for 2026. Split between you and employer. Qualifies you for up to 20 weeks of partial-pay leave for your own serious illness or family care. State-run program.</div>
+          </details>
+          <details class="stub-item">
+            <summary><span class="stub-code">FED / STATE / FICA</span><span class="stub-name">Taxes</span></summary>
+            <div class="stub-body">Federal + MN state income tax (based on W-4), plus Social Security (6.2%) and Medicare (1.45%). Update W-4 through HR if your family status changed.</div>
+          </details>
+          <details class="stub-item">
+            <summary><span class="stub-code">MISC DEDUCT</span><span class="stub-name">Anything Unfamiliar?</span></summary>
+            <div class="stub-body">If you see a deduction you didn't authorize, flag it immediately. Take a photo of your stub and text your steward: 612-428-8004. Employer cannot deduct without authorization.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+    <style>
+      .stub-item { background:#0a1428; border:1px solid #1e3a5f; border-radius:0.6rem; overflow:hidden; transition:border-color .15s; }
+      .stub-item:hover { border-color:#dc2626; }
+      .stub-item summary { list-style:none; padding:0.7rem 0.9rem; cursor:pointer; display:flex; align-items:center; gap:0.6rem; }
+      .stub-item summary::-webkit-details-marker { display:none; }
+      .stub-item summary::after { content:"▼"; margin-left:auto; color:#64748b; font-size:0.7rem; transition:transform .2s; }
+      .stub-item[open] summary::after { transform:rotate(180deg); }
+      .stub-code { background:linear-gradient(180deg,#dc2626,#991b1b); color:white; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.68rem; letter-spacing:0.08em; padding:0.15rem 0.55rem; border-radius:4px; white-space:nowrap; }
+      .stub-name { color:#f1f5f9; font-weight:600; font-size:0.87rem; }
+      .stub-body { padding:0 0.9rem 0.8rem; color:#cbd5e1; font-size:0.84rem; line-height:1.5; border-top:1px solid #1e3a5f; padding-top:0.7rem; }
+    </style>
+
     <!-- PFML 2026 Explainer -->
-    <section class="mb-6" aria-label="Minnesota Paid Family and Medical Leave 2026">
+    <section class="mb-6" id="pfml" aria-label="Minnesota Paid Family and Medical Leave 2026">
       <div class="bg-green-400/10 border border-green-400/30 rounded-xl p-4">
         <h2 class="font-heading text-xl font-bold text-green-400 mb-2">👨‍👩‍👧‍👦 MN Paid Family & Medical Leave (PFML) — 2026</h2>
         <p class="text-slate-300 text-sm mb-2">Paid Leave is Minnesota's state program for your own serious health condition or family caregiving needs.</p>
