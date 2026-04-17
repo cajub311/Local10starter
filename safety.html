@@ -102,14 +102,107 @@
     </script>
 
     <!-- Right to Refuse -->
-    <section class="mb-6" aria-label="Right to refuse unsafe work">
+    <section class="mb-6" id="refuse" aria-label="Right to refuse unsafe work">
       <h2 class="font-heading text-2xl font-bold text-white mb-3">⚠️ Right to Refuse Unsafe Work</h2>
       <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4 text-sm text-slate-300">
         <p>You can refuse work that poses <strong class="text-red-400">imminent danger</strong> to your life or health. Tell the supervisor why the task is unsafe and request a steward immediately.</p>
         <p class="mt-2"><strong class="text-amber-400">Sheet metal example:</strong> After a fire, chemical spill, failed ventilation, or major equipment damage, ask for hazard assessment before restart. Do not work where there is immediate serious risk.</p>
         <p class="mt-2 text-slate-400">For non-immediate hazards: document the condition, report it in writing to management, and contact your steward so timelines are protected.</p>
+        <div class="mt-3 p-3 bg-red-900/20 border-l-4 border-red-600 rounded">
+          <p class="text-red-300 font-bold text-sm mb-1">Say this word-for-word:</p>
+          <p class="text-slate-200 italic text-sm">"I believe this work poses an imminent danger to my safety. I'm requesting a hazard assessment and my union steward before I continue."</p>
+        </div>
       </div>
     </section>
+
+    <!-- Fall Protection -->
+    <section class="mb-6" id="fall-protection" aria-label="Fall protection">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">🪜 Fall Protection — 6 Feet Is The Line</h2>
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4 text-sm text-slate-300">
+        <p class="mb-2"><strong class="text-amber-400">OSHA requires fall protection at 6 ft</strong> (construction) or 4 ft (general industry). Scaffolds: 10 ft. Steel erection: 15 ft.</p>
+        <ul class="space-y-1 mb-3 list-disc pl-5">
+          <li><strong class="text-white">Anchor point:</strong> rated <strong>5,000 lb</strong> per worker (or 2× fall force if engineered).</li>
+          <li><strong class="text-white">Harness:</strong> inspect webbing, D-rings, buckles before each use. Replace after any fall.</li>
+          <li><strong class="text-white">Lanyard:</strong> shock-absorbing, max free fall 6 ft. Connect high — at/above the D-ring.</li>
+          <li><strong class="text-white">Ladders:</strong> 4-to-1 angle, 3 ft extension above landing, maintain 3 points of contact.</li>
+          <li><strong class="text-white">Rescue plan:</strong> required before work starts. Suspension trauma kills in 15 min.</li>
+        </ul>
+        <a href="https://www.osha.gov/fall-protection" target="_blank" rel="noopener" class="text-red-400 font-bold hover:underline">OSHA Fall Protection Standard →</a>
+      </div>
+    </section>
+
+    <!-- Lockout / Tagout -->
+    <section class="mb-6" id="loto" aria-label="Lockout tagout">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">🔒 Lockout / Tagout (LOTO) — No Shortcuts</h2>
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4 text-sm text-slate-300">
+        <p class="mb-2 text-amber-400 font-bold">The 6-step LOTO procedure (OSHA 1910.147):</p>
+        <ol class="space-y-1 mb-3 list-decimal pl-5">
+          <li><strong class="text-white">Prepare</strong> — know all energy sources (electrical, hydraulic, pneumatic, thermal, stored).</li>
+          <li><strong class="text-white">Shut down</strong> — use normal stop procedure.</li>
+          <li><strong class="text-white">Isolate</strong> — disconnect switches, close valves, block lines.</li>
+          <li><strong class="text-white">Lockout/Tagout</strong> — <strong>your lock, your key</strong>. Tag with name, date, reason.</li>
+          <li><strong class="text-white">Release stored energy</strong> — bleed lines, block/chain falling parts, discharge capacitors.</li>
+          <li><strong class="text-white">Verify zero energy</strong> — try to start it. Test with meter. Then work.</li>
+        </ol>
+        <div class="p-3 bg-red-900/20 border-l-4 border-red-600 rounded">
+          <p class="text-red-300 font-bold mb-1">⚠️ Never remove another worker's lock.</p>
+          <p class="text-xs text-slate-300">If a lock was left on, contact your supervisor AND steward. There's a formal removal procedure — it is not your call.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Silica / Metal Fume -->
+    <section class="mb-6" id="silica" aria-label="Silica and metal fume exposure">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">😷 Silica, Metal Fumes & Welding — The Air You Breathe</h2>
+      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4 text-sm text-slate-300">
+        <p class="mb-2">Sheet metal work exposes you to <strong class="text-amber-400">hexavalent chromium, manganese, zinc oxide, nickel, and silica</strong>. These cause lung disease, cancer, and neurological damage — <em>years later</em>.</p>
+        <ul class="space-y-1 mb-3 list-disc pl-5">
+          <li><strong class="text-white">Local exhaust ventilation</strong> (LEV) required within 12 in of the fume source.</li>
+          <li><strong class="text-white">Stainless / galvanized / coated steel</strong> — respirator required (APF 10+ for Cr(VI)).</li>
+          <li><strong class="text-white">OSHA PEL — Cr(VI):</strong> 5 μg/m³ (8-hr TWA). <strong>Action level:</strong> 2.5 μg/m³.</li>
+          <li><strong class="text-white">OSHA PEL — Respirable silica:</strong> 50 μg/m³ (8-hr TWA).</li>
+          <li><strong class="text-white">Medical surveillance</strong> required if exposed above action level ≥ 30 days/yr.</li>
+          <li><strong class="text-white">Fit test</strong> required annually and when respirator/facial hair/weight changes.</li>
+        </ul>
+        <p class="text-slate-400 text-xs">If LEV is broken or missing, stop work and call your steward. Exposure records are <em>your</em> records — you can request them.</p>
+      </div>
+    </section>
+
+    <!-- Near-Miss Log -->
+    <section class="mb-6" id="near-miss" aria-label="Near-miss reporting">
+      <h2 class="font-heading text-2xl font-bold text-white mb-3">⚠️ Report a Near-Miss — Save The Next Guy</h2>
+      <div class="bg-amber-400/10 border-2 border-amber-400 rounded-xl p-4 text-sm text-slate-200">
+        <p class="mb-3">A near-miss is a warning. Reporting it creates a paper trail and forces the company to fix it <em>before</em> someone gets hurt. This stays in your phone until you email it.</p>
+        <label class="block text-amber-400 font-bold mb-1">Date / Location</label>
+        <input type="text" id="nm-when" placeholder="Mon 4/14 — West bay, near shear" class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-2 text-sm mb-2 focus:border-amber-400 focus:outline-none">
+        <label class="block text-amber-400 font-bold mb-1">What happened</label>
+        <textarea id="nm-what" rows="3" placeholder="Stack of 22-ga shifted off pallet jack, nearly hit my foot. No chock on floor." class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-2 text-sm mb-2 resize-none focus:border-amber-400 focus:outline-none"></textarea>
+        <label class="block text-amber-400 font-bold mb-1">What should change</label>
+        <textarea id="nm-fix" rows="2" placeholder="Need floor chocks at pallet-jack parking spots, or banding on stacks." class="w-full bg-navy border border-[#1e3a5f] text-white rounded-lg p-2 text-sm mb-2 resize-none focus:border-amber-400 focus:outline-none"></textarea>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="sendNearMiss()" class="btn-red text-sm">📧 Email to Steward</button>
+          <button onclick="saveNearMissLocal()" class="btn-outline text-sm" style="font-size:0.85rem;padding:0.45rem 0.85rem;">💾 Save on this phone</button>
+          <button onclick="copyNearMiss()" class="btn-outline text-sm" style="font-size:0.85rem;padding:0.45rem 0.85rem;" id="nm-copy-btn">📋 Copy</button>
+        </div>
+        <div id="nm-saved-list" class="mt-3 text-xs text-slate-300"></div>
+      </div>
+    </section>
+    <script>
+      function _nmBuild(){
+        var w=document.getElementById('nm-when').value.trim();
+        var h=document.getElementById('nm-what').value.trim();
+        var f=document.getElementById('nm-fix').value.trim();
+        if(!h){alert('At minimum, describe what happened.');return null;}
+        return 'NEAR-MISS REPORT\n\nDate/Location: '+(w||'(not given)')+'\n\nWhat happened:\n'+h+'\n\nWhat should change:\n'+(f||'(not given)')+'\n\n— Local 10 Safety Hub';
+      }
+      function sendNearMiss(){var b=_nmBuild();if(!b)return;window.location.href='mailto:gorillagrad9@gmail.com?subject='+encodeURIComponent('Near-Miss Report')+'&body='+encodeURIComponent(b);}
+      function saveNearMissLocal(){var b=_nmBuild();if(!b)return;var list=JSON.parse(localStorage.getItem('nearMissLog')||'[]');list.unshift({ts:Date.now(),body:b});localStorage.setItem('nearMissLog',JSON.stringify(list.slice(0,20)));renderNearMissList();alert('Saved on this device. Email when you have signal.');}
+      function copyNearMiss(){var b=_nmBuild();if(!b)return;navigator.clipboard.writeText(b).then(function(){var btn=document.getElementById('nm-copy-btn');if(btn){btn.textContent='✅ Copied';setTimeout(function(){btn.textContent='📋 Copy';},2000);}});}
+      function renderNearMissList(){var el=document.getElementById('nm-saved-list');if(!el)return;var list=JSON.parse(localStorage.getItem('nearMissLog')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML='<div style="color:#fbbf24;font-weight:700;margin-bottom:0.3rem;">Saved reports on this device ('+list.length+'):</div>'+list.map(function(it,i){return '<div style="padding:0.4rem 0.5rem;background:#0a1428;border-left:3px solid #fbbf24;margin-bottom:0.3rem;border-radius:3px;"><div style="color:#94a3b8;">'+new Date(it.ts).toLocaleString()+'</div><button onclick="_nmRestore('+i+')" style="color:#7dd3fc;text-decoration:underline;background:none;border:0;padding:0;cursor:pointer;font-size:0.75rem;">Load</button> · <button onclick="_nmDelete('+i+')" style="color:#fca5a5;text-decoration:underline;background:none;border:0;padding:0;cursor:pointer;font-size:0.75rem;">Delete</button></div>';}).join('');}
+      function _nmRestore(i){var list=JSON.parse(localStorage.getItem('nearMissLog')||'[]');if(list[i])alert(list[i].body);}
+      function _nmDelete(i){var list=JSON.parse(localStorage.getItem('nearMissLog')||'[]');list.splice(i,1);localStorage.setItem('nearMissLog',JSON.stringify(list));renderNearMissList();}
+      document.addEventListener('DOMContentLoaded',renderNearMissList);
+    </script>
 
     <!-- Hazard Cards Grid -->
     <section class="mb-6" aria-label="Common sheet metal hazards and PPE requirements">

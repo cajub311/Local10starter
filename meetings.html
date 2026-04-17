@@ -83,7 +83,7 @@
   <main class="max-w-5xl mx-auto px-4 py-6" id="main-content">
 
     <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-1">Meetings & Local Info</h1>
-    <p class="text-slate-400 text-sm mb-2">Stay connected. Show up. Your voice matters.</p>
+    <p class="text-slate-400 text-sm mb-2">Show up. Speak up. Vote. This is <em>your</em> local.</p>
     <div class="flex flex-wrap gap-3 items-center mb-6">
       <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
       <a href="#" id="spanish-link" target="_blank" rel="noopener" class="text-slate-400 text-sm hover:underline">¿Necesitas esto en español? →</a>
@@ -92,63 +92,90 @@
       (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
     </script>
 
-    <!-- Next Meeting Card -->
-    <section class="mb-4" aria-label="Next meeting">
-      <div id="meeting-card" class="bg-red-600/20 border-2 border-red-600 rounded-xl p-4">
-        <h2 class="font-heading text-xl font-bold text-red-400 mb-2">📅 Next Meeting</h2>
-        <div id="meeting-info">
-          <p class="text-white font-bold text-lg" id="meeting-title">Metro Union Meeting</p>
-          <p class="text-slate-200 text-sm mt-1" id="meeting-datetime">Tuesday, April 7, 2026 • 5:00–6:30 PM</p>
-          <p class="text-slate-300 text-sm">Maplewood Union Hall — 1681 East Cope Ave, Maplewood MN 55109</p>
+    <!-- Next Meeting Card — industrial -->
+    <section style="margin-bottom:1rem;" aria-label="Next meeting">
+      <div class="section-title">📅 Next Meeting</div>
+      <div class="action-card card-accent" id="meeting-card" style="padding:0;overflow:hidden;">
+        <div class="hazard-stripe-thin" style="height:8px;"></div>
+        <div style="padding:1rem 1.1rem 1.15rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+          <div class="countdown-ring" aria-hidden="true">
+            <div><div>
+              <div class="num" id="mtg-ring-num">—</div>
+              <div class="lbl">days</div>
+            </div></div>
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <div style="color:#fbbf24;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.14em;font-weight:800;" id="meeting-title">Metro Union Meeting</div>
+            <div style="color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;letter-spacing:0.02em;" id="meeting-datetime">Check smw10.org</div>
+            <div style="color:#cbd5e1;font-size:0.84rem;margin-top:0.2rem;">Maplewood Union Hall — 1681 E Cope Ave, Maplewood MN 55109</div>
+            <div id="meeting-countdown" style="margin-top:0.35rem;font-weight:700;font-size:0.85rem;"></div>
+            <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.6rem;">
+              <button onclick="addMtgToCal()" class="btn-yellow" style="font-size:0.78rem;padding:0.35rem 0.8rem;min-height:auto;">📆 Add to Calendar</button>
+              <a href="https://maps.google.com/?q=1681+East+Cope+Ave+Maplewood+MN+55109" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem;padding:0.35rem 0.8rem;min-height:auto;">🧭 Directions</a>
+              <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem;padding:0.35rem 0.8rem;min-height:auto;">📅 Full Calendar</a>
+            </div>
+          </div>
         </div>
-        <div id="meeting-countdown" class="mt-2 text-sm font-bold"></div>
-        <div class="mt-3 flex flex-wrap gap-2">
-          <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-red-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg hover:bg-red-700 transition-colors">📅 View Full Calendar at smw10.org →</a>
-          <a href="https://maps.google.com/?q=1681+East+Cope+Ave+Maplewood+MN+55109" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-[#0f1f3d] border border-[#1e3a5f] text-slate-300 text-xs px-3 py-1.5 rounded-lg hover:border-red-600 transition-colors">📍 Directions</a>
-        </div>
-        <p class="text-amber-400 text-xs mt-2">Always verify at <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="underline">smw10.org/calendar.html</a> before heading out.</p>
       </div>
+      <p class="text-amber-400 text-xs mt-2">Always verify at <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="underline">smw10.org/calendar.html</a> before heading out.</p>
     </section>
     <script>
+      // Shared meeting list — verify dates at smw10.org/calendar.html
+      window.__MEETINGS = [
+        { title:'Metro Union Meeting', start:'2026-05-05T17:00:00-05:00', end:'2026-05-05T18:30:00-05:00', display:'Tue May 5, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-06-02T17:00:00-05:00', end:'2026-06-02T18:30:00-05:00', display:'Tue Jun 2, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-07-07T17:00:00-05:00', end:'2026-07-07T18:30:00-05:00', display:'Tue Jul 7, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-08-04T17:00:00-05:00', end:'2026-08-04T18:30:00-05:00', display:'Tue Aug 4, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-09-01T17:00:00-05:00', end:'2026-09-01T18:30:00-05:00', display:'Tue Sep 1, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-10-06T17:00:00-05:00', end:'2026-10-06T18:30:00-05:00', display:'Tue Oct 6, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-11-03T17:00:00-06:00', end:'2026-11-03T18:30:00-06:00', display:'Tue Nov 3, 2026 • 5:00–6:30 PM' },
+        { title:'Metro Union Meeting', start:'2026-12-01T17:00:00-06:00', end:'2026-12-01T18:30:00-06:00', display:'Tue Dec 1, 2026 • 5:00–6:30 PM' }
+      ];
       (function(){
-        // Hardcoded next known meeting — auto-expires when date passes
-        var meetings = [
-          { title: 'Metro Union Meeting', date: '2026-04-07T17:00:00', end: '2026-04-07T18:30:00', display: 'Tuesday, April 7, 2026 • 5:00–6:30 PM' }
-        ];
         var now = new Date();
         var upcoming = null;
-        for (var i = 0; i < meetings.length; i++) {
-          var endDate = new Date(meetings[i].end);
-          if (endDate > now) { upcoming = meetings[i]; break; }
+        for (var i=0;i<window.__MEETINGS.length;i++){
+          if (new Date(window.__MEETINGS[i].end) > now) { upcoming = window.__MEETINGS[i]; break; }
         }
-        var el = document.getElementById('meeting-countdown');
-        var card = document.getElementById('meeting-card');
+        window.__NEXT_MTG = upcoming;
+        var ring = document.getElementById('mtg-ring-num');
         var titleEl = document.getElementById('meeting-title');
         var dtEl = document.getElementById('meeting-datetime');
-        if (!el) return;
+        var el = document.getElementById('meeting-countdown');
+        var card = document.getElementById('meeting-card');
         if (!upcoming) {
-          // All known meetings have passed — direct user to smw10.org
-          if (card) { card.style.borderColor = '#f59e0b'; card.style.background = 'rgba(245,158,11,0.08)'; }
-          if (titleEl) titleEl.textContent = 'Next Meeting — Check smw10.org';
-          if (dtEl) dtEl.textContent = '';
-          el.innerHTML = '<a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" style="display:inline-block;background:#dc2626;color:white;font-weight:700;padding:0.5rem 1rem;border-radius:8px;text-decoration:none;font-size:0.95rem;">📅 View Upcoming Meetings at smw10.org →</a>';
+          if (ring) ring.textContent='?';
+          if (titleEl) titleEl.textContent = 'Check smw10.org';
+          if (dtEl) dtEl.textContent = 'No upcoming date on file';
+          if (el) el.innerHTML = '<a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" style="color:#fbbf24;text-decoration:underline;">See upcoming meetings →</a>';
+          return;
+        }
+        if (titleEl) titleEl.textContent = upcoming.title;
+        if (dtEl) dtEl.textContent = upcoming.display;
+        var diff = new Date(upcoming.start) - now;
+        var days = Math.max(0, Math.floor(diff / 86400000));
+        if (ring) ring.textContent = days;
+        if (diff < 0 && new Date(upcoming.end) > now) {
+          if (el) el.innerHTML = '<span style="color:#4ade80;">🟢 Happening now</span>';
         } else {
-          if (titleEl) titleEl.textContent = upcoming.title;
-          if (dtEl) dtEl.textContent = upcoming.display;
-          var diff = new Date(upcoming.date) - now;
-          if (diff < 0) {
-            el.innerHTML = '<span style="color:#4ade80;font-size:0.85rem;">🟢 Meeting is happening now!</span>';
-          } else {
-            var days = Math.floor(diff / 86400000);
-            var hours = Math.floor((diff % 86400000) / 3600000);
-            var mins = Math.floor((diff % 3600000) / 60000);
-            var parts = [];
-            if (days > 0) parts.push(days + ' day' + (days === 1 ? '' : 's'));
-            if (days < 7) { if (hours > 0) parts.push(hours + ' hr' + (hours === 1 ? '' : 's')); if (days === 0 && mins > 0) parts.push(mins + ' min'); }
-            el.innerHTML = '<span style="color:#4ade80;">⏳ ' + parts.join(', ') + ' away</span>';
-          }
+          var hrs = Math.floor((diff % 86400000) / 3600000);
+          var parts = [];
+          if (days>0) parts.push(days+' day'+(days===1?'':'s'));
+          if (days<7 && hrs>0) parts.push(hrs+' hr'+(hrs===1?'':'s'));
+          if (el) el.innerHTML = '<span style="color:#86efac;">⏳ '+parts.join(', ')+' away</span>';
         }
       })();
+
+      function addMtgToCal(){
+        var m = window.__NEXT_MTG;
+        if (!m) { window.open('https://www.smw10.org/calendar.html','_blank'); return; }
+        function toICS(iso){ var d=new Date(iso); function p(n){return String(n).padStart(2,'0');}
+          return d.getUTCFullYear()+p(d.getUTCMonth()+1)+p(d.getUTCDate())+'T'+p(d.getUTCHours())+p(d.getUTCMinutes())+'00Z'; }
+        var ics='BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Local10Hub//EN\nBEGIN:VEVENT\nUID:'+Date.now()+'@local10\nDTSTAMP:'+toICS(new Date().toISOString())+'\nDTSTART:'+toICS(m.start)+'\nDTEND:'+toICS(m.end)+'\nSUMMARY:'+m.title+'\nLOCATION:1681 E Cope Ave Suite A, Maplewood MN 55109\nDESCRIPTION:SMART Local 10 membership meeting. Verify at smw10.org/calendar.html\nEND:VEVENT\nEND:VCALENDAR';
+        var blob=new Blob([ics],{type:'text/calendar'});
+        var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='local10-meeting.ics'; a.click();
+      }
+      window.addMtgToCal = addMtgToCal;
     </script>
 
     <!-- Union Hall Card -->
@@ -187,29 +214,38 @@
       </div>
     </section>
 
-    <!-- Meeting Schedule -->
-    <section class="mb-6" aria-label="Meeting schedule">
-      <h2 class="font-heading text-2xl font-bold text-white mb-3">📅 Meeting Schedule</h2>
-      <div class="bg-[#0f1f3d] border border-[#1e3a5f] rounded-xl p-4">
-        <p class="text-amber-400 font-bold text-sm mb-2">📌 Dates are sourced from smw10.org — always the most up-to-date</p>
-        <p class="text-slate-300 text-sm">Union membership meetings are held regularly at the Union Hall in Maplewood. All members are encouraged to attend — your vote and voice shape the local.</p>
-        <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-2 bg-red-600 text-white font-bold px-4 py-2.5 rounded-xl hover:bg-red-700 transition-colors text-sm" aria-label="View official Local 10 calendar (opens smw10.org)">
-          📅 View Official Calendar at smw10.org →
-        </a>
-      </div>
-      <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div class="bg-amber-400/10 border border-amber-400/30 rounded-xl p-3">
-          <div class="text-amber-400 font-bold text-sm">📋 Metro Union Meeting</div>
-          <div class="text-slate-400 text-xs mt-1">Tue Apr 7, 2026 • 5:00–6:30 PM @ Hall</div>
-          <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="text-blue-400 text-xs mt-1 block hover:underline">Verify at smw10.org →</a>
-        </div>
-        <div class="bg-amber-400/10 border border-amber-400/30 rounded-xl p-3">
-          <div class="text-amber-400 font-bold text-sm">🦺 Safety Meeting</div>
-          <div class="text-slate-400 text-xs mt-1">Confirm at smw10.org/calendar.html</div>
-          <a href="tel:+16124288004" class="text-red-400 text-xs font-bold mt-1 block hover:underline">Ask Steward: 612-428-8004 →</a>
-        </div>
+    <!-- Meeting Schedule — dynamic list -->
+    <section style="margin-bottom:1.25rem;" aria-label="Meeting schedule">
+      <div class="section-title">📅 Upcoming Meeting Schedule</div>
+      <div class="action-card">
+        <p style="color:#fbbf24;font-weight:700;font-size:0.82rem;margin:0 0 0.4rem;letter-spacing:0.04em;">🚧 VERIFY DATES AT SMW10.ORG/CALENDAR.HTML — official source</p>
+        <p style="color:#cbd5e1;font-size:0.85rem;margin:0 0 0.75rem;line-height:1.45;">Metro membership meetings are typically the <strong style="color:#fff;">first Tuesday of each month at 5:00 PM</strong>. All members welcome — your vote and voice shape Local 10.</p>
+        <div id="mtg-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.5rem;"></div>
+        <a href="https://www.smw10.org/calendar.html" target="_blank" rel="noopener" class="btn-red" style="font-size:0.85rem;margin-top:0.8rem;display:inline-block;">📅 Official Calendar at smw10.org →</a>
       </div>
     </section>
+    <script>
+      (function(){
+        var el = document.getElementById('mtg-list');
+        if (!el || !window.__MEETINGS) return;
+        var now = new Date();
+        var html = '';
+        var shown = 0;
+        for (var i=0;i<window.__MEETINGS.length && shown<6;i++){
+          var m = window.__MEETINGS[i];
+          if (new Date(m.end) < now) continue;
+          var isNext = (shown===0);
+          html += '<div style="padding:0.6rem 0.75rem;background:#0a1324;border:1px solid #1e3a5f;border-left:4px solid '+(isNext?'#e11d1d':'#fbbf24')+';border-radius:4px;">'
+               + '<div style="color:'+(isNext?'#fca5a5':'#fbbf24')+';font-weight:800;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;">'+(isNext?'▶ Next Up':'Upcoming')+'</div>'
+               + '<div style="color:#fff;font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:1rem;margin-top:0.1rem;">'+m.title+'</div>'
+               + '<div style="color:#cbd5e1;font-size:0.8rem;margin-top:0.1rem;">'+m.display+'</div>'
+               + '</div>';
+          shown++;
+        }
+        if (shown===0) html = '<div style="color:#94a3b8;font-size:0.85rem;">No scheduled dates on file. Check smw10.org/calendar.html →</div>';
+        el.innerHTML = html;
+      })();
+    </script>
 
     <!-- Member Rights -->
     <section class="mb-6" aria-label="Member legal rights">
