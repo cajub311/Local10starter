@@ -1,9 +1,14 @@
-# Minnesota Law Gap Analysis — Atlas / Local 10 CBA
+# Minnesota & Federal Law Gap Analysis — Atlas / Local 10 CBA
+### Bargaining-prep reference for the next contract — NOT a change to the current CBA
 
 **Contract reviewed:** Atlas Manufacturing & IASMART Local 10, April 1, 2025 – March 31, 2027 (`contract.pdf`)
-**Purpose:** Identify benefits and protections that Minnesota law already provides, or makes available to negotiate, that are **not** currently written into the contract. Each item below can be proposed as new CBA language or a Letter of Understanding (LOU).
+**Purpose:** Identify benefits and protections that Minnesota and federal law already provide, or make available to negotiate, that are **not** currently written into the contract.
 
-> ⚠️ **Not legal advice.** This is a steward's working tool. Statute citations are current as of June 2026. Confirm exact text with the MN Revisor (revisor.mn.gov) and your Business Representative before bargaining or filing anything.
+> 🚫 **This document does not alter the contract.** The current CBA (`contract.pdf`) is unchanged and stays in force exactly as written until the Union and Company bargain a successor agreement. The "proposed language" below is **draft material for the next round of negotiations** (or a mid-term Letter of Understanding **only if both parties agree**) — nothing here is in effect now.
+>
+> 🟢 **Two kinds of items below:** (1) **rights members already have by law** even though they're absent from the CBA — members can use these today, and a steward can enforce them through DLI/agency channels; and (2) **bargaining goals** — improvements on top of the legal floor to win at the table.
+>
+> ⚠️ **Not legal advice.** This is a steward/rep working tool. Statute citations are current as of June 2026. Confirm exact text with the MN Revisor (revisor.mn.gov) and your Business Representative before bargaining or filing anything.
 
 ---
 
@@ -163,6 +168,74 @@ The contract covers FMLA, jury duty, bereavement, and personal leave, but omits 
 
 ---
 
+## 10. Rest & meal breaks — contract now falls BELOW the law (effective Jan 1, 2026) ⭐
+
+**MN law (Minn. Stat. §§ 177.253, 177.254, amended June 2025):** As of **January 1, 2026**, employers must provide a **paid rest break of at least 15 minutes** (or enough time to use the nearest restroom, whichever is longer) for **every 4 consecutive hours worked**, and an **unpaid 30-minute meal break for shifts of 6+ consecutive hours**. Non-compliance creates liability for the break time at the regular rate **plus an equal amount in liquidated damages**.
+
+**Contract today:** Section 5.B.1 sets breaks at **10 minutes** (one for 4–7 hrs, two for 7–10 hrs, and one 10-min + one 15-min for 10+ hrs). The 30-minute lunch in Section 5.B.2 already meets the meal standard, **but the 10-minute rest breaks are now below the statutory minimum.**
+
+**The gap / opportunity:** This is both a **compliance problem** (members are entitled to 15-minute breaks now, regardless of what the CBA says) and a clean bargaining win — update the contract table to match/exceed the law so it's grievable.
+
+**Proposed language (replace the break-length chart in Section 5.B.1):**
+
+> Employees shall receive one paid rest break of at least fifteen (15) minutes, or enough time to use the nearest convenient restroom (whichever is longer), for every four (4) consecutive hours worked, consistent with Minn. Stat. § 177.253. An unpaid meal break of at least thirty (30) minutes shall be provided for any shift of six (6) or more consecutive hours, consistent with Minn. Stat. § 177.254.
+
+---
+
+## 11. Broader anti-discrimination — MN Human Rights Act + CROWN Act
+
+**MN law (Minn. Stat. ch. 363A):** The Minnesota Human Rights Act prohibits employment discrimination on **more grounds than federal law**, including sexual orientation, gender identity, marital status, familial status, status with regard to public assistance, and (via the **CROWN Act**) **natural hair texture and protective styles** as part of "race."
+
+**Contract today:** Section 1.B only bars discrimination "because of membership or activity in the Union." There is **no general non-discrimination / anti-harassment clause** tied to protected classes, and no contractual route to grieve discrimination.
+
+**The gap / opportunity:** A contractual non-discrimination clause lets members grieve discrimination through the CBA (and to arbitration) instead of relying solely on an MDHR/EEOC charge.
+
+**Proposed language (new paragraph under Section 1.B or a new "Non-Discrimination" article):**
+
+> **Non-Discrimination.** The Company shall not discriminate against or harass any employee on any basis protected by the Minnesota Human Rights Act (Minn. Stat. ch. 363A) or federal law, including race (and traits associated with race such as hair texture and protective hairstyles), color, creed, religion, national origin, sex, sexual orientation, gender identity, marital status, familial status, disability, age, status with regard to public assistance, or union activity. Alleged violations shall be subject to the grievance and arbitration procedure.
+
+---
+
+## 12. Final paycheck timing, whistleblower & crime-victim protections
+
+**MN law:**
+- **§§ 181.13 / 181.14 (final pay):** A **discharged** employee's earned wages are due **immediately** (within 24 hours of demand); an employee who **quits** is paid by the next regular payday. Late payment can trigger penalty wages.
+- **§ 181.932 (Whistleblower Act):** No retaliation for a good-faith report of an actual/suspected/planned legal violation, or for refusing an order the employee believes is illegal.
+- **§ 611A.036 (crime-victim leave):** Reasonable time off (and no retaliation) for a victim of violent crime — and the victim's spouse/immediate family — to attend related criminal proceedings.
+
+**Contract today:** None of these appear. The discipline article (Section 6.B) does not reference whistleblower protection, and there's no final-pay-timing or crime-victim-leave language.
+
+**Proposed language (new short subsections):**
+
+> **Final Pay.** Upon discharge, all wages earned shall be paid consistent with Minn. Stat. § 181.13; upon voluntary separation, by the next regularly scheduled payday consistent with Minn. Stat. § 181.14.
+>
+> **Whistleblower Protection.** Consistent with Minn. Stat. § 181.932, no employee shall be disciplined or retaliated against for a good-faith report of a violation of law or for refusing to perform an action the employee reasonably believes is unlawful. Such retaliation is grievable.
+>
+> **Crime-Victim Leave.** Consistent with Minn. Stat. § 611A.036, employees who are victims of a violent crime, and their qualifying family members, shall be granted reasonable time off to attend related criminal proceedings without retaliation. No attendance points shall be assessed.
+
+---
+
+## 13. Federal-law floor worth locking into the contract
+
+Several federal laws give protections that aren't spelled out in the CBA. Even where MN law overlaps, writing them in makes them grievable and clarifies which standard (state or federal — whichever is more generous) applies.
+
+| Federal law | What it provides | In contract? |
+|---|---|---|
+| **Pregnant Workers Fairness Act (PWFA)** | Reasonable accommodation for pregnancy/childbirth/related conditions (employers 15+); same framework as ADA | ❌ (see #3) |
+| **PUMP Act** | Reasonable break time + private space to express milk for 1 year (FLSA) | ❌ (see #2) |
+| **ADA** | Reasonable accommodation / interactive process for disabilities | ❌ No accommodation clause |
+| **USERRA** | Military leave + reemployment, seniority, benefit continuation | Mentioned only in passing (COBRA/USERRA reference in FMLA section) |
+| **WARN Act** | 60 days' advance notice of mass layoff/plant closing (employers 100+), notice to the Union | ❌ Contract only gives **3 working days** layoff notice (Sec. 6.D) |
+| **NLRA § 7 / Weingarten** | Right to representation in investigatory interviews; protected concerted activity | Partially — Sec. 1.B has a Weingarten-style rep right |
+
+**Proposed language (new "Reasonable Accommodation" subsection, and a WARN cross-reference in Section 6.D):**
+
+> **Reasonable Accommodation.** The Company shall provide reasonable accommodation to qualified employees with disabilities (ADA) and for pregnancy, childbirth, and related conditions (PWFA / Minn. Stat. § 181.9414), engaging in a timely, good-faith interactive process. Denials are subject to the grievance procedure.
+>
+> **Advance Notice (add to Section 6.D – Layoff).** In the event of a plant closing or mass layoff covered by the federal WARN Act, the Company shall provide all notice required by that Act to affected employees and to the Union. [Bargaining goal: extend the contract's standard layoff notice beyond three (3) working days.]
+
+---
+
 ## Quick-reference summary
 
 | # | Item | Statute | Type | Priority |
@@ -176,6 +249,12 @@ The contract covers FMLA, jury duty, bereavement, and personal leave, but omits 
 | 7 | Personnel file access & dispute rights | §§ 181.960–.966 | New (grievance tool) | Medium |
 | 8 | Wage disclosure protection carve-out | § 181.172 | Clarify confidentiality rule | Medium |
 | 9 | ESST above the statutory floor | §§ 181.9445–.9448 | Economic ask (already compliant) | Low/optional |
+| 10 | **Rest breaks now 15 min / 4 hrs — contract is below the law** | §§ 177.253, 177.254 | Compliance + bargaining | ⭐ Highest |
+| 11 | MHRA / CROWN anti-discrimination clause | ch. 363A | New (grievable rights) | High |
+| 12 | Final-pay timing, whistleblower, crime-victim leave | §§ 181.13/.14, 181.932, 611A.036 | New | Medium |
+| 13 | Federal floor: PWFA, PUMP, ADA, USERRA, WARN | (federal) | New / strengthen | Medium |
+
+> ⭐ **Top two to flag first:** **#1 MN Paid Leave** (biggest economic win, live mid-contract) and **#10 the 2026 break law** (the contract is now *below* the legal minimum — members are entitled to 15-minute breaks today).
 
 ---
 
@@ -191,5 +270,11 @@ The contract covers FMLA, jury duty, bereavement, and personal leave, but omits 
 - [Minn. Stat. § 181.961 (personnel record review)](https://www.revisor.mn.gov/statutes/cite/181.961) and [DLI personnel file FAQ](https://www.dli.mn.gov/business/employment-practices/personnel-file-faqs)
 - [Minn. Stat. § 181.172 (wage disclosure protection) — MN AG Common Employment Issues](https://www.ag.state.mn.us/Consumer/Publications/CommonEmploymentIssues.asp)
 - Voting leave: Minn. Stat. § 204C.04
+- [Minn. Stat. § 177.254 (meal breaks) + DLI breaks guidance](https://www.dli.mn.gov/breaks) and [2026 meal/rest break amendments overview](https://ogletree.com/insights-resources/blog-posts/minnesota-provides-guidance-on-2026-meal-and-work-break-amendments/)
+- [Minn. Stat. ch. 363A (Human Rights Act)](https://www.revisor.mn.gov/statutes/cite/363A) and [MN CROWN Act (Littler)](https://www.littler.com/news-analysis/asap/minnesota-enacts-crown-act-prohibiting-discrimination-based-natural-hair)
+- [Minn. Stat. § 181.932 (Whistleblower Act)](https://www.revisor.mn.gov/statutes/cite/181.932) and [§ 611A.036 (crime-victim leave)](https://www.revisor.mn.gov/statutes/cite/611a.036)
+- Final pay: Minn. Stat. §§ 181.13, 181.14
+- [Minn. Stat. § 181.173 (pay transparency)](https://www.revisor.mn.gov/statutes/cite/181.173) and [§ 181.032 (wage-theft notice) — DLI](https://www.dli.mn.gov/business/employment-practices/wage-theft-qa)
+- Federal: [EEOC — Pregnant Workers Fairness Act](https://www.eeoc.gov/wysk/what-you-should-know-about-pregnant-workers-fairness-act); [DOL — PUMP Act / plant closings (WARN)](https://www.dol.gov/general/topic/termination/plantclosings)
 </content>
 </invoke>
