@@ -16,5 +16,20 @@ Pure HTML/CSS/JS. Tailwind via CDN. QRCode.js for flyers. No build step. `manife
 ## Deploy
 Hosted on Vercel. Push to main triggers auto-deploy. Config in `vercel.json`.
 
+## Android app
+This repo can also build a standalone Android APK with Capacitor.
+
+```sh
+npm run android:debug
+```
+
+APK output:
+
+```text
+dist/android/Local10-Hub-debug.apk
+```
+
+Android update rule: keep `appId` as `com.cajub311.local10hub` and increase Android `versionCode`. The GitHub Actions workflow uses its run number as the version code so each released APK can update the previous installed app.
+
 ## Union One
 [Atlas Union Contract](union-one/atlas-union-contract.md) (CBA) in markdown.

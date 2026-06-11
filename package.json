@@ -1,0 +1,16 @@
+{
+  "name": "local10-hub",
+  "private": true,
+  "description": "Unofficial Local 10 steward hub static PWA packaged as an Android app.",
+  "scripts": {
+    "build": "node scripts/build-static.cjs",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:debug": "bash scripts/build-android-debug.sh"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/app": "^8.1.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0"
+  }
+}

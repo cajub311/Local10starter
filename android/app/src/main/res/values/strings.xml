@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Local 10 Hub</string>
+    <string name="title_activity_main">Local 10 Hub</string>
+    <string name="package_name">com.cajub311.local10hub</string>
+    <string name="custom_url_scheme">com.cajub311.local10hub</string>
+</resources>

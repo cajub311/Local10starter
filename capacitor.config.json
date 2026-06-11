@@ -1,0 +1,9 @@
+{
+  "appId": "com.cajub311.local10hub",
+  "appName": "Local 10 Hub",
+  "webDir": "public",
+  "backgroundColor": "#0a1428",
+  "android": {
+    "allowMixedContent": false
+  }
+}
