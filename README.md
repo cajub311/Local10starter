@@ -4,6 +4,7 @@ PWA resource portal for SMART Sheet Metal Workers Local 10 (Minnesota). Mobile-f
 
 ## Pages
 - **index.html** — Contract PDF viewer, search chips, quick links
+- **rights.html** — Know Your Rights: MN + federal law, deadlines table, Weingarten wallet card, agency directory
 - **grievances.html** — FAQs, deadlines, incident log, submit concern form
 - **safety.html** — Right to refuse, PPE, heat rules (expanded), emergency contacts
 - **meetings.html** — Hall info, directions, calendar, member rights

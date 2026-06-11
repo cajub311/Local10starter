@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1428">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Know Your Rights — Minnesota and federal law for union sheet metal workers: Weingarten, NLRA, OSHA, wage theft, deadlines. Unofficial steward resource, not affiliated with SMART Local 10.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Know Your Rights — Union Steward Hub (Unofficial)</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <script src="_shared.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
+  </script>
+</head>
+<body>
+  <!-- NAV -->
+  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;" class="no-print">
+    <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
+        <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
+        <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Steward Hub</span>
+      </a>
+      <div id="nav-search" style="flex:1;min-width:120px;max-width:200px;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
+        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;font-size:0.85rem;" aria-label="Search">🔍</button>
+      </div>
+      <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
+        <a href="index.html" class="nav-link">📄 Home</a>
+        <a href="rights.html" class="nav-link active">🛡️ Rights</a>
+        <a href="grievances.html" class="nav-link">⚖️ Grievances</a>
+        <a href="safety.html" class="nav-link">🦺 Safety</a>
+        <a href="meetings.html" class="nav-link">📅 Meetings</a>
+        <a href="benefits.html" class="nav-link">💰 Benefits</a>
+      </div>
+      <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
+    </div>
+    <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
+      <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." style="flex:1;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        <button onclick="doSearch();toggleMobileMenu();" class="btn-red" style="padding:0.5rem;">🔍</button>
+      </div>
+      <a href="index.html" class="mobile-link">📄 Home</a>
+      <a href="rights.html" class="mobile-link">🛡️ Know Your Rights</a>
+      <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
+      <a href="safety.html" class="mobile-link">🦺 Safety</a>
+      <a href="meetings.html" class="mobile-link">📅 Meetings</a>
+      <a href="benefits.html" class="mobile-link">💰 Benefits</a>
+      <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
+        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Union Steward: 612-428-8004</a>
+      </div>
+    </div>
+  </nav>
+  <style>
+    .nav-link{color:#94a3b8;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.03em;padding:0.4rem 0.6rem;border-radius:6px;text-decoration:none;transition:color 0.15s,background 0.15s;}
+    .nav-link:hover{color:#f1f5f9;background:#1e3a5f;text-decoration:none;}
+    .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
+    .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
+    .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
+    @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
+    .accordion-item{border:1px solid #1e3a5f;border-radius:0.5rem;margin-bottom:0.5rem;overflow:hidden;}
+    .accordion-header{width:100%;text-align:left;background:#111f3a;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;padding:0.9rem 1rem;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;}
+    .accordion-header:hover{background:#162545;}
+    .accordion-header::after{content:'+';font-size:1.2rem;color:#94a3b8;flex-shrink:0;}
+    .accordion-item.open .accordion-header::after{content:'−';}
+    .accordion-body{display:none;padding:1rem;background:#0f1a2e;border-top:1px solid #1e3a5f;color:#cbd5e1;font-size:0.9rem;line-height:1.65;}
+    .accordion-item.open .accordion-body{display:block;}
+    .accordion-body strong{color:#f1f5f9;}
+    .accordion-body .cite{color:#64748b;font-size:0.78rem;display:block;margin-top:0.5rem;font-style:italic;}
+    .deadline-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+    .deadline-table th{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.05em;text-align:left;color:#94a3b8;font-size:0.78rem;padding:0.5rem 0.6rem;border-bottom:2px solid #dc2626;}
+    .deadline-table td{padding:0.65rem 0.6rem;border-bottom:1px solid #1e3a5f;color:#cbd5e1;vertical-align:top;line-height:1.45;}
+    .deadline-table td:first-child{color:#f1f5f9;font-weight:600;}
+    .deadline-pill{display:inline-block;background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.04em;padding:0.15rem 0.55rem;border-radius:999px;white-space:nowrap;}
+    .deadline-pill.amber{background:#78350f;color:#fde68a;border-color:#f59e0b;}
+    .law-flag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.08em;padding:0.12rem 0.45rem;border-radius:4px;margin-right:0.4rem;vertical-align:middle;}
+    .flag-mn{background:#14532d;color:#bbf7d0;border:1px solid #16a34a;}
+    .flag-us{background:#1e3a5f;color:#bfdbfe;border:1px solid #3b82f6;}
+    .weingarten-card{background:linear-gradient(160deg,#121a2e 0%,#080d1a 100%);border:2px solid #f59e0b;border-radius:0.75rem;padding:1.25rem;position:relative;overflow:hidden;}
+    .weingarten-card::before{content:'';position:absolute;top:0;left:0;right:0;height:8px;background:repeating-linear-gradient(45deg,#f59e0b 0 12px,#0a1428 12px 24px);}
+    @media print{
+      body{background:white!important;color:black!important;}
+      .accordion-body{display:block!important;color:#222!important;background:white!important;}
+      .weingarten-card{border:2px solid black;color:black!important;}
+      .weingarten-card *{color:black!important;}
+      nav,footer,#sticky-bar,.no-print{display:none!important;}
+    }
+  </style>
+  <script>
+    function toggleAccordion(id){const el=document.getElementById(id);el.classList.toggle('open');}
+    function printWeingarten(){
+      var w=window.open('','_blank','width=420,height=600');
+      w.document.write('<html><head><title>Weingarten Card</title></head><body style="font-family:Georgia,serif;padding:24px;max-width:340px;">'
+        +'<div style="border:2px solid #000;border-radius:10px;padding:18px;">'
+        +'<p style="font-size:11px;letter-spacing:2px;margin:0 0 8px;">WEINGARTEN RIGHTS — WALLET CARD</p>'
+        +'<p style="font-size:14px;line-height:1.5;margin:0 0 10px;"><strong>Say this word-for-word:</strong></p>'
+        +'<p style="font-size:14px;line-height:1.6;margin:0 0 12px;font-style:italic;">&ldquo;If this discussion could in any way lead to my being disciplined or terminated, I request that my union steward or representative be present at this meeting. Until my representative arrives, I choose not to answer any questions.&rdquo;</p>'
+        +'<p style="font-size:11px;line-height:1.5;margin:0;color:#333;">You must ASK — the employer does not have to offer. Applies to investigatory interviews. Stay calm, stay at work, call the steward: 612-428-8004</p>'
+        +'</div><script>window.print();<\/script></body></html>');
+      w.document.close();
+    }
+  </script>
+
+  <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.2rem;color:#f1f5f9;margin:0 0 0.25rem;">Know Your Rights</h1>
+    <p style="color:#94a3b8;font-size:0.95rem;margin:0 0 1rem;">The contract is one shield. <strong style="color:#f1f5f9;">Minnesota and federal law are the second.</strong> Plain-language summaries below — tap any card.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;margin-bottom:1rem;" class="no-print">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <a href="#" id="spanish-link" target="_blank" rel="noopener" style="color:#94a3b8;font-size:0.9rem;text-decoration:underline;">¿Necesitas esto en español? →</a>
+    </div>
+    <script>
+      (function(){var u=encodeURIComponent(window.location.href);var l=document.getElementById('spanish-link');if(l)l.href='https://translate.google.com/translate?u='+u+'&sl=en&tl=es';})();
+    </script>
+
+    <div style="background:#78350f;border:1px solid #f59e0b;border-radius:0.5rem;padding:0.8rem 1rem;margin-bottom:1.5rem;">
+      <p style="margin:0;color:#fde68a;font-size:0.85rem;line-height:1.55;">⚠️ <strong>Not legal advice.</strong> This page is a plain-language summary written by members, for members. Laws change and every situation is different. Before acting, talk to the union steward, the business rep, or a licensed attorney. When this page and the law disagree, the law wins.</p>
+    </div>
+
+    <!-- ════════ DEADLINES ════════ -->
+    <section id="deadlines" style="margin-bottom:2rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:#f1f5f9;margin:0 0 0.25rem;">⏰ Deadlines That Can Kill a Case</h2>
+      <p style="color:#94a3b8;font-size:0.88rem;margin:0 0 0.75rem;">Strong cases die on missed deadlines every year. If something happened, <strong style="color:#fca5a5;">start the clock conversation with the steward the same day.</strong></p>
+      <div class="card" style="padding:0.5rem 0.75rem;overflow-x:auto;">
+        <table class="deadline-table">
+          <thead><tr><th>What happened</th><th>Where you act</th><th>Deadline</th></tr></thead>
+          <tbody>
+            <tr><td>Contract violation (pay, seniority, discipline…)</td><td>Grievance through the steward</td><td><span class="deadline-pill">Step 1 — 48 hours</span><br><span style="color:#64748b;font-size:0.78rem;">per our contract — move same day</span></td></tr>
+            <tr><td>Punished for union activity or for acting together with coworkers</td><td>NLRB unfair labor practice charge</td><td><span class="deadline-pill amber">6 months</span><br><span style="color:#64748b;font-size:0.78rem;">NLRA §10(b)</span></td></tr>
+            <tr><td>Retaliated against for a safety complaint</td><td>OSHA 11(c) / MN OSHA complaint</td><td><span class="deadline-pill">30 days</span></td></tr>
+            <tr><td>Hurt on the job</td><td>Tell the supervisor + workers' comp claim</td><td><span class="deadline-pill">Report same day</span><br><span style="color:#64748b;font-size:0.78rem;">written notice within 14 days is safest; 180-day outer limit (Minn. Stat. 176.141)</span></td></tr>
+            <tr><td>Discrimination or harassment (race, sex, age, disability, religion, etc.)</td><td>EEOC / MN Dept. of Human Rights</td><td><span class="deadline-pill amber">300 days EEOC</span> <span class="deadline-pill amber">1 year MDHR</span></td></tr>
+            <tr><td>Unpaid wages or overtime</td><td>MN DLI Labor Standards or court</td><td><span class="deadline-pill amber">2–3 years</span><br><span style="color:#64748b;font-size:0.78rem;">don't wait — records go stale</span></td></tr>
+            <tr><td>Fired and final check not paid</td><td>Written demand to employer</td><td><span class="deadline-pill">Owed within 24 hrs of demand</span><br><span style="color:#64748b;font-size:0.78rem;">Minn. Stat. 181.13</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ════════ WEINGARTEN ════════ -->
+    <section id="weingarten" style="margin-bottom:2rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:#f1f5f9;margin:0 0 0.75rem;">🪪 Weingarten Rights — Your Meeting Shield</h2>
+      <div class="weingarten-card">
+        <p style="margin:0.6rem 0 0.5rem;color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.8rem;">IF A MEETING COULD LEAD TO DISCIPLINE, SAY THIS WORD-FOR-WORD:</p>
+        <p style="margin:0 0 0.9rem;color:#f1f5f9;font-size:1.05rem;line-height:1.65;font-style:italic;">&ldquo;If this discussion could in any way lead to my being disciplined or terminated, I request that my union steward or representative be present at this meeting. Until my representative arrives, I choose not to answer any questions.&rdquo;</p>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;" class="no-print">
+          <button onclick="printWeingarten()" class="btn-red" style="font-size:0.88rem;">🖨️ Print wallet card</button>
+          <a href="tel:+16124288004" class="btn-outline" style="font-size:0.88rem;">📞 Call steward now</a>
+        </div>
+        <ul style="margin:0.9rem 0 0;padding-left:1.1rem;color:#cbd5e1;font-size:0.85rem;line-height:1.6;">
+          <li><strong style="color:#f1f5f9;">You must ask.</strong> The employer has no duty to tell you about this right.</li>
+          <li>It covers <strong style="color:#f1f5f9;">investigatory interviews</strong> — questions that could lead to discipline. Not routine work instructions.</li>
+          <li>If they refuse and keep questioning, stay calm, don't walk off the job — answer nothing, take notes, and call the steward right after.</li>
+          <li>Never sign a statement, waiver, or &ldquo;last chance agreement&rdquo; before the steward reads it.</li>
+        </ul>
+        <p class="cite" style="color:#64748b;font-size:0.78rem;font-style:italic;margin:0.6rem 0 0;">NLRB v. J. Weingarten, Inc., 420 U.S. 251 (1975)</p>
+      </div>
+    </section>
+
+    <!-- ════════ FEDERAL ════════ -->
+    <section id="federal" style="margin-bottom:2rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:#f1f5f9;margin:0 0 0.75rem;"><span class="law-flag flag-us">FEDERAL</span> Rights on Every Job</h2>
+      <div class="accordion">
+        <div class="accordion-item" id="fed1">
+          <button class="accordion-header" onclick="toggleAccordion('fed1')">Acting together is protected — even just talking about pay</button>
+          <div class="accordion-body">
+            Section 7 of the National Labor Relations Act protects <strong>&ldquo;concerted activity&rdquo;</strong> — two or more workers (or one acting for others) raising pay, safety, scheduling, or any working condition. That includes comparing wages in the break room, group texts about conditions, refusing as a group, and organizing.
+            <br><br>The employer <strong>cannot legally</strong> threaten, interrogate, spy on, discipline, or fire you for it. Those are unfair labor practices — file with the NLRB within <strong>6 months</strong>. Charges are free, you don't need a lawyer, and the steward can help write one.
+            <span class="cite">29 U.S.C. §157, §158(a); charge deadline §160(b). nlrb.gov · 1-844-762-6572</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="fed2">
+          <button class="accordion-header" onclick="toggleAccordion('fed2')">OSHA: a safe job is the law, not a favor</button>
+          <div class="accordion-body">
+            You have the right to a workplace free of recognized serious hazards, the right to <strong>request an OSHA inspection</strong> (your name stays confidential if you ask), the right to see the <strong>injury log (OSHA 300)</strong> and <strong>safety data sheets</strong> for every chemical you work around, and required <strong>PPE at the employer's cost</strong>.
+            <br><br>You can <strong>refuse imminently dangerous work</strong> if the danger is real and urgent, you asked the employer to fix it, there's no time for an OSHA inspection, and you stay on site. The <a href="safety.html#refuse" style="color:#fca5a5;">Safety page has the word-for-word script</a>.
+            <br><br>Punished for raising safety? That's illegal retaliation — but the complaint window is only <strong>30 days</strong>.
+            <span class="cite">OSH Act §11(c); 29 CFR 1977.12; PPE 29 CFR 1910.132. Fed OSHA 1-800-321-6742 · MN OSHA does most enforcement here</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="fed3">
+          <button class="accordion-header" onclick="toggleAccordion('fed3')">Overtime and off-the-clock work</button>
+          <div class="accordion-body">
+            Federal law: <strong>1.5× pay after 40 hours</strong> in a week. &ldquo;Hours worked&rdquo; includes setup and cleanup you're required to do, mandatory meetings and training, and travel <strong>between job sites during the day</strong>. Working off the clock is illegal even if you &ldquo;volunteer&rdquo; — the employer must pay for work it knows about. Retaliation for a wage complaint is itself a violation.
+            <br><br>Keep your own hours record (photos of timecards, a notes app). Claims reach back <strong>2 years — 3 if the violation was willful</strong>.
+            <span class="cite">Fair Labor Standards Act, 29 U.S.C. §207, §215(a)(3), §255</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="fed4">
+          <button class="accordion-header" onclick="toggleAccordion('fed4')">FMLA — your job waits while you heal</button>
+          <div class="accordion-body">
+            Up to <strong>12 weeks of job-protected leave</strong> per year for your own serious health condition, a new child, or caring for a close family member — if you've worked 12 months and 1,250 hours, and the employer has 50+ employees within 75 miles. Unpaid under federal law, but <strong>Minnesota Paid Leave now pays benefits</strong> for much of the same time — see the <a href="benefits.html" style="color:#fca5a5;">Benefits page</a>. Health insurance continues during FMLA leave.
+            <span class="cite">29 U.S.C. §2601 et seq.</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="fed5">
+          <button class="accordion-header" onclick="toggleAccordion('fed5')">Prevailing wage on government work</button>
+          <div class="accordion-body">
+            On <strong>federal</strong> construction contracts over $2,000, Davis-Bacon requires the posted prevailing wage and fringe for your classification — check the wage determination posted at the site office. Minnesota has its own prevailing wage law for <strong>state-funded</strong> projects. If your rate looks light on a public job, that's a steward conversation <em>and</em> potentially a Department of Labor complaint — contractors must keep certified payroll.
+            <span class="cite">Davis-Bacon Act, 40 U.S.C. §3141; Minn. Stat. 177.41–.44</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="fed6">
+          <button class="accordion-header" onclick="toggleAccordion('fed6')">Your rights inside the union</button>
+          <div class="accordion-body">
+            The union owes every member the <strong>duty of fair representation</strong> — grievances handled honestly and without favoritism. You're entitled to a <strong>copy of the contract</strong>, to speak and vote at membership meetings, to run for office, and to see the union's annual financial reports (LM forms — public at dol.gov/olms).
+            <span class="cite">Vaca v. Sipes, 386 U.S. 171 (1967); LMRDA, 29 U.S.C. §401 et seq.</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="fed7">
+          <button class="accordion-header" onclick="toggleAccordion('fed7')">Discrimination, disability, and service</button>
+          <div class="accordion-body">
+            Title VII bans discrimination by race, color, religion, sex, and national origin; the ADEA covers age 40+; the <strong>ADA requires reasonable accommodation</strong> for disabilities (including many injuries) unless it's an undue hardship — an interactive conversation the employer must take seriously. USERRA protects National Guard and Reserve members' jobs through deployments and drills. Harassment that's severe or pervasive is discrimination too.
+            <br><br>EEOC deadline: <strong>300 days</strong> in Minnesota. The state route (MDHR) allows <strong>1 year</strong> and Minnesota's Human Rights Act covers more categories.
+            <span class="cite">42 U.S.C. §2000e; 42 U.S.C. §12101; 38 U.S.C. §4301; Minn. Stat. ch. 363A</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ MINNESOTA ════════ -->
+    <section id="minnesota" style="margin-bottom:2rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:#f1f5f9;margin:0 0 0.25rem;"><span class="law-flag flag-mn">MINNESOTA</span> Stronger Than Federal</h2>
+      <p style="color:#94a3b8;font-size:0.88rem;margin:0 0 0.75rem;">Minnesota passed a wave of worker laws in 2023–2024. Most members don't know half of these exist.</p>
+      <div class="accordion">
+        <div class="accordion-item" id="mn1">
+          <button class="accordion-header" onclick="toggleAccordion('mn1')">Wage theft is a crime here — literally</button>
+          <div class="accordion-body">
+            Since 2019, intentional wage theft in Minnesota is a <strong>criminal offense</strong> — up to felony level. You're entitled to a <strong>written notice of your pay rate</strong> at hire and before any change, plus an itemized earnings statement every payday. Shorted hours, skimmed OT, unpaid show-up time, and misapplied rates all count.
+            <br><br>Document, then call the steward and MN DLI Labor Standards (651-284-5075). Complaints can be anonymous.
+            <span class="cite">Minn. Stat. 181.032; 609.52 subd. 2(a)(19)</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn2">
+          <button class="accordion-header" onclick="toggleAccordion('mn2')">Earned Sick & Safe Time — it's yours, use it</button>
+          <div class="accordion-body">
+            Statewide since Jan 1, 2024: you earn <strong>1 hour of paid sick time per 30 hours worked</strong> (up to 48 hrs/year accrued). Use it for your own illness or appointments, a sick family member, school/daycare closures, or safety needs related to domestic abuse. The employer <strong>cannot demand a doctor's note for short absences or retaliate</strong> for using it. Your balance must appear on your earnings statement.
+            <span class="cite">Minn. Stat. 181.9445–.9448</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn3">
+          <button class="accordion-header" onclick="toggleAccordion('mn3')">Captive-audience meetings are banned</button>
+          <div class="accordion-body">
+            Since August 2023, a Minnesota employer <strong>cannot discipline you for refusing to attend</strong> employer-sponsored meetings whose main purpose is pushing the employer's religious or political views — and that explicitly includes the employer's <strong>opinions about unions</strong>. If an anti-union meeting gets called, you can stand up and walk out, and punishing you for it is illegal.
+            <span class="cite">Minn. Stat. 181.531</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn4">
+          <button class="accordion-header" onclick="toggleAccordion('mn4')">Talking about pay is double-protected</button>
+          <div class="accordion-body">
+            Minnesota law separately guarantees your right to <strong>disclose your own wages</strong> to anyone — on top of the federal NLRA protection. &ldquo;Pay secrecy&rdquo; policies and gag rules are unenforceable, and retaliation is illegal. Comparing checks is how wage theft and unequal pay get caught.
+            <span class="cite">Minn. Stat. 181.172</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn5">
+          <button class="accordion-header" onclick="toggleAccordion('mn5')">Your personnel file — see it, copy it, dispute it</button>
+          <div class="accordion-body">
+            Make a <strong>written request</strong> and the employer must let you review your personnel record (once per 6 months while employed) and give you a <strong>free copy</strong> after review. Disagree with something in it? You can submit a written rebuttal that must be kept with the file. Smart move before and after any discipline.
+            <span class="cite">Minn. Stat. 181.960–.966</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn6">
+          <button class="accordion-header" onclick="toggleAccordion('mn6')">Drug & alcohol testing has strict rules (DATWA)</button>
+          <div class="accordion-body">
+            Minnesota is one of the strictest states: testing requires a <strong>written policy</strong> you've seen, a confirmatory lab test before any action, and your right to request a <strong>retest of the same sample</strong>. For employees, a <strong>first confirmed positive cannot mean automatic firing</strong> — the employer must first offer a chance at counseling or treatment. Random testing of non-safety-sensitive employees is restricted.
+            <br><br>If a test comes back positive, say nothing, sign nothing, call the steward.
+            <span class="cite">Minn. Stat. 181.950–.957</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn7">
+          <button class="accordion-header" onclick="toggleAccordion('mn7')">Hurt on the job — workers' comp basics</button>
+          <div class="accordion-body">
+            Workers' comp is <strong>no-fault</strong>: it doesn't matter if the injury was partly your mistake. Report it to a supervisor <strong>the same day</strong> (creates the official record), get medical care, and in Minnesota you can generally <strong>treat with your own doctor</strong>. It covers medical bills, wage-loss benefits, and permanent injury compensation. <strong>Sign no medical releases or settlement papers</strong> until the union or a comp attorney reviews them — and firing or threatening you for filing is illegal and carries damages.
+            <br><br>See the <a href="safety.html" style="color:#fca5a5;">Safety page</a> for the step-by-step injury checklist.
+            <span class="cite">Minn. Stat. ch. 176; retaliation 176.82; notice 176.141</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn8">
+          <button class="accordion-header" onclick="toggleAccordion('mn8')">Whistleblower protection</button>
+          <div class="accordion-body">
+            Report a violation of law — safety, wage, fraud, anything — in good faith to the employer or a government body, or refuse an order you reasonably believe is illegal, and Minnesota's Whistleblower Act protects you from retaliation. Keep your report in writing where possible.
+            <span class="cite">Minn. Stat. 181.932</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn9">
+          <button class="accordion-header" onclick="toggleAccordion('mn9')">Non-competes are void in Minnesota</button>
+          <div class="accordion-body">
+            Any non-compete agreement signed <strong>on or after July 1, 2023</strong> is void and unenforceable for employees and independent contractors in Minnesota, regardless of pay level. An employer waving one at you on the way out is bluffing (confidentiality and non-solicit clauses are a different conversation — ask before signing anything).
+            <span class="cite">Minn. Stat. 181.988</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn10">
+          <button class="accordion-header" onclick="toggleAccordion('mn10')">Breaks, final paychecks, and the small stuff that adds up</button>
+          <div class="accordion-body">
+            <strong>Breaks:</strong> restroom break each 4 consecutive hours; sufficient meal time when working 8+ hours. <strong>Fired?</strong> Final wages are due within <strong>24 hours of your written demand</strong>. <strong>Quit?</strong> Next regular payday (within 20 days). Late final pay can stack a penalty of a day's wages per day late, up to 15 days.
+            <span class="cite">Minn. Stat. 177.253–.254; 181.13–.14</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn11">
+          <button class="accordion-header" onclick="toggleAccordion('mn11')">"1099 contractor" on a construction site? Probably illegal</button>
+          <div class="accordion-body">
+            Minnesota's 2024 misclassification law hits construction hard: a worker on a building site is an <strong>employee unless the contractor proves a strict 14-factor test</strong>. Misclassified workers lose comp coverage, unemployment, OT, and benefits — and contractors now face major penalties, with <strong>general contractors on the hook</strong> for subs' violations. If someone on your site is paid &ldquo;1099&rdquo; for crew work, the union wants to know.
+            <span class="cite">Minn. Stat. 181.723 (as amended 2024)</span>
+          </div>
+        </div>
+        <div class="accordion-item" id="mn12">
+          <button class="accordion-header" onclick="toggleAccordion('mn12')">Pregnancy, nursing, and new-parent rights</button>
+          <div class="accordion-body">
+            Minnesota requires <strong>reasonable accommodations</strong> for pregnancy (water, seating, lifting limits, more frequent breaks — no doctor's note needed for the basics), paid <strong>lactation breaks</strong> with a private space that isn't a bathroom, and protects against retaliation. Minnesota Paid Leave covers bonding time for new parents — see <a href="benefits.html" style="color:#fca5a5;">Benefits</a>.
+            <span class="cite">Minn. Stat. 181.939</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════ DISCIPLINE CHECKLIST ════════ -->
+    <section id="discipline" style="margin-bottom:2rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:#f1f5f9;margin:0 0 0.75rem;">🧾 Called Into the Office? Run This Checklist</h2>
+      <div class="card" style="padding:1.1rem 1.25rem;">
+        <ol style="margin:0;padding-left:1.2rem;color:#cbd5e1;font-size:0.92rem;line-height:1.8;">
+          <li><strong style="color:#f1f5f9;">Ask what it's about.</strong> If it could lead to discipline → say the <a href="#weingarten" style="color:#fca5a5;">Weingarten line</a>.</li>
+          <li><strong style="color:#f1f5f9;">Get the steward there</strong> before answering anything: <a href="tel:+16124288004" style="color:#fca5a5;">612-428-8004</a>.</li>
+          <li><strong style="color:#f1f5f9;">Sign nothing</strong> — not a statement, not a write-up acknowledgment marked &ldquo;I agree,&rdquo; not a last-chance agreement, not a medical release.</li>
+          <li><strong style="color:#f1f5f9;">Stay on the job</strong> unless it's unsafe — &ldquo;work now, grieve later&rdquo; protects your record. (Unsafe is different: see <a href="safety.html#refuse" style="color:#fca5a5;">refusing unsafe work</a>.)</li>
+          <li><strong style="color:#f1f5f9;">Write it down the same day</strong> — who, what, when, witnesses — in the <a href="grievances.html" style="color:#fca5a5;">private incident log</a> on this site.</li>
+          <li><strong style="color:#f1f5f9;">Request your personnel file in writing</strong> — it's your right (Minn. Stat. 181.961) and it locks the record.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ════════ AGENCIES ════════ -->
+    <section id="agencies" style="margin-bottom:2rem;">
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;color:#f1f5f9;margin:0 0 0.75rem;">📞 Who Enforces What</h2>
+      <div class="card" style="padding:0.5rem 0.75rem;overflow-x:auto;">
+        <table class="deadline-table">
+          <thead><tr><th>Problem</th><th>Agency</th><th>Contact</th></tr></thead>
+          <tbody>
+            <tr><td>Union rights, retaliation for organizing</td><td>NLRB — Minneapolis (Region 18)</td><td>nlrb.gov · 1-844-762-6572</td></tr>
+            <tr><td>Wage theft, sick time, breaks, misclassification</td><td>MN DLI Labor Standards</td><td>dli.mn.gov · 651-284-5075</td></tr>
+            <tr><td>Job safety & health</td><td>MN OSHA Compliance</td><td>dli.mn.gov/osha · 651-284-5050</td></tr>
+            <tr><td>Safety (federal sites / emergencies)</td><td>Federal OSHA</td><td>osha.gov · 1-800-321-6742</td></tr>
+            <tr><td>Discrimination & harassment</td><td>MN Dept. of Human Rights / EEOC</td><td>mn.gov/mdhr · eeoc.gov</td></tr>
+            <tr><td>Workers' compensation help</td><td>MN DLI Workers' Comp Hotline</td><td>651-284-5005</td></tr>
+            <tr><td>Paid Leave (PFML) claims</td><td>MN Paid Leave</td><td>paidleave.mn.gov</td></tr>
+            <tr><td>Unemployment insurance</td><td>MN UIMN</td><td>uimn.org</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:#64748b;font-size:0.8rem;margin:0.6rem 0 0;">Agency phone menus change — the web addresses are the reliable path. The steward can help with any filing, free.</p>
+    </section>
+
+    <div style="background:#0f1f3d;border:1px solid #1e3a5f;border-radius:0.5rem;padding:0.9rem 1rem;margin-bottom:1rem;">
+      <p style="margin:0;color:#94a3b8;font-size:0.84rem;line-height:1.6;">⚖️ <strong style="color:#f1f5f9;">Reminder:</strong> deadlines and dollar amounts above are summaries current as of <strong>June 2026</strong> and can change with new legislation or court decisions. This page is informational, written by members — it is <strong>not legal advice</strong> and reading it doesn't create any attorney-client relationship. For a real case, the union can connect you with counsel.</p>
+    </div>
+  </main>
+
+  <footer class="no-print">
+    <p>Unofficial Union Steward Website • Not affiliated with SMART Local 10 • Informational Only — Not Legal Advice • Updated Jun 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
+    <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
+      <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
+      <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
+    </div>
+  </footer>
+
+  <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+    <a href="tel:+17639570618" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Union Rep 763-957-0618</a>
+    <a href="tel:+16124288004" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Union Steward 612-428-8004</a>
+    <a href="mailto:gorillagrad9@gmail.com" class="btn-red" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email Steward</a>
+  </div>
+  <div style="height:80px;" class="md:hidden" aria-hidden="true"></div>
+
+  <script>
+    function shareEmail(){window.location.href='mailto:?subject=Know Your Rights — Local 10 Resource&body='+encodeURIComponent('Worker rights, deadlines, and the Weingarten card: '+window.location.href);}
+    function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
+  </script>
+</body>
+</html>

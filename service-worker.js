@@ -1,8 +1,9 @@
-const CACHE_NAME = 'local10-v9';
+const CACHE_NAME = 'local10-v10';
 const PRECACHE = [
   '/',
   '/index.html',
   '/qr.html',
+  '/rights.html',
   '/grievances.html',
   '/safety.html',
   '/meetings.html',
