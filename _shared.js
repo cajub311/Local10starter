@@ -89,12 +89,90 @@
   }
   window.webShare = webShare;
 
+  var APP_DOWNLOAD_URL = 'https://github.com/cajub311/Local10starter/releases/download/local10-android-debug/Local10-Hub-debug.apk';
+  var APP_RELEASE_URL = 'https://github.com/cajub311/Local10starter/releases/tag/local10-android-debug';
+
+  function copyText(text, label) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        showToast((label || 'Link') + ' copied.');
+      }).catch(function() {
+        window.prompt('Copy this link:', text);
+      });
+    } else {
+      window.prompt('Copy this link:', text);
+    }
+  }
+
+  function shareAppDownload() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Local 10 Hub Android App',
+        text: 'Download the unofficial Local 10 Hub Android app.',
+        url: APP_DOWNLOAD_URL
+      }).catch(function() {});
+    } else {
+      copyText(APP_DOWNLOAD_URL, 'App download link');
+    }
+  }
+  window.shareAppDownload = shareAppDownload;
+
+  function closeAppShare() {
+    var modal = document.getElementById('app-share-modal');
+    if (modal) modal.remove();
+  }
+  window.closeAppShare = closeAppShare;
+
+  function openAppShare() {
+    closeAppShare();
+    var modal = document.createElement('div');
+    modal.id = 'app-share-modal';
+    modal.className = 'app-share-overlay';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'app-share-title');
+    modal.innerHTML =
+      '<div class="app-share-modal">' +
+        '<button class="app-share-close" type="button" aria-label="Close" onclick="closeAppShare()">x</button>' +
+        '<div class="hazard-stripe-thin" aria-hidden="true"></div>' +
+        '<div class="app-share-body">' +
+          '<span class="tag tag-gold">Android app</span>' +
+          '<h2 id="app-share-title">Share Local 10 Hub With A Coworker</h2>' +
+          '<p>Have them scan this QR code with their Android phone. It downloads the newest APK from GitHub.</p>' +
+          '<div class="app-share-qr"><img src="app-download-qr.svg" alt="QR code to download the Local 10 Hub Android app"></div>' +
+          '<div class="app-share-actions">' +
+            '<button class="btn-red" type="button" onclick="shareAppDownload()">Share Link</button>' +
+            '<button class="btn-outline" type="button" onclick="copyText(\'' + APP_DOWNLOAD_URL + '\', \'App download link\')">Copy Link</button>' +
+            '<a class="btn-outline" href="' + APP_RELEASE_URL + '" target="_blank" rel="noopener">Release Page</a>' +
+          '</div>' +
+          '<p class="app-share-note">Android may ask to allow installs from the browser. If an update will not install, uninstall the old debug copy first, then install this one.</p>' +
+        '</div>' +
+      '</div>';
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeAppShare();
+    });
+    document.body.appendChild(modal);
+    var closeButton = modal.querySelector('.app-share-close');
+    if (closeButton) closeButton.focus();
+  }
+  window.openAppShare = openAppShare;
+  window.copyText = copyText;
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeAppShare();
+  });
+
   function showToast(msg, cls) {
     var t = document.createElement('div');
-    t.className = (cls || 'bg-green-500 text-white') + ' fixed bottom-24 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-sm z-[9999] px-4 py-3 rounded-lg shadow-lg font-semibold text-sm text-center';
+    t.className = cls || '';
     t.textContent = msg;
     t.setAttribute('role', 'status');
     t.setAttribute('aria-live', 'polite');
+    t.style.cssText =
+      'position:fixed;left:1rem;right:1rem;bottom:88px;max-width:360px;margin:0 auto;z-index:9999;' +
+      'background:linear-gradient(180deg,#166534,#052e16);color:#dcfce7;border:1px solid #22c55e;' +
+      'border-radius:0.45rem;padding:0.8rem 1rem;box-shadow:0 18px 40px -16px rgba(0,0,0,.85);' +
+      'font-weight:700;font-size:0.9rem;text-align:center;';
     document.body.appendChild(t);
     setTimeout(function() { t.remove(); }, 3500);
   }

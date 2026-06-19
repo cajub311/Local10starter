@@ -1,6 +1,7 @@
 {
   "rewrites": [
     {"source": "/", "destination": "/index.html"},
+    {"source": "/app", "destination": "/app.html"},
     {"source": "/index", "destination": "/index.html"},
     {"source": "/rights", "destination": "/rights.html"},
     {"source": "/grievance", "destination": "/grievances.html"},
@@ -22,6 +23,7 @@
     {"source": "/(.*).html", "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}]},
     {"source": "/service-worker.js", "headers": [{"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}]},
     {"source": "/_shared.(css|js)", "headers": [{"key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400"}]},
+    {"source": "/app-download-qr.svg", "headers": [{"key": "Cache-Control", "value": "public, max-age=604800, immutable"}]},
     {"source": "/contract.pdf", "headers": [{"key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400"}]},
     {"source": "/icon-(.*).png", "headers": [{"key": "Cache-Control", "value": "public, max-age=604800, immutable"}]}
   ]

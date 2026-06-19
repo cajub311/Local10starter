@@ -441,6 +441,96 @@ a:hover { text-decoration: underline; }
 :focus-visible { outline: 2px solid var(--caution-yellow); outline-offset: 2px; border-radius: 3px; }
 
 /* ==========================================================================
+   App share modal — QR handoff for coworkers
+   ========================================================================== */
+.app-share-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(3, 7, 18, 0.78);
+  backdrop-filter: blur(4px);
+}
+
+.app-share-modal {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03) 0%, transparent 35%),
+    linear-gradient(160deg, var(--bg-card) 0%, var(--bg-deep) 100%);
+  border: 1px solid var(--border-strong);
+  border-top-color: #4a5d80;
+  border-radius: 0.45rem;
+  box-shadow: 0 26px 70px -24px rgba(0,0,0,.95), 0 0 0 1px rgba(225,29,29,.25);
+}
+
+.app-share-body { padding: 1rem; text-align: center; }
+
+.app-share-body h2 {
+  margin: 0.6rem 0 0.35rem;
+  color: var(--text-strong);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.app-share-body p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin: 0 0 0.9rem;
+}
+
+.app-share-qr {
+  display: inline-flex;
+  padding: 0.75rem;
+  background: #fff;
+  border-radius: 0.35rem;
+  box-shadow: 0 2px 0 rgba(0,0,0,.45);
+}
+
+.app-share-qr img {
+  display: block;
+  width: min(230px, 68vw);
+  height: auto;
+}
+
+.app-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: center;
+  margin-top: 0.9rem;
+}
+
+.app-share-note {
+  margin-top: 0.8rem !important;
+  color: #cbd5e1 !important;
+  font-size: 0.78rem !important;
+}
+
+.app-share-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.25rem;
+  background: var(--bg-steel);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+/* ==========================================================================
    Footer — industrial baseline
    ========================================================================== */
 footer {

@@ -1,7 +1,8 @@
-const CACHE_NAME = 'local10-v10';
+const CACHE_NAME = 'local10-v11';
 const PRECACHE = [
   '/',
   '/index.html',
+  '/app.html',
   '/qr.html',
   '/rights.html',
   '/grievances.html',
@@ -12,7 +13,8 @@ const PRECACHE = [
   '/contract.pdf',
   '/manifest.json',
   '/_shared.css',
-  '/_shared.js'
+  '/_shared.js',
+  '/app-download-qr.svg'
 ];
 
 self.addEventListener('install', event => {
@@ -51,7 +53,7 @@ self.addEventListener('fetch', event => {
   }
 
   // CSS/JS/PDF: cache-first (these change less often)
-  if (url.pathname.endsWith('.pdf') || url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
+  if (url.pathname.endsWith('.pdf') || url.pathname.endsWith('.css') || url.pathname.endsWith('.js') || url.pathname.endsWith('.svg')) {
     event.respondWith(
       caches.match(event.request).then(cached => {
         if (cached) return cached;

@@ -87,7 +87,7 @@
     <h1 class="font-heading text-4xl md:text-5xl font-bold text-white mb-1">Benefits & Pay Estimator</h1>
     <p class="text-slate-400 text-sm mb-2">Rates from your Union Contract.</p>
     <div class="flex flex-wrap gap-3 items-center mb-6">
-      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
+      <button onclick="typeof openAppShare==='function'?openAppShare():shareEmail()" class="btn-red" style="font-size:0.9rem;">📤 Share with a coworker</button>
       <a href="#" id="spanish-link" target="_blank" rel="noopener" class="text-slate-400 text-sm hover:underline">¿Necesitas esto en español? →</a>
     </div>
     <script>
@@ -362,7 +362,7 @@
     <footer class="no-print">
     <p>Unofficial Union Steward Website • Not affiliated with SMART Local 10 • Informational Only • Updated Feb 28 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
     <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-      <button onclick="typeof webShare==='function'?webShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
+      <button onclick="typeof openAppShare==='function'?openAppShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
       <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
       <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
     </div>
