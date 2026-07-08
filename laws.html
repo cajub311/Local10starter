@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1428">
+  <meta name="description" content="CBA vs Minnesota & Minneapolis law crosswalk for Atlas / SMART Local 10 stewards. Contract text unchanged — gaps and extra legal shields. Unofficial.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Contract vs Law — Local 10 Hub (Unofficial)</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_shared.css">
+  <script src="_shared.js"></script>
+  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');</script>
+  <style>
+    .nav-link{color:#94a3b8;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.03em;padding:0.4rem 0.6rem;border-radius:6px;text-decoration:none;}
+    .nav-link:hover{color:#f1f5f9;background:#1e3a5f;text-decoration:none;}
+    .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
+    .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
+    @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
+    .gap-table{width:100%;border-collapse:collapse;font-size:0.86rem;margin:0.75rem 0 1.25rem;}
+    .gap-table th{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.04em;text-align:left;color:#94a3b8;font-size:0.78rem;padding:0.55rem 0.5rem;border-bottom:2px solid #dc2626;}
+    .gap-table td{padding:0.7rem 0.5rem;border-bottom:1px solid #1e3a5f;color:#cbd5e1;vertical-align:top;line-height:1.45;}
+    .gap-table td:first-child{color:#f1f5f9;font-weight:600;min-width:7.5rem;}
+    .status{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.72rem;letter-spacing:0.06em;padding:0.12rem 0.45rem;border-radius:4px;text-transform:uppercase;}
+    .st-ok{background:#14532d;color:#bbf7d0;border:1px solid #16a34a;}
+    .st-gap{background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;}
+    .st-partial{background:#78350f;color:#fde68a;border:1px solid #f59e0b;}
+    .st-law{background:#1e3a5f;color:#bfdbfe;border:1px solid #3b82f6;}
+    .law-card{background:var(--bg-card,#131c2e);border:1px solid #2a3850;border-radius:0.65rem;padding:1rem 1.1rem;margin-bottom:0.85rem;box-shadow:0 2px 0 rgba(0,0,0,.4);}
+    .law-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;color:#fff;letter-spacing:0.03em;text-transform:uppercase;}
+    .law-card p{margin:0.35rem 0;color:#cbd5e1;font-size:0.9rem;line-height:1.55;}
+    .cite{color:#64748b;font-size:0.78rem;font-style:italic;}
+    .flag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.68rem;letter-spacing:0.08em;padding:0.1rem 0.4rem;border-radius:4px;margin-right:0.35rem;}
+    .f-cba{background:#3b1d1d;color:#fca5a5;border:1px solid #dc2626;}
+    .f-mn{background:#14532d;color:#bbf7d0;border:1px solid #16a34a;}
+    .f-mpls{background:#1e3a5f;color:#93c5fd;border:1px solid #3b82f6;}
+    .f-fed{background:#312e81;color:#c7d2fe;border:1px solid #6366f1;}
+  </style>
+</head>
+<body>
+  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;" class="no-print">
+    <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
+        <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;">L10</span>
+        <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Steward Hub</span>
+      </a>
+      <div id="nav-search" style="flex:1;min-width:100px;max-width:180px;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
+        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;" aria-label="Search">🔍</button>
+      </div>
+      <div id="nav-links" style="display:flex;gap:0.2rem;align-items:center;flex-wrap:wrap;">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="rights.html" class="nav-link">Rights</a>
+        <a href="laws.html" class="nav-link active">Laws</a>
+        <a href="grievances.html" class="nav-link">Grievances</a>
+        <a href="safety.html" class="nav-link">Safety</a>
+        <a href="benefits.html" class="nav-link">Benefits</a>
+      </div>
+      <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;"><span id="dark-toggle-icon">🌙</span></button>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
+    </div>
+    <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="rights.html" class="mobile-link">Know Your Rights</a>
+      <a href="laws.html" class="mobile-link">Contract vs Law</a>
+      <a href="grievances.html" class="mobile-link">Grievances</a>
+      <a href="safety.html" class="mobile-link">Safety</a>
+      <a href="meetings.html" class="mobile-link">Meetings</a>
+      <a href="benefits.html" class="mobile-link">Benefits</a>
+      <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
+        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Steward: 612-428-8004</a>
+      </div>
+    </div>
+  </nav>
+
+  <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
+    <div class="hazard-stripe-thin" style="margin:0 0 1rem;" aria-hidden="true"></div>
+    <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.1rem;color:#f1f5f9;margin:0 0 0.35rem;letter-spacing:0.02em;">CONTRACT vs LAW</h1>
+    <p style="color:#94a3b8;font-size:0.95rem;margin:0 0 0.75rem;line-height:1.5;">
+      Crosswalk of the <strong style="color:#f1f5f9;">Atlas Manufacturing / SMART Local 10 CBA</strong> (Apr 1, 2025 – Mar 31, 2027)
+      against Minnesota statutes and Minneapolis ordinances.
+      <strong style="color:#fbbf24;">The contract PDF/text is not changed.</strong>
+      This page only explains what the CBA covers, what law still stacks on top, and gaps to watch.
+    </p>
+    <p class="cite" style="margin:0 0 1.25rem;">Unofficial steward tool · Not legal advice · Not affiliated with SMART Local 10 · Review dates Jul 2026</p>
+
+    <div class="law-card" style="border-left:4px solid #f59e0b;">
+      <h3>How to read this</h3>
+      <p><span class="status st-ok">In CBA</span> = contract language exists ·
+        <span class="status st-partial">Partial</span> = something in CBA but weaker/missing pieces ·
+        <span class="status st-gap">Gap</span> = not in CBA — use statute/ordinance + grievance strategy ·
+        <span class="status st-law">Law floor</span> = law always applies even if CBA is silent</p>
+      <p>Workers always get the <strong>better</strong> of CBA vs law (the higher floor). CBA cannot undercut most statutory rights.</p>
+    </div>
+
+    <!-- QUICK SCORECARD -->
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;color:#fff;margin:1.5rem 0 0.6rem;">Scorecard — CBA vs law</h2>
+    <div style="overflow-x:auto;">
+      <table class="gap-table">
+        <thead>
+          <tr><th>Topic</th><th>CBA?</th><th>MN / Mpls law</th><th>Steward note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Just cause discipline</td>
+            <td><span class="status st-ok">Art. 6</span></td>
+            <td><span class="status st-law">NLRA + Weingarten</span></td>
+            <td>Strong. Pair with Weingarten for investigatory meetings.</td>
+          </tr>
+          <tr>
+            <td>Grievance / arbitration</td>
+            <td><span class="status st-ok">Art. 6</span></td>
+            <td>—</td>
+            <td>Deadlines are short (48 hrs → 3 days written). Clock starts fast.</td>
+          </tr>
+          <tr>
+            <td>ESST (sick &amp; safe time)</td>
+            <td><span class="status st-ok">Art. 5.F</span></td>
+            <td><span class="status st-law">Minn. 181.9445+</span></td>
+            <td>CBA matches 1/30 hrs, 48 hr accrual, 80 carryover. Point-free for ESST. Good.</td>
+          </tr>
+          <tr>
+            <td>Overtime / double time</td>
+            <td><span class="status st-ok">Art. 5.C</span></td>
+            <td><span class="status st-law">FLSA + MN</span></td>
+            <td>CBA OT (OT after shift, 2× 7th day/60 hrs) can exceed FLSA — use higher rule.</td>
+          </tr>
+          <tr>
+            <td>Rest / meal breaks</td>
+            <td><span class="status st-ok">Art. 5.B</span></td>
+            <td><span class="status st-law">Minn. 177.253–.254</span></td>
+            <td>CBA is more specific. Law still requires restroom access + meal time on long days.</td>
+          </tr>
+          <tr>
+            <td>Union security / dues</td>
+            <td><span class="status st-ok">Art. 3</span></td>
+            <td><span class="status st-law">Taft-Hartley / MN</span></td>
+            <td>Good standing after probation. Dues deduction with authorization.</td>
+          </tr>
+          <tr>
+            <td>Temp / PT cap (10% / 30 hrs)</td>
+            <td><span class="status st-ok">Art. 1–2</span></td>
+            <td>—</td>
+            <td>Useful if temps balloon while members sit.</td>
+          </tr>
+          <tr>
+            <td><strong>Subcontract / outsource work</strong></td>
+            <td><span class="status st-gap">Silent</span></td>
+            <td><span class="status st-partial">NLRA effects bargain</span></td>
+            <td><strong>Major gap.</strong> No clause banning outsourcing paint (or other) work. Push effects bargaining; document displacement.</td>
+          </tr>
+          <tr>
+            <td>Job reassignment / classification move</td>
+            <td><span class="status st-partial">Art. 4</span></td>
+            <td><span class="status st-partial">At-will + CBA</span></td>
+            <td>Upward out-of-class limited after 2 weeks. Lateral moves (e.g. Painter → Assembler) not clearly locked.</td>
+          </tr>
+          <tr>
+            <td>Layoff notice</td>
+            <td><span class="status st-ok">3 work days</span></td>
+            <td><span class="status st-partial">WARN if mass</span></td>
+            <td>CBA: 3 working days. Federal WARN (60 days) only for large layoffs/plant closings.</td>
+          </tr>
+          <tr>
+            <td>Minneapolis minimum wage</td>
+            <td><span class="status st-partial">Wage scale</span></td>
+            <td><span class="status st-law">Mpls ordinance</span></td>
+            <td>Plant is in Minneapolis — city MW floor applies. Scale rates appear above city MW; still watch trainees/temps.</td>
+          </tr>
+          <tr>
+            <td>Wage theft / pay notice</td>
+            <td><span class="status st-gap">Silent</span></td>
+            <td><span class="status st-law">Minn. 181.032, 609.52</span></td>
+            <td>Written rate at hire + before changes; itemized paystubs. Criminal wage theft possible.</td>
+          </tr>
+          <tr>
+            <td>Final wages on discharge</td>
+            <td><span class="status st-gap">Silent</span></td>
+            <td><span class="status st-law">Minn. 181.13</span></td>
+            <td>24 hours after written demand if fired. Don't skip the demand letter.</td>
+          </tr>
+          <tr>
+            <td>MN Paid Leave (PFML) 2026</td>
+            <td><span class="status st-gap">Silent</span></td>
+            <td><span class="status st-law">State program</span></td>
+            <td>Starts Jan 1, 2026. Stacks with FMLA in CBA Art. 5. See Benefits page.</td>
+          </tr>
+          <tr>
+            <td>Pregnancy / nursing</td>
+            <td><span class="status st-partial">Camera rule only</span></td>
+            <td><span class="status st-law">Minn. 181.939</span></td>
+            <td>CBA protects lactation privacy from cameras. Law adds accommodations + paid pump breaks.</td>
+          </tr>
+          <tr>
+            <td>Safety / PPE</td>
+            <td><span class="status st-ok">Art. 8</span></td>
+            <td><span class="status st-law">OSHA / MNOSHA</span></td>
+            <td>Glasses + hearing in paint/grind. Employer-paid PPE under OSHA.</td>
+          </tr>
+          <tr>
+            <td>Cameras / privacy</td>
+            <td><span class="status st-ok">Art. 1.B</span></td>
+            <td><span class="status st-partial">+ MN</span></td>
+            <td>Strong camera limits (no performance eval unless crime). Keep 31-day retention language.</td>
+          </tr>
+          <tr>
+            <td>No strike / lockout</td>
+            <td><span class="status st-ok">Art. 1.A</span></td>
+            <td>—</td>
+            <td>Work-now, grieve-later is the default path.</td>
+          </tr>
+          <tr>
+            <td>Pay transparency (postings)</td>
+            <td><span class="status st-gap">Silent</span></td>
+            <td><span class="status st-law">MN 2025+</span></td>
+            <td>Larger employers: pay range on job postings. Use for outside hires vs internal postings.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- BIG GAPS -->
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;color:#fff;margin:1.75rem 0 0.75rem;">Biggest gaps for this shop</h2>
+
+    <div class="law-card" style="border-left:4px solid #dc2626;">
+      <h3><span class="flag f-cba">CBA GAP</span> Subcontracting / outsourcing</h3>
+      <p>The CBA does <strong>not</strong> clearly ban or limit sending unit work (e.g. powder coating / paint) to outside contractors. Art. 2 limits <em>temps and supervisors</em> displacing union work — that is not the same as a full subcontract clause.</p>
+      <p><strong>What you can still do:</strong> demand notice; bargain <em>effects</em> (transfers, rate retention, overtime opportunity, layoff order); file if temps exceed 10% or displace OT; document paint work leaving the plant while painters are reassigned.</p>
+      <p class="cite">NLRA duty to bargain effects of subcontracting · UE/steward practice: effects bargaining even when decision language is weak</p>
+    </div>
+
+    <div class="law-card" style="border-left:4px solid #f59e0b;">
+      <h3><span class="flag f-cba">CBA PARTIAL</span> Painter → Assembly reassignment</h3>
+      <p>Exhibit C has both <strong>Painter</strong> and <strong>Assembler</strong> rates. Art. 4 limits long stints in a <em>higher</em> class without remedy — it does not clearly freeze you in Painter if management reassigns within the unit.</p>
+      <p><strong>Watch:</strong> rate if moved (must get correct classification pay); OT rights; whether work is “normally performed” in another class; whether temps/outside shops take the paint while you assemble.</p>
+      <p class="cite">CBA Art. 4 job opportunities · Art. 2 non-displacement · wage scale Exhibit C</p>
+    </div>
+
+    <div class="law-card" style="border-left:4px solid #3b82f6;">
+      <h3><span class="flag f-mpls">MINNEAPOLIS</span> City floors (plant on Weeks Ave SE)</h3>
+      <p>Atlas is in <strong>Minneapolis</strong>. City ordinances stack on top of the CBA:</p>
+      <p>• <strong>Minimum wage</strong> — city rate for employees working ≥2 hours/week in Minneapolis (check current poster; rates rise each year; 2026 city MW is higher than state MW).<br>
+         • <strong>Earned Sick &amp; Safe Time (city)</strong> — must follow the rule most favorable to workers (city + state). Statewide ESST already in CBA.<br>
+         • <strong>Required posters</strong> — MW + sick time poster in languages employees use.</p>
+      <p class="cite">minimumwage.minneapolismn.gov · sicktimeinfo.minneapolismn.gov · dli.mn.gov/sick-leave</p>
+    </div>
+
+    <div class="law-card">
+      <h3><span class="flag f-mn">MINNESOTA</span> Laws not written into the CBA (but still bind the employer)</h3>
+      <p>• <strong>Wage theft &amp; pay notices</strong> — Minn. Stat. 181.032, 609.52<br>
+         • <strong>Final wages</strong> — 181.13 (discharge) / 181.14 (quit)<br>
+         • <strong>Personnel file access</strong> — 181.960–.966<br>
+         • <strong>Drug/alcohol testing limits</strong> — 181.950–.957<br>
+         • <strong>Whistleblower</strong> — 181.932<br>
+         • <strong>Pregnancy &amp; nursing</strong> — 181.939<br>
+         • <strong>Wage disclosure</strong> — 181.172 (talking pay is protected)<br>
+         • <strong>Paid Leave (PFML)</strong> — benefits begin 2026 (see Benefits page)<br>
+         • <strong>Workers' comp</strong> — report injury same day; written notice rules (176.141)</p>
+      <p>These do not need to be in the CBA to be enforceable. Use them with grievances or DLI/MDHR/NLRB as needed.</p>
+    </div>
+
+    <div class="law-card">
+      <h3><span class="flag f-fed">FEDERAL</span> Always available</h3>
+      <p>NLRA §7 concerted activity · Weingarten · OSHA / MNOSHA · FLSA overtime · FMLA (job protection) · Title VII / ADA / ADEA · NLRA unfair labor practices for anti-union retaliation.</p>
+      <p><a href="rights.html" style="color:#fca5a5;font-weight:700;">→ Full plain-language Rights guide</a></p>
+    </div>
+
+    <!-- CBA STRENGTHS -->
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;color:#fff;margin:1.75rem 0 0.75rem;">Where the CBA is strong</h2>
+    <div class="law-card" style="border-left:4px solid #16a34a;">
+      <p style="margin:0;">Just cause · full grievance/arbitration · ESST called out + point-free · OT better than bare FLSA in places · temp caps · seniority/layoff order · camera limits · pension % · wage scale with yearly raises · no-strike with representation rights.</p>
+      <p style="margin:0.6rem 0 0;"><a href="pdf-viewer.html?file=contract.pdf" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.85rem;">Open contract PDF</a>
+      <a href="union-one/atlas-union-contract.md" class="btn-outline" style="font-size:0.85rem;padding:0.4rem 0.85rem;margin-left:0.35rem;">Text extract (unchanged)</a></p>
+    </div>
+
+    <!-- NEXT BARGAIN -->
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;color:#fff;margin:1.75rem 0 0.75rem;">Ideas for next negotiations (not in current CBA)</h2>
+    <div class="law-card">
+      <p>These are <strong>bargaining goals</strong>, not current rights. Only a ratified contract changes them:</p>
+      <p>1. <strong>Subcontracting clause</strong> — notice, no-subcontract of core paint/production, or preferential recall of work.<br>
+         2. <strong>Classification retention / rate red circle</strong> when reassigned for employer convenience.<br>
+         3. <strong>Successorship</strong> if company sells.<br>
+         4. <strong>Stronger layoff notice</strong> (beyond 3 days) for big cuts.<br>
+         5. Explicit <strong>PFML coordination</strong> language.<br>
+         6. <strong>Heat / chemical</strong> (paint booth) joint safety language beyond PPE lists.</p>
+    </div>
+
+    <div style="background:#111f3a;border:1px solid #1e3a5f;border-radius:0.65rem;padding:1rem;margin-top:1.25rem;">
+      <p style="margin:0;color:#94a3b8;font-size:0.84rem;line-height:1.6;">
+        ⚖️ <strong style="color:#f1f5f9;">Not legal advice.</strong> Summaries current as of <strong>July 2026</strong>. Statutes and city rates change. For a live case: steward → Business Agent → counsel. Official Local 10: <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a>
+      </p>
+    </div>
+  </main>
+
+  <footer class="no-print">
+    <p>Unofficial Union Steward Website • Not affiliated with SMART Local 10 • Informational Only — Not Legal Advice • Updated Jul 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
+  </footer>
+
+  <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
+    <a href="tel:+17639570618" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Rep 763-957-0618</a>
+    <a href="tel:+16124288004" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Steward 612-428-8004</a>
+  </div>
+  <div style="height:80px;" class="md:hidden" aria-hidden="true"></div>
+</body>
+</html>
