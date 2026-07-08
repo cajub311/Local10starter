@@ -4,21 +4,93 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a1428">
-  <meta name="description" content="CBA vs Minnesota & Minneapolis law crosswalk for Atlas / SMART Local 10 stewards. Contract text unchanged — gaps and extra legal shields. Unofficial.">
+  <meta name="description" content="CBA vs Minnesota & Minneapolis law crosswalk. Contract unchanged. Unofficial steward resource.">
   <meta name="robots" content="noindex, nofollow">
-  <title>Contract vs Law — Local 10 Hub (Unofficial)</title>
+  <title>Contract vs Law — Union Steward Hub (Unofficial)</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="_shared.css">
   <script src="_shared.js"></script>
-  <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');</script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
+  </script>
+</head>
+<body>
+  <!-- NAV -->
+  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;" class="no-print">
+    <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
+        <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
+        <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Steward Hub</span>
+      </a>
+      <div id="nav-search" style="flex:1;min-width:120px;max-width:200px;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search contract" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
+        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;font-size:0.85rem;" aria-label="Search">🔍</button>
+      </div>
+      <div id="nav-links" style="display:flex;gap:0.25rem;align-items:center;">
+        <a href="index.html" class="nav-link">📄 Home</a>
+        <a href="rights.html" class="nav-link active">🛡️ Rights</a>
+        <a href="grievances.html" class="nav-link">⚖️ Grievances</a>
+        <a href="safety.html" class="nav-link">🦺 Safety</a>
+        <a href="meetings.html" class="nav-link">📅 Meetings</a>
+        <a href="benefits.html" class="nav-link">💰 Benefits</a>
+      </div>
+      <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
+      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
+    </div>
+    <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
+      <div style="padding:0.5rem 1rem;display:flex;gap:0.25rem;">
+        <input class="global-search-input" type="search" placeholder="Search contract..." style="flex:1;padding:0.5rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;">
+        <button onclick="doSearch();toggleMobileMenu();" class="btn-red" style="padding:0.5rem;">🔍</button>
+      </div>
+      <a href="index.html" class="mobile-link">📄 Home</a>
+      <a href="rights.html" class="mobile-link">🛡️ Know Your Rights</a>
+      <a href="grievances.html" class="mobile-link">⚖️ Grievances</a>
+      <a href="safety.html" class="mobile-link">🦺 Safety</a>
+      <a href="meetings.html" class="mobile-link">📅 Meetings</a>
+      <a href="benefits.html" class="mobile-link">💰 Benefits</a>
+      <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
+        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Call Union Steward: 612-428-8004</a>
+      </div>
+    </div>
+  </nav>
   <style>
-    .nav-link{color:#94a3b8;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.03em;padding:0.4rem 0.6rem;border-radius:6px;text-decoration:none;}
+    .nav-link{color:#94a3b8;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:0.95rem;letter-spacing:0.03em;padding:0.4rem 0.6rem;border-radius:6px;text-decoration:none;transition:color 0.15s,background 0.15s;}
     .nav-link:hover{color:#f1f5f9;background:#1e3a5f;text-decoration:none;}
     .nav-link.active{color:#dc2626;border-bottom:2px solid #dc2626;}
     .mobile-link{display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.1rem;padding:0.7rem 1.25rem;text-decoration:none;border-bottom:1px solid #1e3a5f;}
+    .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
+    .accordion-item{border:1px solid #1e3a5f;border-radius:0.5rem;margin-bottom:0.5rem;overflow:hidden;}
+    .accordion-header{width:100%;text-align:left;background:#111f3a;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;padding:0.9rem 1rem;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;}
+    .accordion-header:hover{background:#162545;}
+    .accordion-header::after{content:'+';font-size:1.2rem;color:#94a3b8;flex-shrink:0;}
+    .accordion-item.open .accordion-header::after{content:'−';}
+    .accordion-body{display:none;padding:1rem;background:#0f1a2e;border-top:1px solid #1e3a5f;color:#cbd5e1;font-size:0.9rem;line-height:1.65;}
+    .accordion-item.open .accordion-body{display:block;}
+    .accordion-body strong{color:#f1f5f9;}
+    .accordion-body .cite{color:#64748b;font-size:0.78rem;display:block;margin-top:0.5rem;font-style:italic;}
+    .deadline-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+    .deadline-table th{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.05em;text-align:left;color:#94a3b8;font-size:0.78rem;padding:0.5rem 0.6rem;border-bottom:2px solid #dc2626;}
+    .deadline-table td{padding:0.65rem 0.6rem;border-bottom:1px solid #1e3a5f;color:#cbd5e1;vertical-align:top;line-height:1.45;}
+    .deadline-table td:first-child{color:#f1f5f9;font-weight:600;}
+    .deadline-pill{display:inline-block;background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.04em;padding:0.15rem 0.55rem;border-radius:999px;white-space:nowrap;}
+    .deadline-pill.amber{background:#78350f;color:#fde68a;border-color:#f59e0b;}
+    .law-flag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.7rem;letter-spacing:0.08em;padding:0.12rem 0.45rem;border-radius:4px;margin-right:0.4rem;vertical-align:middle;}
+    .flag-mn{background:#14532d;color:#bbf7d0;border:1px solid #16a34a;}
+    .flag-us{background:#1e3a5f;color:#bfdbfe;border:1px solid #3b82f6;}
+    .weingarten-card{background:linear-gradient(160deg,#121a2e 0%,#080d1a 100%);border:2px solid #f59e0b;border-radius:0.75rem;padding:1.25rem;position:relative;overflow:hidden;}
+    .weingarten-card::before{content:'';position:absolute;top:0;left:0;right:0;height:8px;background:repeating-linear-gradient(45deg,#f59e0b 0 12px,#0a1428 12px 24px);}
+    @media print{
+      body{background:white!important;color:black!important;}
+      .accordion-body{display:block!important;color:#222!important;background:white!important;}
+      .weingarten-card{border:2px solid black;color:black!important;}
+      .weingarten-card *{color:black!important;}
+      nav,footer,#sticky-bar,.no-print{display:none!important;}
+    }
+  
     .gap-table{width:100%;border-collapse:collapse;font-size:0.86rem;margin:0.75rem 0 1.25rem;}
     .gap-table th{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.04em;text-align:left;color:#94a3b8;font-size:0.78rem;padding:0.55rem 0.5rem;border-bottom:2px solid #dc2626;}
     .gap-table td{padding:0.7rem 0.5rem;border-bottom:1px solid #1e3a5f;color:#cbd5e1;vertical-align:top;line-height:1.45;}
@@ -28,7 +100,7 @@
     .st-gap{background:#7f1d1d;color:#fecaca;border:1px solid #dc2626;}
     .st-partial{background:#78350f;color:#fde68a;border:1px solid #f59e0b;}
     .st-law{background:#1e3a5f;color:#bfdbfe;border:1px solid #3b82f6;}
-    .law-card{background:var(--bg-card,#131c2e);border:1px solid #2a3850;border-radius:0.65rem;padding:1rem 1.1rem;margin-bottom:0.85rem;box-shadow:0 2px 0 rgba(0,0,0,.4);}
+    .law-card{background:#131c2e;border:1px solid #2a3850;border-radius:0.65rem;padding:1rem 1.1rem;margin-bottom:0.85rem;}
     .law-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;margin:0 0 0.4rem;color:#fff;letter-spacing:0.03em;text-transform:uppercase;}
     .law-card p{margin:0.35rem 0;color:#cbd5e1;font-size:0.9rem;line-height:1.55;}
     .cite{color:#64748b;font-size:0.78rem;font-style:italic;}
@@ -37,45 +109,10 @@
     .f-mn{background:#14532d;color:#bbf7d0;border:1px solid #16a34a;}
     .f-mpls{background:#1e3a5f;color:#93c5fd;border:1px solid #3b82f6;}
     .f-fed{background:#312e81;color:#c7d2fe;border:1px solid #6366f1;}
-  </style>
-</head>
-<body>
-  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;" class="no-print">
-    <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
-      <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
-        <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;">L10</span>
-        <span style="color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;display:none;" class="nav-title">Steward Hub</span>
-      </a>
-      <div id="nav-search" style="flex:1;min-width:100px;max-width:180px;display:flex;gap:0.25rem;">
-        <input class="global-search-input" type="search" placeholder="Search contract..." aria-label="Search" style="flex:1;padding:0.35rem 0.5rem;background:#0f1f3d;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.85rem;" onkeydown="if(event.key==='Enter')doSearch()">
-        <button onclick="doSearch()" class="btn-red" style="padding:0.35rem 0.6rem;" aria-label="Search">🔍</button>
-      </div>
-      <div id="nav-links" style="display:flex;gap:0.2rem;align-items:center;flex-wrap:wrap;">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="rights.html" class="nav-link">Rights</a>
-        <a href="laws.html" class="nav-link active">Laws</a>
-        <a href="grievances.html" class="nav-link">Grievances</a>
-        <a href="safety.html" class="nav-link">Safety</a>
-        <a href="benefits.html" class="nav-link">Benefits</a>
-      </div>
-      <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;"><span id="dark-toggle-icon">🌙</span></button>
-      <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
-    </div>
-    <div id="mobile-menu" style="display:none;background:#111f3a;border-top:1px solid #1e3a5f;padding:0.5rem 0;">
-      <a href="index.html" class="mobile-link">Home</a>
-      <a href="rights.html" class="mobile-link">Know Your Rights</a>
-      <a href="laws.html" class="mobile-link">Contract vs Law</a>
-      <a href="grievances.html" class="mobile-link">Grievances</a>
-      <a href="safety.html" class="mobile-link">Safety</a>
-      <a href="meetings.html" class="mobile-link">Meetings</a>
-      <a href="benefits.html" class="mobile-link">Benefits</a>
-      <div style="padding:0.75rem 1rem;border-top:1px solid #1e3a5f;margin-top:0.5rem;">
-        <a href="tel:+16124288004" class="btn-red" style="display:block;text-align:center;padding:0.7rem;">📞 Steward: 612-428-8004</a>
-      </div>
-    </div>
-  </nav>
 
-  <main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
+  </style>
+
+<main style="max-width:900px;margin:0 auto;padding:1rem 1rem 2rem;">
     <div class="hazard-stripe-thin" style="margin:0 0 1rem;" aria-hidden="true"></div>
     <h1 style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.1rem;color:#f1f5f9;margin:0 0 0.35rem;letter-spacing:0.02em;">CONTRACT vs LAW</h1>
     <p style="color:#94a3b8;font-size:0.95rem;margin:0 0 0.75rem;line-height:1.5;">
@@ -296,12 +333,23 @@
 
   <footer class="no-print">
     <p>Unofficial Union Steward Website • Not affiliated with SMART Local 10 • Informational Only — Not Legal Advice • Updated Jul 2026 • <a href="https://www.smw10.org" target="_blank" rel="noopener">smw10.org</a></p>
+    <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+      <button onclick="typeof openAppShare==='function'?openAppShare():shareEmail()" class="btn-red" style="font-size:0.85rem;">📤 Share</button>
+      <button onclick="shareEmail()" class="btn-outline" style="font-size:0.85rem;">📧 Email</button>
+      <button onclick="copyURL()" class="btn-outline" style="font-size:0.85rem;" id="copyBtn">🔗 Copy Link</button>
+    </div>
   </footer>
 
   <div id="sticky-bar" class="md:hidden no-print" style="position:fixed;bottom:0;left:0;right:0;background:#0a1428;border-top:2px solid #dc2626;z-index:99;padding:0.6rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;flex-wrap:wrap;">
-    <a href="tel:+17639570618" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Rep 763-957-0618</a>
-    <a href="tel:+16124288004" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Steward 612-428-8004</a>
+    <a href="tel:+17639570618" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Union Rep 763-957-0618</a>
+    <a href="tel:+16124288004" class="btn-red" style="font-size:0.85rem;padding:0.42rem 0.85rem;">Union Steward 612-428-8004</a>
+    <a href="mailto:gorillagrad9@gmail.com" class="btn-red" style="font-size:0.8rem;padding:0.4rem 0.75rem;">✉️ Email Steward</a>
   </div>
   <div style="height:80px;" class="md:hidden" aria-hidden="true"></div>
+
+  <script>
+    function shareEmail(){window.location.href='mailto:?subject=Know Your Rights — Local 10 Resource&body='+encodeURIComponent('Worker rights, deadlines, and the Weingarten card: '+window.location.href);}
+    function copyURL(){navigator.clipboard.writeText(window.location.href).then(()=>{const b=document.getElementById('copyBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='🔗 Copy Link',2000);});}
+  </script>
 </body>
 </html>
