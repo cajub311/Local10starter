@@ -4,6 +4,8 @@
     {"source": "/app", "destination": "/app.html"},
     {"source": "/index", "destination": "/index.html"},
     {"source": "/rights", "destination": "/rights.html"},
+    {"source": "/laws", "destination": "/laws.html"},
+    {"source": "/contract-vs-law", "destination": "/laws.html"},
     {"source": "/grievance", "destination": "/grievances.html"},
     {"source": "/grievances", "destination": "/grievances.html"},
     {"source": "/safety", "destination": "/safety.html"},
