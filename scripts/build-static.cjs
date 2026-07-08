@@ -14,6 +14,7 @@ const files = [
   'pdf-viewer.html',
   'qr.html',
   'rights.html',
+  'laws.html',
   'safety.html',
   '_shared.css',
   '_shared.js',
