@@ -115,7 +115,7 @@
       </div>
       <div class="accordion-item" id="faq2">
         <button class="accordion-header" onclick="toggleAccordion('faq2')">How many steps are in the grievance process?</button>
-        <div class="accordion-body">There are 4 contract steps. Step 1: employee and/or steward meets with management (typically within 48 hours of the written grievance). Step 2: steward + business rep + management (10 working days). Step 3: FMCS mediation (within 30 calendar days of notice to arbitrate). Step 4: binding arbitration.</div>
+        <div class="accordion-body">There are 4 contract steps. Step 1: employee and/or steward meets with management. Step 2: steward + business rep + management. Step 3: FMCS mediation. Step 4: binding arbitration. Day-counts live in your plant contract. This page does not list a Local 10 first-step employer deadline.</div>
       </div>
       <div class="accordion-item" id="faq3">
         <button class="accordion-header" onclick="toggleAccordion('faq3')">What if I'm disciplined unfairly?</button>
@@ -147,7 +147,7 @@
       </div>
       <div class="accordion-item" id="faq12">
         <button class="accordion-header" onclick="toggleAccordion('faq12')">What are the time limits?</button>
-        <div class="accordion-body">Filing deadline: usually a set number of working days from when the member knew or should have known of the violation (often 5–10 — confirm the article). That is when to FILE, not the Step 1 meeting time. Missing it can waive the grievance.</div>
+        <div class="accordion-body">Filing deadlines are in your plant contract. No public Local 10 CBA we checked lists a first-step employer deadline. A 3-business-day clock is an internal appeal if the union drops a grievance, not the employer first-step deadline. Ask the steward before you rely on any count.</div>
       </div>
       <div class="accordion-item" id="faq13">
         <button class="accordion-header" onclick="toggleAccordion('faq13')">Fume exposure claims — welding, grinding, paint?</button>
@@ -163,55 +163,12 @@
       </div>
     </div>
 
-    <!-- DEADLINE CALCULATOR -->
-    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📅 GRIEVANCE DEADLINE CALCULATOR</p>
+    <!-- DEADLINE NOTE (no invented 5/10/30 clocks) -->
+    <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📅 DEADLINES — PLANT CONTRACT</p>
     <div class="card">
-      <p style="color:#94a3b8;font-size:0.85rem;margin:0 0 0.75rem;">Enter the date the incident happened — this shows typical filing deadlines. <strong style="color:#fecaca;">Always confirm the exact deadline with your steward.</strong></p>
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:0.75rem;">
-        <div>
-          <label style="display:block;color:#94a3b8;font-size:0.82rem;margin-bottom:0.25rem;">Incident date</label>
-          <input type="date" id="incident-date" style="padding:0.5rem 0.6rem;background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;color:#f1f5f9;font-size:0.9rem;">
-        </div>
-        <button onclick="calcDeadline()" class="btn-red" style="font-size:0.9rem;padding:0.5rem 1rem;">Calculate Deadline</button>
-      </div>
-      <div id="deadline-result" style="display:none;"></div>
+      <p style="color:#fecaca;font-size:0.9rem;font-weight:700;margin:0 0 0.5rem;">This page does not calculate a 5/10/30-day filing clock.</p>
+      <p style="color:#94a3b8;font-size:0.85rem;margin:0 0 0.75rem;">Those numbers are not a published Local 10 first-step employer rule. Get the article from your steward. A 3-business-day clock is an internal appeal if the union drops a grievance, not the employer first-step deadline.</p>
     </div>
-    <script>
-      (function(){
-        var today=new Date().toISOString().slice(0,10);
-        var el=document.getElementById('incident-date');
-        if(el&&!el.value)el.value=today;
-      })();
-      function addWorkingDays(d,days){var r=new Date(d);var added=0;while(added<days){r.setDate(r.getDate()+1);var dow=r.getDay();if(dow!==0&&dow!==6)added++;}return r;}
-      function calcDeadline(){
-        var v=document.getElementById('incident-date').value;
-        if(!v){alert('Please select the incident date.');return;}
-        var start=new Date(v+'T12:00:00');
-        var d5=addWorkingDays(start,5),d10=addWorkingDays(start,10),d30=addWorkingDays(start,30);
-        var now=new Date();now.setHours(0,0,0,0);
-        var fmt=function(d){return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});};
-        function badge(target){
-          var diff=Math.ceil((target-now)/(86400000));
-          if(diff<0)return '<span style="background:#7f1d1d;color:#fecaca;font-size:0.72rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;">PAST DUE</span>';
-          if(diff===0)return '<span style="background:#92400e;color:#fef3c7;font-size:0.72rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:4px;">DUE TODAY</span>';
-          var col=diff<=2?'#dc2626':diff<=5?'#d97706':'#16a34a';
-          return '<span style="color:'+col+';font-weight:700;font-size:0.85rem;">'+diff+' day'+(diff===1?'':'s')+' left</span>';
-        }
-        var html='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.5rem;margin-bottom:0.5rem;">';
-        [[5,'Step 1 typical'],[10,'Extended window'],[30,'Arbitration notice']].forEach(function(item,i){
-          var target=[d5,d10,d30][i];
-          html+='<div style="background:#0a1428;border:1px solid #1e3a5f;border-radius:6px;padding:0.6rem;text-align:center;">'
-            +'<div style="color:#94a3b8;font-size:0.72rem;margin-bottom:0.2rem;">'+item[0]+' work days</div>'
-            +'<div style="color:#94a3b8;font-size:0.68rem;margin-bottom:0.3rem;">'+item[1]+'</div>'
-            +'<div style="color:#f1f5f9;font-size:0.82rem;font-weight:700;">'+fmt(target)+'</div>'
-            +'<div style="margin-top:0.3rem;">'+badge(target)+'</div>'
-            +'</div>';
-        });
-        html+='</div><p style="color:#475569;font-size:0.72rem;margin:0;">⚠️ Deadlines vary by contract article — confirm with your steward before you rely on these dates.</p>';
-        var el=document.getElementById('deadline-result');
-        el.innerHTML=html;el.style.display='block';
-      }
-    </script>
 
     <p style="color:#94a3b8;font-family:'Barlow Condensed',sans-serif;letter-spacing:0.06em;font-size:0.85rem;margin:1.5rem 0 0.5rem;">📤 SUBMIT A CONCERN</p>
     <div class="card">
