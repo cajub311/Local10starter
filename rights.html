@@ -21,7 +21,7 @@
 </head>
 <body>
   <!-- NAV -->
-  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;" class="no-print">
+  <nav style="background:#0a1428;border-bottom:2px solid #dc2626;position:sticky;top:0;z-index:100;padding:0 1rem;" class="site-nav no-print">
     <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;">
       <a href="index.html" style="display:flex;align-items:center;gap:0.5rem;text-decoration:none;">
         <span style="background:#dc2626;color:white;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;padding:0.2rem 0.5rem;border-radius:4px;letter-spacing:0.05em;">L10</span>
@@ -39,6 +39,7 @@
         <a href="meetings.html" class="nav-link">📅 Meetings</a>
         <a href="benefits.html" class="nav-link">💰 Benefits</a>
       </div>
+      <button id="nav-search-btn" class="nav-icon-btn" type="button" onclick="openNavSearch()" aria-label="Search contract">🔍</button>
       <button id="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark/light mode" style="background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.35rem 0.5rem;border-radius:6px;cursor:pointer;font-size:1rem;" title="Toggle mode"><span id="dark-toggle-icon">🌙</span></button>
       <button id="hamburger" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" style="display:none;background:none;border:1px solid #1e3a5f;color:#f1f5f9;padding:0.4rem 0.6rem;border-radius:6px;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;">☰</button>
     </div>
@@ -66,7 +67,7 @@
     .mobile-link:hover{background:#1e3a5f;text-decoration:none;}
     @media (max-width:640px){#nav-links{display:none!important;}#nav-search{display:none!important;}#hamburger{display:block!important;}.nav-title{display:block!important;}}
     .accordion-item{border:1px solid #1e3a5f;border-radius:0.5rem;margin-bottom:0.5rem;overflow:hidden;}
-    .accordion-header{width:100%;text-align:left;background:#111f3a;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;padding:0.9rem 1rem;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;}
+    .accordion-header{width:100%;text-align:left;background:#111f3a;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.05rem;padding:1rem 1.05rem;min-height:52px;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:0.5rem;}
     .accordion-header:hover{background:#162545;}
     .accordion-header::after{content:'+';font-size:1.2rem;color:#94a3b8;flex-shrink:0;}
     .accordion-item.open .accordion-header::after{content:'−';}
@@ -123,6 +124,12 @@
 
     <div style="background:#78350f;border:1px solid #f59e0b;border-radius:0.5rem;padding:0.8rem 1rem;margin-bottom:1.5rem;">
       <p style="margin:0;color:#fde68a;font-size:0.85rem;line-height:1.55;">⚠️ <strong>Not legal advice.</strong> This page is a plain-language summary written by members, for members. Laws change and every situation is different. Before acting, talk to the union steward, the business rep, or a licensed attorney. When this page and the law disagree, the law wins.</p>
+    </div>
+
+    <div class="no-print" style="margin:0 0 1.25rem;">
+      <label for="rights-page-search" style="display:block;color:#f1f5f9;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:0.04em;margin-bottom:0.4rem;">Find a right on this page</label>
+      <input id="rights-page-search" type="search" class="page-search-input" data-target=".accordion-item" data-count-id="rights-search-count" placeholder="e.g. overtime, sick time, Weingarten, OSHA..." aria-label="Search rights on this page">
+      <div id="rights-search-count" style="color:#94a3b8;font-size:0.78rem;margin-top:0.35rem;min-height:1em;"></div>
     </div>
 
     <!-- ════════ DEADLINES ════════ -->

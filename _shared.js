@@ -7,12 +7,29 @@
       const open = m.style.display === 'block';
       m.style.display = open ? 'none' : 'block';
       if (h) {
-        h.setAttribute('aria-expanded', !open);
+        h.setAttribute('aria-expanded', open ? 'false' : 'true');
         h.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
       }
     }
   }
   window.toggleMobileMenu = toggleMobileMenu;
+
+  function openNavSearch() {
+    const isMobile = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+    const menu = document.getElementById('mobile-menu');
+    if (isMobile && menu && menu.style.display !== 'block') toggleMobileMenu();
+
+    window.setTimeout(function() {
+      const inputs = document.querySelectorAll('.global-search-input');
+      for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].offsetParent) {
+          inputs[i].focus();
+          return;
+        }
+      }
+    }, 60);
+  }
+  window.openNavSearch = openNavSearch;
 
   function doSearch() {
     const inputs = document.querySelectorAll('.global-search-input');
@@ -57,6 +74,42 @@
     }
   }
   window.searchContract = searchContract;
+
+  function initPageSearch() {
+    const inputs = document.querySelectorAll('.page-search-input');
+    if (!inputs.length) return;
+
+    function norm(s) {
+      return (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    }
+
+    inputs.forEach(function(input) {
+      const target = input.getAttribute('data-target') || '.accordion-item';
+      const textSel = input.getAttribute('data-text') || '.accordion-header';
+      const countId = input.getAttribute('data-count-id') || '';
+      const countEl = countId ? document.getElementById(countId) : null;
+      const items = Array.prototype.slice.call(document.querySelectorAll(target));
+      if (!items.length) return;
+
+      function apply() {
+        const q = norm(input.value);
+        let shown = 0;
+        items.forEach(function(item) {
+          const node = item.querySelector(textSel);
+          const hay = norm((node ? node.textContent : '') + ' ' + item.textContent);
+          const match = !q || hay.indexOf(q) !== -1;
+          item.style.display = match ? '' : 'none';
+          if (match) shown++;
+        });
+        if (countEl) countEl.textContent = q ? (shown + ' match' + (shown === 1 ? '' : 'es')) : '';
+      }
+
+      input.addEventListener('input', apply);
+      input.addEventListener('search', apply);
+      apply();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initPageSearch);
 
   function copyURL() {
     const b = document.getElementById('copyBtn');
