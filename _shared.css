@@ -26,7 +26,8 @@
   /* Text */
   --text-primary: #f1f5f9;
   --text-strong: #ffffff;
-  --text-muted: #94a3b8;
+  /* Keep muted text readable outdoors */
+  --text-muted: #b6c3d4;
   --text-dim: #64748b;
   --text-link: #7dd3fc;
 
@@ -70,6 +71,8 @@ body {
   color: var(--text-primary);
   margin: 0;
   font-family: 'Barlow', 'Source Sans 3', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -122,7 +125,7 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--border-strong);
   border-top: 1px solid #4a5d80;
   border-radius: 0.4rem;
-  padding: 1.25rem;
+  padding: 1.4rem 1.25rem;
   margin-bottom: 1rem;
   box-shadow: var(--shadow-card);
   transition: transform .15s ease, border-color .15s ease;
@@ -551,8 +554,203 @@ footer::before {
   background-image: repeating-linear-gradient(-45deg, var(--caution-yellow) 0 8px, #1a1a1a 8px 16px);
 }
 
+/* ==========================================================================
+   Navigation — consistent, thumb-friendly
+   ========================================================================== */
+.site-nav {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-deep) 100%);
+  border-bottom: 2px solid var(--accent-red);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0 1rem;
+  box-shadow: 0 2px 0 rgba(225,29,29,.25), 0 10px 24px -14px rgba(0,0,0,.8);
+}
+
+.site-nav .nav-link {
+  color: var(--text-muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+.site-nav .nav-link:hover {
+  color: var(--text-strong);
+  background: rgba(30,58,95,.65);
+  text-decoration: none;
+}
+.site-nav .nav-link.active {
+  color: var(--text-strong);
+  background: rgba(225,29,29,.12);
+  border: 1px solid rgba(225,29,29,.45);
+}
+
+.site-nav .mobile-link {
+  display: block;
+  color: var(--text-strong);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 0.85rem 1.25rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(30,58,95,.85);
+  min-height: 52px;
+  box-sizing: border-box;
+}
+.site-nav .mobile-link:hover { background: rgba(30,58,95,.8); text-decoration: none; }
+
+.nav-icon-btn {
+  background: none;
+  border: 1px solid rgba(30,58,95,.9);
+  color: var(--text-strong);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.05rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: none;
+}
+
+@media (max-width: 640px) {
+  #nav-links { display: none !important; }
+  #nav-search { display: none !important; }
+  #hamburger { display: block !important; }
+  .nav-title { display: block !important; }
+  .nav-icon-btn { display: inline-flex; align-items: center; justify-content: center; }
+}
+
+/* Always-legible tap target for the mode toggle, even where inline styles omit sizing */
+#dark-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Homepage "Need Help Now" quick-action grid — the first thing a member
+   should see, no scrolling required, thumb-sized targets.
+   ========================================================================== */
+.help-now-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin: 0.75rem 0 0;
+}
+@media (min-width: 560px) {
+  .help-now-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.help-now-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-align: center;
+  min-height: 86px;
+  padding: 0.9rem 0.6rem;
+  background: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-deep) 100%);
+  border: 1px solid var(--border-strong);
+  border-top-color: #4a5d80;
+  border-radius: 0.55rem;
+  text-decoration: none;
+  box-shadow: 0 2px 0 rgba(0,0,0,.45), 0 8px 18px -10px rgba(0,0,0,.65);
+  transition: transform .12s ease, border-color .15s ease;
+  box-sizing: border-box;
+}
+.help-now-card:hover, .help-now-card:focus-visible {
+  border-color: var(--accent-red);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.help-now-icon { font-size: 1.9rem; line-height: 1; }
+.help-now-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  color: var(--text-strong);
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+.help-now-urgent {
+  background: linear-gradient(160deg, #7f0d0d 0%, #2d0404 100%);
+  border-color: var(--accent-red);
+  border-top-color: #ff3838;
+}
+
+/* Search chips — comfortable thumb targets */
+.search-chip {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
-  main { padding-bottom: 2rem !important; }
+  main { padding-bottom: 5.5rem !important; }
+}
+
+/* Sticky steward bar — always visible on phones, thumb-sized */
+#sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: #070b16;
+  border-top: 3px solid var(--accent-red);
+  padding: 0.5rem 0.65rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: stretch;
+  gap: 0.4rem;
+  flex-wrap: nowrap;
+  box-shadow: 0 -8px 20px -10px rgba(0,0,0,.8);
+}
+#sticky-bar a {
+  flex: 1 1 0;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.78rem !important;
+  line-height: 1.15;
+  padding: 0.45rem 0.35rem !important;
+}
+@media (min-width: 768px) {
+  #sticky-bar { display: none !important; }
+}
+
+.page-search-input {
+  width: 100%;
+  max-width: 28rem;
+  min-height: 48px;
+  padding: 0.7rem 0.95rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+  color: var(--text-strong);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.accordion-header {
+  min-height: 52px;
+}
+
+@media (max-width: 640px) {
+  .card { padding: 1.15rem 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
